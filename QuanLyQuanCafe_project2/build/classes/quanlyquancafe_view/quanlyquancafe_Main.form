@@ -137,11 +137,13 @@
                           <Component id="ThongKe_btn" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jlb_DatBan" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jlb_QLDoUong" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlb_BanHang" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlb_ThongKe" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jlb_DatBan" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlb_BanHang" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlb_ThongKe" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -251,6 +253,9 @@
                   <Dimension value="[120, 60]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Thoat_btnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlb_QLDoUong">
               <Properties>

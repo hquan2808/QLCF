@@ -5,23 +5,35 @@
  */
 package quanlyquancafe_view;
 
+import Sql.Mysql;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.sql.Connection;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Hoang Quan
  */
-public class quanlyquancafe_QLNV extends javax.swing.JFrame {
-
+public class quanlyquancafe_Main extends javax.swing.JFrame {
+    private Detail detail;
     /**
-     * Creates new form quanlyquancafe_QLNV
+     * 
      */
-    public quanlyquancafe_QLNV() {
+
+    public quanlyquancafe_Main(Detail d) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(this);
+        Connection conn = Mysql.getConnection();
+        Detail detail = new Detail(d);
+        if(detail.getName().equals("2")){
+            QLDoUong_btn.setEnabled(false);
+            QLNV_btn.setEnabled(false);
+            jlb_QLNV.setEnabled(false);
+            jlb_QLDoUong.setEnabled(false);
+        }
     }
 
     /**
@@ -98,6 +110,11 @@ public class quanlyquancafe_QLNV extends javax.swing.JFrame {
 
         Thoat_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_close_black_24dp.png"))); // NOI18N
         Thoat_btn.setPreferredSize(new java.awt.Dimension(120, 60));
+        Thoat_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Thoat_btnActionPerformed(evt);
+            }
+        });
 
         jlb_QLDoUong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlb_QLDoUong.setText("Quản lý đồ uống");
@@ -168,11 +185,12 @@ public class quanlyquancafe_QLNV extends javax.swing.JFrame {
                     .addComponent(DatBan_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ThongKe_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlb_DatBan)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlb_QLDoUong)
-                    .addComponent(jlb_BanHang)
-                    .addComponent(jlb_ThongKe))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jlb_DatBan)
+                        .addComponent(jlb_BanHang)
+                        .addComponent(jlb_ThongKe)))
                 .addGap(78, 78, 78)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(DangXuat_btn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,12 +258,21 @@ public class quanlyquancafe_QLNV extends javax.swing.JFrame {
     }//GEN-LAST:event_QLDoUong_btnActionPerformed
 
     private void DangXuat_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuat_btnActionPerformed
-        // TODO add your handling code here:
-        QLDoUong_btn.setEnabled(false);
-        QLNV_btn.setEnabled(false);
-        jlb_QLNV.setEnabled(false);
-        jlb_QLDoUong.setEnabled(false);
+        int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất hay không?", "Thông báo", 2);
+        if(click==JOptionPane.YES_OPTION){
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+        }
+        
     }//GEN-LAST:event_DangXuat_btnActionPerformed
+
+    private void Thoat_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Thoat_btnActionPerformed
+        int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn thoát chương trình hay không?", "Thông báo", 2);
+        if(click==JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_Thoat_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,20 +291,22 @@ public class quanlyquancafe_QLNV extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(quanlyquancafe_QLNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quanlyquancafe_Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(quanlyquancafe_QLNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quanlyquancafe_Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(quanlyquancafe_QLNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quanlyquancafe_Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(quanlyquancafe_QLNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quanlyquancafe_Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new quanlyquancafe_QLNV().setVisible(true);
             }
         });
     }
