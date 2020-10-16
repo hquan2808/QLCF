@@ -12,22 +12,25 @@ package quanlyquancafe_view;
 public class Detail {
     String User;
     String name;
-//    int roll;
+    String roll;
 
     public Detail() {
         User = "User";
         name = "Chưa Đăng Nhập";
+        roll = "3";
     } 
-    public Detail(String User, String name) {
-        this.User = User;
-        this.name = name;
-    }
 
     public Detail(Detail detail){
         this.User=detail.User;
         this.name=detail.name;
+        this.roll=detail.roll;
     }
 
+    public Detail(String User, String name, String roll) {
+        this.User = User;
+        this.name = name;
+        this.roll = roll;
+    }
 
     public String getUser() {
         return User;
@@ -44,4 +47,13 @@ public class Detail {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getRoll() {
+        return roll;
+    }
+
+    public void setRoll(String roll) {
+        this.roll = roll;
+    }
+
 }

@@ -28,7 +28,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         Connection conn = Mysql.getConnection();
         Detail detail = new Detail(d);
-        if(detail.getName().equals("2")){
+        if(detail.getRoll().equals("2")){
             QLDoUong_btn.setEnabled(false);
             QLNV_btn.setEnabled(false);
             jlb_QLNV.setEnabled(false);
@@ -99,6 +99,11 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
         ThongTin_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_info_black_24dp.png"))); // NOI18N
         ThongTin_btn.setPreferredSize(new java.awt.Dimension(120, 60));
+        ThongTin_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ThongTin_btnActionPerformed(evt);
+            }
+        });
 
         DangXuat_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_login_black_24dp.png"))); // NOI18N
         DangXuat_btn.setPreferredSize(new java.awt.Dimension(120, 60));
@@ -274,6 +279,12 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Thoat_btnActionPerformed
 
+    private void ThongTin_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongTin_btnActionPerformed
+        Thongtin thongtin = new Thongtin(detail);
+        this.setVisible(false);
+        thongtin.setVisible(true);    
+    }//GEN-LAST:event_ThongTin_btnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -307,6 +318,14 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Detail detail= new Detail();
+                if(detail.getRoll().equals("3")){
+                   new quanlyquancafe_Main(detail).setVisible(false);
+                   Login login = new Login();
+                   login.setVisible(true);
+                }else{
+                new quanlyquancafe_Main(detail).setVisible(true);
+                }
             }
         });
     }

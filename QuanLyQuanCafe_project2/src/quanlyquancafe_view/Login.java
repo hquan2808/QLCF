@@ -12,8 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -127,7 +125,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(User))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -167,7 +165,7 @@ public class Login extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         checkNull();
-        String sql1 = "Select * from User\n" + "where User=? and Password=?";
+        String sql1 = "Select * from QLNV\n" + "where taiKhoan=? and matKhau=?";
         Connection conn = Mysql.getConnection();
         try {
             PreparedStatement ps = conn.prepareStatement(sql1);
@@ -175,7 +173,7 @@ public class Login extends javax.swing.JFrame {
             ps.setString(2,Password.getText());
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Detail detail = new Detail(User.getText(),rs.getString("Roll").trim());
+                Detail detail = new Detail(User.getText(),rs.getString("tenNV").trim(),rs.getString("Roll").trim());
                 quanlyquancafe_Main  main = new quanlyquancafe_Main(detail);
                 this.setVisible(false);
                 main.setVisible(true);
