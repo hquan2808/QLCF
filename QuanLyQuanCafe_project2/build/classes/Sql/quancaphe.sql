@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2020 at 10:07 AM
+-- Generation Time: Oct 16, 2020 at 09:57 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `quancaphe`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qldu`
+--
+
+CREATE TABLE `qldu` (
+  `maNuoc` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `loaiNuoc` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tenNuoc` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `giaBan` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `donVi` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `soLuong` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `qldu`
+--
+
+INSERT INTO `qldu` (`maNuoc`, `loaiNuoc`, `tenNuoc`, `giaBan`, `donVi`, `soLuong`) VALUES
+('CF01', 'Cafe', 'Cà Phê ', '8000 VNĐ', 'ly', 100),
+('CF02', 'Cafe', 'Cà Phê Không Đường', '8000 VNĐ', 'ly', 100),
+('TĐ01', 'Nước Giải Khát ', 'Trà Đường ', '8000 VNĐ', 'ly', 100);
 
 -- --------------------------------------------------------
 
@@ -51,6 +75,12 @@ INSERT INTO `qlnv` (`maNV`, `tenNV`, `ngaySinh`, `sdt`, `gioiTinh`, `diaChi`, `t
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `qldu`
+--
+ALTER TABLE `qldu`
+  ADD PRIMARY KEY (`maNuoc`);
 
 --
 -- Indexes for table `qlnv`
