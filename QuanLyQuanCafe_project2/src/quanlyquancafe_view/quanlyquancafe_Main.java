@@ -265,6 +265,9 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
     private void QLDoUong_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLDoUong_btnActionPerformed
         // TODO add your handling code here:
+        QLDU qldu = new QLDU(detail);
+        this.setVisible(false);
+        qldu.setVisible(true);
     }//GEN-LAST:event_QLDoUong_btnActionPerformed
 
     private void DangXuat_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuat_btnActionPerformed
