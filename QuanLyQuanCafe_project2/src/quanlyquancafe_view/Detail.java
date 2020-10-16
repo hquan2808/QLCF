@@ -10,34 +10,34 @@ package quanlyquancafe_view;
  * @author Dell
  */
 public class Detail {
-    String User;
+    String user;
     String name;
     String roll;
 
     public Detail() {
-        User = "User";
+        user = "User1";
         name = "Chưa Đăng Nhập";
         roll = "3";
     } 
 
     public Detail(Detail detail){
-        this.User=detail.User;
+        this.user=detail.user;
         this.name=detail.name;
         this.roll=detail.roll;
     }
 
-    public Detail(String User, String name, String roll) {
-        this.User = User;
-        this.name = name;
-        this.roll = roll;
+    public Detail(String us, String na, String ro) {
+        this.user = us;
+        this.name = na;
+        this.roll = ro;
     }
 
     public String getUser() {
-        return User;
+        return user;
     }
 
     public void setUser(String User) {
-        this.User = User;
+        this.user = User;
     }
 
     public String getName() {

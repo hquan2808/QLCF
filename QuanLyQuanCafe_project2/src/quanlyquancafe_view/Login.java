@@ -173,7 +173,7 @@ public class Login extends javax.swing.JFrame {
             ps.setString(2,Password.getText());
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Detail detail = new Detail(User.getText(),rs.getString("tenNV").trim(),rs.getString("Roll").trim());
+                Detail detail = new Detail(rs.getString("taiKhoan").trim(),rs.getString("tenNV").trim(),rs.getString("Roll").trim());
                 quanlyquancafe_Main  main = new quanlyquancafe_Main(detail);
                 this.setVisible(false);
                 main.setVisible(true);

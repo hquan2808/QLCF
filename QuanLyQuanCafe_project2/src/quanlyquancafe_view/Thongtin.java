@@ -16,6 +16,7 @@ public class Thongtin extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(this);
+        detail= new Detail(d);
     }
 
     /**

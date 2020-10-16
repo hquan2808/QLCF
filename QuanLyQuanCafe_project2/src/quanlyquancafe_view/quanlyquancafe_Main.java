@@ -27,7 +27,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(this);
         Connection conn = Mysql.getConnection();
-        Detail detail = new Detail(d);
+        detail = new Detail(d);
         if(detail.getRoll().equals("2")){
             QLDoUong_btn.setEnabled(false);
             QLNV_btn.setEnabled(false);
