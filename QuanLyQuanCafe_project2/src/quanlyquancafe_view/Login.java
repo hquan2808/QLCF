@@ -181,7 +181,6 @@ public class Login extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Trangthai.setText("Tài khoản đăng nhập không đúng");
         }
-        
     }//GEN-LAST:event_LoginActionPerformed
 
     /**

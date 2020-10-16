@@ -17,7 +17,7 @@ public class Mysql {
             Connection connection = null;
             try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quancaphe?serverTimezone=UTC", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quancafe?serverTimezone=UTC", "root", "");
             return connection;
             } catch (Exception e) {
                 e.printStackTrace();

@@ -82,6 +82,11 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
         QLNV_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_supervised_user_circle_black_24dp.png"))); // NOI18N
         QLNV_btn.setPreferredSize(new java.awt.Dimension(120, 60));
+        QLNV_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                QLNV_btnActionPerformed(evt);
+            }
+        });
 
         BanHang_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_storefront_black_24dp.png"))); // NOI18N
         BanHang_btn.setPreferredSize(new java.awt.Dimension(120, 60));
@@ -284,6 +289,13 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         this.setVisible(false);
         thongtin.setVisible(true);    
     }//GEN-LAST:event_ThongTin_btnActionPerformed
+
+    private void QLNV_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLNV_btnActionPerformed
+        // TODO add your handling code here:
+        QLNV qlnv = new QLNV(detail);
+        this.setVisible(false);
+        qlnv.setVisible(true);
+    }//GEN-LAST:event_QLNV_btnActionPerformed
 
     /**
      * @param args the command line arguments
