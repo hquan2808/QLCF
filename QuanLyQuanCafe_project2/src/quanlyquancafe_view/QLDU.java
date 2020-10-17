@@ -231,8 +231,6 @@ public class QLDU extends javax.swing.JFrame {
 
         Home_QLDU = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableDrink = new javax.swing.JTable();
         tfFind = new javax.swing.JTextField();
         btnfind = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -256,6 +254,8 @@ public class QLDU extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         lbTrangthai = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableDrink = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý đồ uống");
@@ -270,35 +270,6 @@ public class QLDU extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Quản lý đồ uống");
-
-        tableDrink.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tableDrink.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Mã đồ uống", "Tên đồ uống", "Sô lượng", "Giá"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tableDrink.setPreferredSize(new java.awt.Dimension(150, 64));
-        tableDrink.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableDrinkMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tableDrink);
 
         btnfind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/search.png"))); // NOI18N
         btnfind.addActionListener(new java.awt.event.ActionListener() {
@@ -360,6 +331,11 @@ public class QLDU extends javax.swing.JFrame {
         });
 
         tfSoluong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfSoluong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSoluongActionPerformed(evt);
+            }
+        });
 
         tfGia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tfGia.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -509,6 +485,24 @@ public class QLDU extends javax.swing.JFrame {
         lbTrangthai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTrangthai.setText("Trạng thái");
 
+        tableDrink.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tableDrink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDrinkMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableDrink);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -519,16 +513,19 @@ public class QLDU extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(32, Short.MAX_VALUE)
                         .addComponent(tfFind, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnfind, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jScrollPane2)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -558,8 +555,8 @@ public class QLDU extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnfind, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfFind))
@@ -592,26 +589,6 @@ public class QLDU extends javax.swing.JFrame {
         reset();
         btnExit.setEnabled(true);
     }//GEN-LAST:event_btnfindActionPerformed
-
-    private void tableDrinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDrinkMouseClicked
-        cbLoai.removeAllItems();
-        int click=tableDrink.getSelectedRow();
-        TableModel model=tableDrink.getModel();
-        
-        tfMa.setText(model.getValueAt(click, 0).toString());
-        cbLoai.addItem(model.getValueAt(click, 1).toString());
-        tfTen.setText(model.getValueAt(click, 2).toString());
-        tfDonvi.setText(model.getValueAt(click, 3).toString());
-        tfSoluong.setText(model.getValueAt(click, 4).toString());
-        
-        String []s1=model.getValueAt(click,5).toString().split("\\s");
-        tfGia.setText(s1[0]);
-        
-        //tfGia.setText(model.getValueAt(click, 5).toString());
-        
-        this.btnEdit.setEnabled(true);
-        this.btnDelete.setEnabled(true);
-    }//GEN-LAST:event_tableDrinkMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
        if(add==true){
@@ -687,6 +664,30 @@ public class QLDU extends javax.swing.JFrame {
         btnExit.setEnabled(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
+    private void tableDrinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDrinkMouseClicked
+        cbLoai.removeAllItems();
+        int click=tableDrink.getSelectedRow();
+        TableModel model=tableDrink.getModel();
+        
+        tfMa.setText(model.getValueAt(click, 0).toString());
+        cbLoai.addItem(model.getValueAt(click, 1).toString());
+        tfTen.setText(model.getValueAt(click, 2).toString());
+        tfDonvi.setText(model.getValueAt(click, 3).toString());
+        tfSoluong.setText(model.getValueAt(click, 4).toString());
+        
+        String []s1=model.getValueAt(click,5).toString().split("\\s");
+        tfGia.setText(s1[0]);
+        
+        //tfGia.setText(model.getValueAt(click, 5).toString());
+        
+        this.btnEdit.setEnabled(true);
+        this.btnExit.setEnabled(true);
+    }//GEN-LAST:event_tableDrinkMouseClicked
+
+    private void tfSoluongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSoluongActionPerformed
+      tfSoluong.setText(cutChar(tfSoluong.getText()));
+    }//GEN-LAST:event_tfSoluongActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -749,7 +750,7 @@ public class QLDU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbTrangthai;
     private javax.swing.JTable tableDrink;
     private javax.swing.JTextField tfDonvi;
