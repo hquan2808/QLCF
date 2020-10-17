@@ -5,6 +5,14 @@
  */
 package quanlyquancafe_view;
 
+import Sql.Mysql;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -16,9 +24,79 @@ public class QLNV extends javax.swing.JFrame {
      * Creates new form QLNV
      */
     private Detail detail;
+    private String sql="SELECT * FROM qlnv ORDER BY maNV";
     public QLNV(Detail d) {
         initComponents();
-        detail = new Detail(d);   
+        detail = new Detail(d); 
+        Disabled();
+        loadData(sql);
+    }
+    private void Disabled(){
+        texthoten.setEnabled(false);
+        textdiachi.setEnabled(false);
+        textmanv.setEnabled(false);
+        textmatkhau.setEnabled(false);
+        textngaysinh.setEnabled(false);
+        textsdt.setEnabled(false);
+        texttaikhoan.setEnabled(false);
+        jPasswordField2.setEnabled(false);
+        radionu.setEnabled(false);
+        radionam.setEnabled(false);   
+    }
+    private boolean checkNull(){
+        if(textmatkhau.getText().equals("")){
+            lbtrangthai.setText("Bạn chưa nhập SĐT!");
+            return false;
+        }
+        else   
+        if(texttaikhoan.getText().equals("")){
+            lbtrangthai.setText("Bạn chưa nhập địa chỉ!");
+            return false;
+        }
+        
+        return true;
+    }
+    private void addNV() throws SQLException{
+        if(checkNull()){
+            String sqlAddNV = "INSERT INTO QLNV (maNV,tenNV,ngaySinh,sdt,gioiTinh,diaChi,taiKhoan,matKhau) VALUES (N'"+textmanv.getText()+"',N'"+texthoten.getText()+"',N'"+textngaysinh.getText()+"',N'"+(textsdt.getText())+"',N'"+textdiachi.getText()+"',N"+textdiachi.getText()+",N"+texttaikhoan.getText()+",N"+textmatkhau.getText()+")";
+            try {
+                Connection conn = Mysql.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sqlAddNV);
+                boolean rs = ps.execute();
+                if(rs){
+                    loadData(sql);
+                    Disabled();
+                    lbtrangthai.setText("Thêm nhân viên thành công!");
+                }
+            } catch (SQLException ea) {
+                ea.printStackTrace();
+            }
+        }
+    }
+    private void loadData(String sql){
+        try{
+            String[] arry={"Mã nhân viên","Họ và Tên","Ngày sinh","SĐT","Địa chỉ"};
+            DefaultTableModel model=new DefaultTableModel(arry,0);
+            
+            Connection conn = Mysql.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            System.out.println(rs);
+            while(rs.next()){
+                Vector vector=new Vector();
+                vector.add(rs.getString("maNV").trim());
+                vector.add(rs.getString("tenNV").trim());
+                vector.add(rs.getString("ngaySinh").trim());
+                vector.add(rs.getString("sdt").trim());
+                vector.add(rs.getString("diaChi").trim());
+                model.addRow(vector);
+            }
+            table_QLNV.setModel(model);
+            rs.close();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,10 +109,10 @@ public class QLNV extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_QLNV = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        add_QLNV = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -43,10 +121,8 @@ public class QLNV extends javax.swing.JFrame {
         texttaikhoan = new javax.swing.JTextField();
         textdiachi = new javax.swing.JTextField();
         texthoten = new javax.swing.JTextField();
-        textxacnhanmk = new javax.swing.JTextField();
         lbgioitinh = new javax.swing.JLabel();
         lbhoten = new javax.swing.JLabel();
-        textmatkhau = new javax.swing.JTextField();
         lbngaysinh = new javax.swing.JLabel();
         radionu = new javax.swing.JRadioButton();
         lbmatkhau = new javax.swing.JLabel();
@@ -59,8 +135,15 @@ public class QLNV extends javax.swing.JFrame {
         textngaysinh = new javax.swing.JTextField();
         lbxacnhanmk = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        textmatkhau = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
         jTextField10 = new javax.swing.JTextField();
+<<<<<<< Updated upstream
         jButton8 = new javax.swing.JButton();
+=======
+        lbtrangthai = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+>>>>>>> Stashed changes
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
@@ -71,7 +154,7 @@ public class QLNV extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1092, 632));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_QLNV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -82,14 +165,14 @@ public class QLNV extends javax.swing.JFrame {
                 "Mã nhân viên", "Họ tên", "Giới tính", "Ngày sinh", "SĐT", "Địa chỉ"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("Mã nhân viên");
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("Họ tên");
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("Giới tính");
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("Ngày sinh");
-            jTable1.getColumnModel().getColumn(4).setHeaderValue("SĐT");
-            jTable1.getColumnModel().getColumn(5).setHeaderValue("Địa chỉ");
+        jScrollPane1.setViewportView(table_QLNV);
+        if (table_QLNV.getColumnModel().getColumnCount() > 0) {
+            table_QLNV.getColumnModel().getColumn(0).setHeaderValue("Mã nhân viên");
+            table_QLNV.getColumnModel().getColumn(1).setHeaderValue("Họ tên");
+            table_QLNV.getColumnModel().getColumn(2).setHeaderValue("Giới tính");
+            table_QLNV.getColumnModel().getColumn(3).setHeaderValue("Ngày sinh");
+            table_QLNV.getColumnModel().getColumn(4).setHeaderValue("SĐT");
+            table_QLNV.getColumnModel().getColumn(5).setHeaderValue("Địa chỉ");
         }
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -97,10 +180,11 @@ public class QLNV extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_search_black_24dp.png"))); // NOI18N
 
-        jButton3.setPreferredSize(new java.awt.Dimension(100, 70));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        add_QLNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/plus.png"))); // NOI18N
+        add_QLNV.setPreferredSize(new java.awt.Dimension(100, 70));
+        add_QLNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                add_QLNVActionPerformed(evt);
             }
         });
 
@@ -128,13 +212,9 @@ public class QLNV extends javax.swing.JFrame {
 
         texthoten.setMinimumSize(new java.awt.Dimension(6, 30));
 
-        textxacnhanmk.setMinimumSize(new java.awt.Dimension(6, 30));
-
         lbgioitinh.setText("Giới tính :");
 
         lbhoten.setText("Họ và tên:");
-
-        textmatkhau.setMinimumSize(new java.awt.Dimension(6, 30));
 
         lbngaysinh.setText("Ngày sinh:");
 
@@ -164,17 +244,28 @@ public class QLNV extends javax.swing.JFrame {
         textngaysinh.setMinimumSize(new java.awt.Dimension(6, 30));
 
         lbxacnhanmk.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbxacnhanmk.setText("Xác nhận mk:");
+        lbxacnhanmk.setText("Xác nhận MK:");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        textmatkhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textmatkhauActionPerformed(evt);
+            }
+        });
+
+        jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbdiachi)
                     .addComponent(lbmanv)
@@ -198,16 +289,19 @@ public class QLNV extends javax.swing.JFrame {
                             .addComponent(lbtaikhoan)
                             .addComponent(lbmatkhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbxacnhanmk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(radionu)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(radionam))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(textmatkhau, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(texttaikhoan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textxacnhanmk, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(5, 5, 5)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(radionu)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(radionam))
+                                    .addComponent(texttaikhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textmatkhau)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -246,13 +340,19 @@ public class QLNV extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbdiachi)
-                        .addComponent(textdiachi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textxacnhanmk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textdiachi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
+<<<<<<< Updated upstream
                         .addComponent(lbxacnhanmk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(3, 3, 3)))
+=======
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbxacnhanmk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)))
+>>>>>>> Stashed changes
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -260,14 +360,9 @@ public class QLNV extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< Updated upstream
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -286,6 +381,37 @@ public class QLNV extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(213, 213, 213)
                         .addComponent(jLabel1))))
+=======
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(add_QLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(213, 213, 213)
+                                .addComponent(jLabel1)))
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbtrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+>>>>>>> Stashed changes
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,11 +422,16 @@ public class QLNV extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addContainerGap()
                         .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbtrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,6 +448,14 @@ public class QLNV extends javax.swing.JFrame {
                                                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING))))))))
                 .addContainerGap(66, Short.MAX_VALUE))
+=======
+                            .addComponent(add_QLNV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(173, Short.MAX_VALUE))
+>>>>>>> Stashed changes
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/home.png"))); // NOI18N
@@ -379,13 +518,21 @@ public class QLNV extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_texttaikhoanActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void add_QLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_QLNVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_add_QLNVActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void textmatkhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textmatkhauActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textmatkhauActionPerformed
+
+    private void jPasswordField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,6 +578,7 @@ public class QLNV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton add_QLNV;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -444,8 +592,8 @@ public class QLNV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JLabel lbdiachi;
     private javax.swing.JLabel lbgioitinh;
@@ -455,17 +603,18 @@ public class QLNV extends javax.swing.JFrame {
     private javax.swing.JLabel lbngaysinh;
     private javax.swing.JLabel lbsdt;
     private javax.swing.JLabel lbtaikhoan;
+    private javax.swing.JLabel lbtrangthai;
     private javax.swing.JLabel lbxacnhanmk;
     private javax.swing.JRadioButton radionam;
     private javax.swing.JRadioButton radionu;
+    private javax.swing.JTable table_QLNV;
     private javax.swing.JTextField textdiachi;
     private javax.swing.JTextField texthoten;
     private javax.swing.JTextField textmanv;
-    private javax.swing.JTextField textmatkhau;
+    private javax.swing.JPasswordField textmatkhau;
     private javax.swing.JTextField textngaysinh;
     private javax.swing.JTextField textsdt;
     private javax.swing.JTextField texttaikhoan;
-    private javax.swing.JTextField textxacnhanmk;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -45,7 +45,6 @@ public class QLDU extends javax.swing.JFrame {
         tfDonvi.setEnabled(false);
         tfSoluong.setEnabled(false);
         tfGia.setEnabled(false);
-        
     }
     private void Enabled(){
         tfMa.setEnabled(true);
@@ -353,7 +352,7 @@ public class QLDU extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -405,7 +404,7 @@ public class QLDU extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/floppy-disk.png"))); // NOI18N
@@ -645,6 +644,7 @@ public class QLDU extends javax.swing.JFrame {
     }//GEN-LAST:event_Home_QLDUActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+<<<<<<< Updated upstream
         reset();
         add=true;
         Enabled();
@@ -688,6 +688,11 @@ public class QLDU extends javax.swing.JFrame {
       tfSoluong.setText(cutChar(tfSoluong.getText()));
     }//GEN-LAST:event_tfSoluongActionPerformed
 
+=======
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
+
+>>>>>>> Stashed changes
     /**
      * @param args the command line arguments
      */
