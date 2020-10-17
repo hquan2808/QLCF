@@ -28,7 +28,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         Connection conn = Mysql.getConnection();
         detail = new Detail(d);
-        if(detail.getRoll().equals("2")){
+        if(detail.getRoll().equals("Nhân viên")){
             QLDoUong_btn.setEnabled(false);
             QLNV_btn.setEnabled(false);
             jlb_QLNV.setEnabled(false);

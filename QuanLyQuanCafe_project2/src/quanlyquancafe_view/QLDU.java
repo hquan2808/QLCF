@@ -679,7 +679,7 @@ public class QLDU extends javax.swing.JFrame {
         //tfGia.setText(model.getValueAt(click, 5).toString());
         
         this.btnEdit.setEnabled(true);
-        this.btnExit.setEnabled(true);
+        this.btnDelete.setEnabled(true);
     }//GEN-LAST:event_tableDrinkMouseClicked
 
     private void tfSoluongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSoluongActionPerformed
