@@ -29,8 +29,8 @@ public class QLDU extends javax.swing.JFrame {
      */
     public QLDU(Detail d) {
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(this);
+        Disabled();
+        reset();
         detail= new Detail(d);
         loadData(sql);
         loadLoaiNuoc();
@@ -43,15 +43,6 @@ public class QLDU extends javax.swing.JFrame {
         tfDonvi.setEnabled(false);
         tfSoluong.setEnabled(false);
         tfGia.setEnabled(false);
-        
-    }
-    private void Enabled(){
-        tfMa.setEnabled(true);
-        cbLoai.setEnabled(true);
-        tfTen.setEnabled(true);
-        tfDonvi.setEnabled(true);
-        tfSoluong.setEnabled(true);
-        tfGia.setEnabled(true);
     }
     private void loadLoaiNuoc(){
         cbLoai.removeAllItems();
@@ -64,6 +55,7 @@ public class QLDU extends javax.swing.JFrame {
         try{
             String[] arry={"Mã Đồ Uống","Loại Nước","Tên Nước","Đơn Vị","Số Lượng","Giá Bán"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
+            
             Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -166,11 +158,13 @@ public class QLDU extends javax.swing.JFrame {
             try {
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlAdd);
-                ps.execute();
+                boolean rs = ps.execute();
+                if(rs){
                 reset();
                 loadData(sql);
                 Disabled();
                 lbTrangthai.setText("Thêm thức uống thành công!");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }   
@@ -181,15 +175,17 @@ public class QLDU extends javax.swing.JFrame {
             int click=tableDrink.getSelectedRow();
             TableModel model=tableDrink.getModel();
         
-            String sqlChange="UPDATE QLDU SET maNuoc='"+tfMa.getText()+"', loaiNuoc=N'"+cbLoai.getSelectedItem()+"', tenNuoc=N'"+tfTen.getText()+"', giaBan='"+(tfGia.getText()+" "+"VNĐ")+"', donVi='"+tfDonvi.getText()+"',soLuong="+tfSoluong.getText()+" WHERE maNuoc=N'"+model.getValueAt(click, 0)+"'";
+            String sqlChange="UPDATE QLNuoc SET maNuoc='"+tfMa.getText()+"', loaiNuoc=N'"+cbLoai.getSelectedItem()+"', tenNuoc=N'"+tfTen.getText()+"', giaBan='"+(tfGia.getText()+" "+"VNĐ")+"', donVi='"+tfDonvi.getText()+"',soLuong="+tfSoluong.getText()+" WHERE maNuoc=N'"+model.getValueAt(click, 0)+"'";
             try {
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlChange);
-                ps.execute();
+                boolean rs = ps.execute();
+                if(rs){
                 reset();
                 loadData(sql);
                 Disabled();
                 lbTrangthai.setText("Thay đổi thông tin thành công!");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             } 
@@ -229,6 +225,8 @@ public class QLDU extends javax.swing.JFrame {
 
         Home_QLDU = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        JColroll = new javax.swing.JScrollPane();
+        tableDrink = new javax.swing.JTable();
         tfFind = new javax.swing.JTextField();
         btnfind = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -252,8 +250,6 @@ public class QLDU extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         lbTrangthai = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableDrink = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý đồ uống");
@@ -268,6 +264,34 @@ public class QLDU extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Quản lý đồ uống");
+
+        tableDrink.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tableDrink.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Mã đồ uống", "Tên đồ uống", "Sô lượng", "Giá"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableDrink.setPreferredSize(new java.awt.Dimension(150, 64));
+        tableDrink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDrinkMouseClicked(evt);
+            }
+        });
+        JColroll.setViewportView(tableDrink);
 
         btnfind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/search.png"))); // NOI18N
         btnfind.addActionListener(new java.awt.event.ActionListener() {
@@ -329,11 +353,6 @@ public class QLDU extends javax.swing.JFrame {
         });
 
         tfSoluong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tfSoluong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSoluongActionPerformed(evt);
-            }
-        });
 
         tfGia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tfGia.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -351,7 +370,7 @@ public class QLDU extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -403,7 +422,7 @@ public class QLDU extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/floppy-disk.png"))); // NOI18N
@@ -415,11 +434,6 @@ public class QLDU extends javax.swing.JFrame {
         });
 
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/plus.png"))); // NOI18N
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/delete.png"))); // NOI18N
         btnDelete.setEnabled(false);
@@ -431,11 +445,6 @@ public class QLDU extends javax.swing.JFrame {
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/edit.png"))); // NOI18N
         btnEdit.setEnabled(false);
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
 
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/x-button.png"))); // NOI18N
         btnExit.setEnabled(false);
@@ -483,24 +492,6 @@ public class QLDU extends javax.swing.JFrame {
         lbTrangthai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTrangthai.setText("Trạng thái");
 
-        tableDrink.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tableDrink.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableDrinkMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tableDrink);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -511,19 +502,16 @@ public class QLDU extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(32, Short.MAX_VALUE)
                         .addComponent(tfFind, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnfind, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jScrollPane2)))
-                .addGap(18, 18, 18)
+                    .addComponent(JColroll, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -553,8 +541,8 @@ public class QLDU extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JColroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnfind, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfFind))
@@ -580,13 +568,33 @@ public class QLDU extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
-       String sql = "SELECT * FROM QLDU where maNuoc like N'%"+tfFind.getText()+"%' or tenNuoc like N'%"+tfFind.getText()+"%' or loaiNuoc like N'%"+tfFind.getText()+"%'";
+       String sql = "SELECT * FROM QLNuoc where maNuoc like N'%"+tfFind.getText()+"%' or tenNuoc like N'%"+tfFind.getText()+"%' or loaiNuoc like N'%"+tfFind.getText()+"%'";
         loadData(sql);
         tfFind.setText("");
         Disabled();
         reset();
         btnExit.setEnabled(true);
     }//GEN-LAST:event_btnfindActionPerformed
+
+    private void tableDrinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDrinkMouseClicked
+        cbLoai.removeAllItems();
+        int click=tableDrink.getSelectedRow();
+        TableModel model=tableDrink.getModel();
+        
+        tfMa.setText(model.getValueAt(click, 0).toString());
+        cbLoai.addItem(model.getValueAt(click, 1).toString());
+        tfTen.setText(model.getValueAt(click, 2).toString());
+        tfDonvi.setText(model.getValueAt(click, 3).toString());
+        tfSoluong.setText(model.getValueAt(click, 4).toString());
+        
+        String []s1=model.getValueAt(click,5).toString().split("\\s");
+        tfGia.setText(s1[0]);
+        
+        //tfGia.setText(model.getValueAt(click, 5).toString());
+        
+        this.btnEdit.setEnabled(true);
+        this.btnDelete.setEnabled(true);
+    }//GEN-LAST:event_tableDrinkMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
        if(add==true){
@@ -605,15 +613,17 @@ public class QLDU extends javax.swing.JFrame {
         int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa đồ uống này hay không?", "Thông báo", 2);
         if(click==JOptionPane.YES_OPTION){
             
-            String sqlDelete="DELETE FROM QLDU WHERE maNuoc='"+tfMa.getText()+"'";
+            String sqlDelete="DELETE FROM QLNuoc WHERE maNuoc='"+tfMa.getText()+"'";
             try {
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlDelete);
-                ps.execute();
+                boolean rs = ps.execute();
+                if(rs){
                 reset();
                 loadData(sql);
                 Disabled();
                 lbTrangthai.setText("Xóa đồ uống thành công!");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             } 
@@ -641,50 +651,6 @@ public class QLDU extends javax.swing.JFrame {
         this.setVisible(false);
         main.setVisible(true);
     }//GEN-LAST:event_Home_QLDUActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        reset();
-        add=true;
-        Enabled();
-        btnAdd.setEnabled(false);
-        btnSave.setEnabled(true);
-        btnExit.setEnabled(true);
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        add=false;
-        change=true;
-        Enabled();
-        btnAdd.setEnabled(false);
-        btnDelete.setEnabled(false);
-        btnEdit.setEnabled(false);
-        btnSave.setEnabled(true);
-        btnExit.setEnabled(true);
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void tableDrinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDrinkMouseClicked
-        cbLoai.removeAllItems();
-        int click=tableDrink.getSelectedRow();
-        TableModel model=tableDrink.getModel();
-        
-        tfMa.setText(model.getValueAt(click, 0).toString());
-        cbLoai.addItem(model.getValueAt(click, 1).toString());
-        tfTen.setText(model.getValueAt(click, 2).toString());
-        tfDonvi.setText(model.getValueAt(click, 3).toString());
-        tfSoluong.setText(model.getValueAt(click, 4).toString());
-        
-        String []s1=model.getValueAt(click,5).toString().split("\\s");
-        tfGia.setText(s1[0]);
-        
-        //tfGia.setText(model.getValueAt(click, 5).toString());
-        
-        this.btnEdit.setEnabled(true);
-        this.btnExit.setEnabled(true);
-    }//GEN-LAST:event_tableDrinkMouseClicked
-
-    private void tfSoluongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSoluongActionPerformed
-      tfSoluong.setText(cutChar(tfSoluong.getText()));
-    }//GEN-LAST:event_tfSoluongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -731,6 +697,7 @@ public class QLDU extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Home_QLDU;
+    private javax.swing.JScrollPane JColroll;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
@@ -748,7 +715,6 @@ public class QLDU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbTrangthai;
     private javax.swing.JTable tableDrink;
     private javax.swing.JTextField tfDonvi;
