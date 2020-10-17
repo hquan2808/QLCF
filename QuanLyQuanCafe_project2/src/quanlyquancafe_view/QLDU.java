@@ -15,13 +15,11 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
 /**
  *
  * @author Dell
  */
 public class QLDU extends javax.swing.JFrame {
-
     boolean add = false;
     boolean change = false;
     private Detail detail;
