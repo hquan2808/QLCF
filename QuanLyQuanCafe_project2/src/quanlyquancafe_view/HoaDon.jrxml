@@ -3,32 +3,32 @@
 	<property name="ireport.zoom" value="2.1435888100000016"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="144"/>
-	<queryString language="SQL">
+	<queryString language="MySQL">
 		<![CDATA[SELECT
-     HoaDon."tenNuoc" AS HoaDon_tenNuoc,
-     HoaDon."soLuong" AS HoaDon_soLuong,
-     HoaDon."thanhTien" AS HoaDon_thanhTien,
-     ThongTinHoaDon."ban" AS ThongTinHoaDon_ban,
-     ThongTinHoaDon."tongTien" AS ThongTinHoaDon_tongTien,
-     ThongTinHoaDon."tienKH" AS ThongTinHoaDon_tienKH,
-     ThongTinHoaDon."tienThua" AS ThongTinHoaDon_tienThua,
-     ThongTinHoaDon."tenNV" AS ThongTinHoaDon_tenNV,
-     ThongTinHoaDon."ngay" AS ThongTinHoaDon_ngay,
-     ThongTinHoaDon."thoiGian" AS ThongTinHoaDon_thoiGian
+     hoadon."tenNuoc" AS hoadon_tenNuoc,
+     hoadon."soLuong" AS hoadon_soLuong,
+     hoadon."thanhTien" AS hoadon_thanhTien,
+     thongtinhoadon."ban" AS thongtinhoadon_ban,
+     thongtinhoadon."tongTien" AS thongtinhoadon_tongTien,
+     thongtinhoadon."tienKH" AS thongtinhoadon_tienKH,
+     thongtinhoadon."tienThua" AS thongtinhoadon_tienThua,
+     thongtinhoadon."tenNV" AS thongtinhoadon_tenNV,
+     thongtinhoadon."ngay" AS thongtinhoadon_ngay,
+     thongtinhoadon."thoiGian" AS thongtinhoadon_thoiGian
 FROM
-     "dbo"."HoaDon" HoaDon,
-     "dbo"."ThongTinHoaDon" ThongTinHoaDon]]>
+     "hoadon" hoadon,
+     "thongtinhoadon" thongtinhoadon]]>
 	</queryString>
-	<field name="HoaDon_tenNuoc" class="java.lang.String"/>
-	<field name="HoaDon_soLuong" class="java.lang.Integer"/>
-	<field name="HoaDon_thanhTien" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_ban" class="java.lang.Integer"/>
-	<field name="ThongTinHoaDon_tongTien" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_tienKH" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_tienThua" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_tenNV" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_ngay" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_thoiGian" class="java.lang.String"/>
+	<field name="hoadon_tenNuoc" class="java.lang.String"/>
+	<field name="hoadon_soLuong" class="java.lang.Integer"/>
+	<field name="hoadon_thanhTien" class="java.lang.String"/>
+	<field name="thongtinhoadon_ban" class="java.lang.Integer"/>
+	<field name="thongtinhoadon_tongTien" class="java.lang.String"/>
+	<field name="thongtinhoadon_tienKH" class="java.lang.String"/>
+	<field name="thongtinhoadon_tienThua" class="java.lang.String"/>
+	<field name="thongtinhoadon_tenNV" class="java.lang.String"/>
+	<field name="thongtinhoadon_ngay" class="java.lang.String"/>
+	<field name="thongtinhoadon_thoiGian" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -44,7 +44,7 @@ FROM
 			<staticText>
 				<reportElement x="0" y="20" width="260" height="20" uuid="14e8a9af-c542-406a-a8e3-7c0f11c950f7"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[54 Lê Thanh Nghị,Bách Khoa,Hai Bà Trưng,Hà Nội]]></text>
+				<text><![CDATA[54 Lê Thanh Nghị,Hà Nội]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="60" width="260" height="1" uuid="240988f9-fc90-45ef-a562-f6274299d182"/>
@@ -64,11 +64,11 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement x="50" y="0" width="107" height="20" uuid="ffdfd011-e67a-4bb4-a7ed-981a69f2195f"/>
-				<textFieldExpression><![CDATA[$F{ThongTinHoaDon_ngay}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{thongtinhoadon_ngay}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="50" y="20" width="107" height="20" uuid="59f5659c-47b9-4e77-9b0f-1952ee701194"/>
-				<textFieldExpression><![CDATA[$F{ThongTinHoaDon_thoiGian}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{thongtinhoadon_thoiGian}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="157" y="0" width="103" height="20" uuid="a4201ff0-d4e9-4b31-ba4f-2c1a61ff2c84"/>
@@ -76,7 +76,7 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement x="157" y="20" width="103" height="20" uuid="3a796f3b-5bb2-4c72-a333-640c85729ea3"/>
-				<textFieldExpression><![CDATA[$F{ThongTinHoaDon_tenNV}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{thongtinhoadon_tenNV}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="20" width="50" height="20" uuid="98772788-5808-46ad-8000-f59c9ecd616b"/>
@@ -101,7 +101,7 @@ FROM
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ThongTinHoaDon_ban}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{thongtinhoadon_ban}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="167" y="21" width="93" height="20" uuid="6e9d0588-f3f8-48f2-b906-8e8c1d466766"/>
@@ -130,15 +130,15 @@ FROM
 		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="111" y="0" width="56" height="20" uuid="086f195e-cb44-40c5-b8d5-8455a105f427"/>
-				<textFieldExpression><![CDATA[$F{HoaDon_soLuong}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hoadon_soLuong}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="111" height="20" uuid="7bfccb58-e0c3-4c4b-bf07-f6babfdc283d"/>
-				<textFieldExpression><![CDATA[$F{HoaDon_tenNuoc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hoadon_tenNuoc}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="167" y="0" width="93" height="20" uuid="b7de92c8-f92f-4137-9b6e-6b0c7da33487"/>
-				<textFieldExpression><![CDATA[$F{HoaDon_thanhTien}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hoadon_thanhTien}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -177,7 +177,7 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement x="167" y="10" width="93" height="20" uuid="f4150a0b-31e7-48ea-99c4-ab604fc20d6c"/>
-				<textFieldExpression><![CDATA[$F{ThongTinHoaDon_tongTien}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{thongtinhoadon_tongTien}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="30" width="260" height="12" uuid="ead3edb2-ca15-4589-9177-1196c64fb6b5"/>
@@ -196,11 +196,11 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement x="167" y="62" width="93" height="20" uuid="a2767bbe-54f7-4978-97f6-0066c8d5ca4a"/>
-				<textFieldExpression><![CDATA[$F{ThongTinHoaDon_tienThua}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{thongtinhoadon_tienThua}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="167" y="42" width="93" height="20" uuid="3b33acb1-7433-4b42-8db3-ff6e5b2fee21"/>
-				<textFieldExpression><![CDATA[$F{ThongTinHoaDon_tienKH}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{thongtinhoadon_tienKH}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="82" width="260" height="20" uuid="08d02e4a-f9ce-49de-ab0b-c91b556061fe"/>

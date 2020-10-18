@@ -201,7 +201,7 @@ public class DatBan extends javax.swing.JFrame {
             String sqlChange="UPDATE datban SET tenKH=N'"+tfTenkhach.getText()+"', sdt='"+tfSDT.getText()+"', thanhToan=N'"+thanhtoan()+"',ban="+cboSoban.getSelectedItem()+", thoiGian='"+cbxHours.getSelectedItem()+lbl2Cham.getText()+cbxMinute.getSelectedItem()+"', ngay='"+((JTextField)tfDay.getDateEditor().getUiComponent()).getText()+"', ghiChu=N'"+this.tfNote.getText()+"' WHERE sdt=N'"+model.getValueAt(click, 1)+"'";
             try {
                 Connection conn = Mysql.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
+                PreparedStatement ps = conn.prepareStatement(sqlChange);
                 ps.execute();
                 reset();
                 Load(sql);
@@ -584,7 +584,6 @@ public class DatBan extends javax.swing.JFrame {
         loadBan();
         loadHours();
         loadMinute();
-        
         add=false;
         change=true;
         Enabled();
@@ -616,7 +615,7 @@ public class DatBan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tbDatbanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDatbanMouseClicked
-     cboSoban.removeAllItems();
+        cboSoban.removeAllItems();
         cbxHours.removeAllItems();
         cbxMinute.removeAllItems();
         int click=tbDatban.getSelectedRow();

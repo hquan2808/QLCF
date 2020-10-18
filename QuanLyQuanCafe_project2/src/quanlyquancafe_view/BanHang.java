@@ -32,13 +32,13 @@ import net.sf.jasperreports.view.*;
 public class BanHang extends javax.swing.JFrame implements Runnable,ActionListener {
     private Detail detail;
     private Thread thread;
+    private Mysql SQL;
     private Connection conn=null, connCheck=null;
     private ResultSet rs=null, rsCheck=null;
     private boolean Pay=false;
     private ImageIcon icon1=new ImageIcon(getClass().getResource("/quanlyquancafe_image/bancokhach.png"));
     private ImageIcon icon2=new ImageIcon(getClass().getResource("/quanlyquancafe_image/bandcchon.png"));
     private ImageIcon icon3=new ImageIcon(getClass().getResource("/quanlyquancafe_image/bantrong.png"));
-    
     JButton []ban=new JButton[Constants.soBanNgang*Constants.soBanDoc];
     public BanHang(Detail d) {
         initComponents();
@@ -46,8 +46,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         setLocationRelativeTo(this);
         taoBan();
         veBan();
-        Connection conn = Mysql.getConnection();
-//        System.out.println(d.getName());
+        SQL=new Mysql();
+        conn = SQL.getConnection();
         detail=new Detail(d);
         lbNhanVien.setText(d.getName());
         lblTime.setText(String.valueOf(new SimpleDateFormat("HH:mm:ss").format(new java.util.Date())));
@@ -69,13 +69,12 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         return Integer.parseInt(array[1]);
     }
     
-    private void checkStatus() throws SQLException{
+    private void checkStatus(){
         String queryString="SELECT * FROM datban";
         String[] day=lblDate.getText().split("\\s");
         try{
-            conn = Mysql.getConnection();
-            PreparedStatement    ps = conn.prepareStatement(queryString);
-            ResultSet rsCheck = ps.executeQuery();
+            PreparedStatement ps = conn.prepareStatement(queryString);
+            rsCheck= ps.executeQuery(queryString);
             while(rsCheck.next()){
                 if(String.valueOf(rsCheck.getString("ngay").trim()).equals(day[1])){
                     if((getHours(lblTime.getText())-getHours(String.valueOf(rsCheck.getString("thoiGian").trim())))==-1){
@@ -104,13 +103,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
                                 if(jButton.getText().equals(String.valueOf(rsCheck.getInt("ban")))){
                                     jButton.setEnabled(true);
                                     String sql="DELETE FROM datban WHERE ban="+rsCheck.getInt("ban");
-                                    try {
-                                        Connection conn1 = Mysql.getConnection();
-                                        PreparedStatement ps1 = conn1.prepareStatement(sql);
-                                        ps1.execute();
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
-                                    }
+                                    ps.execute(sql);
                                 }
                             }
                         }
@@ -130,13 +123,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
                                 if(jButton.getText().equals(String.valueOf(rsCheck.getInt("ban")))){
                                     jButton.setEnabled(true);
                                     String sql="DELETE FROM datban WHERE ban="+rsCheck.getInt("ban");
-                                    try {
-                                        Connection conn1 = Mysql.getConnection();
-                                        PreparedStatement ps1 = conn1.prepareStatement(sql);
-                                        ps1.execute();
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
-                                    }
+                                    ps.execute(sql);
                                 }
                             }
                         }
@@ -146,9 +133,6 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         }
         catch(SQLException ex){
             ex.printStackTrace();
-        }finally{
-            if(conn!=null)
-             conn.close();
         }
     }
     
@@ -229,9 +213,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         try{
             String[] arry={"Tên đồ uống","Số lượng","Thành tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
-            Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery(); 
+            rs= ps.executeQuery();
             while(rs.next()){
                 Vector vector=new Vector();
                 vector.add(rs.getString("tenNuoc").trim());
@@ -249,9 +232,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     private void deleteThongTinHoaDon(){
         String sqlDelete="DELETE FROM thongtinhoadon";
        try {
-                Connection conn = Mysql.getConnection();
-                PreparedStatement ps;
-                ps = conn.prepareStatement(sqlDelete);
+                PreparedStatement ps = conn.prepareStatement(sqlDelete);
                 ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
@@ -261,9 +242,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     private void deleteHoaDon(){
         String sqlDelete="DELETE FROM hoadon";
         try {
-                Connection conn = Mysql.getConnection();
-                PreparedStatement ps;
-                ps = conn.prepareStatement(sqlDelete);
+                PreparedStatement ps = conn.prepareStatement(sqlDelete);
                 ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
@@ -273,9 +252,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         try {
             for (JButton jButton : ban) {
                 String sql="SELECT * FROM banhang WHERE ban="+jButton.getText();
-                Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery(); 
+                rs = ps.executeQuery(); 
                 if(rs.next()){
                     jButton.setIcon(icon1);
                 }
@@ -290,9 +268,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     private void checkSoLuongHang(){
         String sqlCheck="SELECT * FROM QLDU WHERE tenNuoc=N'"+cbxNuoc.getSelectedItem()+"'";
         try{
-            Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sqlCheck);
-            ResultSet rs = ps.executeQuery(); 
+            rs = ps.executeQuery(); 
             while(rs.next()){
                 if(rs.getInt("soLuong")==0){
                     lblStatus.setText(rs.getString("tenNuoc")+" hết hàng!!");
@@ -325,9 +302,9 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         
         String sqlPay="SELECT * FROM banhang WHERE ban="+lbBan.getText();
         try{
-            Connection conn = Mysql.getConnection();
+           
             PreparedStatement ps = conn.prepareStatement(sqlPay);
-            ResultSet rs = ps.executeQuery(); 
+            rs = ps.executeQuery(); 
             while(rs.next()){
                 String []s1=rs.getString("thanhTien").toString().trim().split("\\s");
                 String []s2=lbTongTien.getText().split("\\s");
@@ -347,9 +324,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         String []s=lbTongTien.getText().split("\\s");
         String sqlThongKe="INSERT INTO thongke (ban,tongTien,tienKH,tienThua,tenNV,ngay,thoiGian) VALUES("+lbBan.getText()+",N'"+lbTongTien.getText()+"',N'"+(tfTienNhanCuaKach.getText()+" "+ s[1])+"',N'"+lbTienthua.getText()+"',N'"+lbNhanVien.getText()+"','"+lblDate.getText()+"','"+lblTime.getText()+"')";
         try {
-                Connection conn = Mysql.getConnection();
-                PreparedStatement ps;
-                ps = conn.prepareStatement(sqlThongKe);
+                PreparedStatement ps = conn.prepareStatement(sqlThongKe);
                 ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
@@ -359,9 +334,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     private void consistency(){
         try{
             String sqlTemp="SELECT * FROM QLDU WHERE tenNuoc =N'"+cbxNuoc.getSelectedItem()+"'";
-            Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sqlTemp);
-            ResultSet rs = ps.executeQuery();     
+            rs = ps.executeQuery();     
             if(rs.next()){
                 String sqlUpdate="UPDATE QLDU SET soLuong="+(rs.getInt("soLuong")-Integer.parseInt(tfSoLuong.getText()))+" WHERE tenNuoc=N'"+cbxNuoc.getSelectedItem()+"'";
                 PreparedStatement ps1 = conn.prepareStatement(sqlUpdate);
@@ -382,9 +356,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     private void Delete(){
         String sqlDelete="DELETE FROM banhang WHERE ban="+lbBan.getText();
             try {
-                Connection conn = Mysql.getConnection();
-                PreparedStatement ps;
-                ps = conn.prepareStatement(sqlDelete);
+                PreparedStatement ps = conn.prepareStatement(sqlDelete);
                 ps.execute();
             } catch (SQLException ex) {
                 Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
@@ -395,7 +367,6 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         String sql="SELECT * FROM banhang WHERE ban="+lbBan.getText();
         String sqlInsert="INSERT INTO banhang (ban,tenNuoc,soLuong,thanhTien) VALUES("+lbBan.getText()+",N'"+cbxNuoc.getSelectedItem()+"',"+tfSoLuong.getText()+",N'"+lbThanhTien.getText()+"')";
         try {
-            Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sqlInsert);
             ps.execute();
             lblStatus.setText("Thêm sản phẩm thành công!");
@@ -410,9 +381,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     private void addHoaDon() {
         String sql="SELECT * FROM banhang WHERE ban="+lbBan.getText();
         try {
-            Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while(rs.next()){
                 String sqlInsert="INSERT INTO hoadon (tenNuoc,soLuong,thanhTien) VALUES(N'"+rs.getString("tenNuoc")+"',"+rs.getInt("soLuong")+",N'"+rs.getString("thanhTien")+"')";
                 PreparedStatement ps1 = conn.prepareStatement(sqlInsert);
@@ -488,7 +458,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1092, 634));
+        setPreferredSize(new java.awt.Dimension(1092, 684));
 
         jLabel2.setFont(new java.awt.Font("Edwardian Script ITC", 0, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -810,7 +780,6 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
 
         lblStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatus.setText("Trạng Thái");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/bantrong.png"))); // NOI18N
@@ -898,7 +867,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
                         .addGap(12, 12, 12)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatus)))
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -909,9 +878,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         cbxNuoc.removeAllItems();
         String sql = "SELECT * FROM QLDU WHERE loaiNuoc=N'"+cbLoaiNuoc.getSelectedItem().toString()+"'";
         try {
-            Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while(rs.next()){
                 this.cbxNuoc.addItem(rs.getString("tenNuoc").trim());
             }
@@ -937,9 +905,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     private void cbxNuocPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbxNuocPopupMenuWillBecomeInvisible
         String sql = "SELECT * FROM QLDU WHERE tenNuoc=N'"+cbxNuoc.getSelectedItem()+"'";
         try {
-            Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if(rs.next()){
                 lbGia.setText(rs.getString("giaBan").trim());
                 tfSoLuong.setEnabled(true);
@@ -973,9 +940,8 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
 
             String sqlCheck="SELECT * FROM QLDU WHERE tenNuoc=N'"+cbxNuoc.getSelectedItem()+"'";
             try{
-                Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlCheck);
-                ResultSet rs = ps.executeQuery();
+                rs = ps.executeQuery();
                 while(rs.next()){
                     if((rs.getInt("soLuong")-Integer.parseInt(tfSoLuong.getText()))<0){
                         String []s=lbGia.getText().split("\\s");
@@ -1009,7 +975,6 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
             String []s=lbTongTien.getText().split("\\s");
             try {
                 String sqlHoaDon="INSERT INTO thongtinhoadon (ban,tongTien,tienKH,tienThua,tenNV,ngay,thoiGian) VALUES("+lbBan.getText()+",N'"+lbTongTien.getText()+"',N'"+(tfTienNhanCuaKach.getText()+" "+ s[1])+"',N'"+lbTienthua.getText()+"',N'"+lbNhanVien.getText()+"','"+lblDate.getText()+"','"+lblTime.getText()+"')";
-                Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlHoaDon);
                 ps.execute();
                 addHoaDon();
