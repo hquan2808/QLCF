@@ -37,6 +37,7 @@ public class QLNV extends javax.swing.JFrame {
         detail = new Detail(d); 
         Disabled();
         loadData(sql);
+        loadChucvu();
     }
     private String gioiTinh() {
         if (rbNam.isSelected()) {
@@ -175,7 +176,6 @@ public class QLNV extends javax.swing.JFrame {
         if(checkNull()){
             int click=table_QLNV.getSelectedRow();
             TableModel model=table_QLNV.getModel();
-        
             String sqlChange="UPDATE QLNV SET maNV='"+tfMa.getText()+"',Roll='"+cbChucvu.getSelectedItem().toString()+"', tenNV=N'"+tfTen.getText()+"', ngaySinh='"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',gioiTinh='"+gioiTinh()+"', sdt='"+(tfSdt.getText())+"', diaChi='"+tfDiachi.getText()+"',taiKhoan='"+(tfTaikhoan.getText())+"',matKhau='"+(tfMatkhau.getText())+"' WHERE maNV=N'"+model.getValueAt(click, 0)+"'";
             try {
                 Connection conn = Mysql.getConnection();
@@ -731,7 +731,6 @@ public class QLNV extends javax.swing.JFrame {
         add=false;
         change=true;
         Enabled();
-        loadChucvu();
         btnAdd.setEnabled(false);
         btnDelete.setEnabled(false);
         btnEdit.setEnabled(false);

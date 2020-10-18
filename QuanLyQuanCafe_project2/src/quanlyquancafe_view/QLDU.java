@@ -180,7 +180,6 @@ public class QLDU extends javax.swing.JFrame {
          if(checkNull()){
             int click=tableDrink.getSelectedRow();
             TableModel model=tableDrink.getModel();
-        
             String sqlChange="UPDATE QLDU SET maNuoc='"+tfMa.getText()+"', loaiNuoc=N'"+cbLoai.getSelectedItem()+"', tenNuoc=N'"+tfTen.getText()+"', giaBan='"+(tfGia.getText()+" "+"VNĐ")+"', donVi='"+tfDonvi.getText()+"',soLuong="+tfSoluong.getText()+" WHERE maNuoc=N'"+model.getValueAt(click, 0)+"'";
             try {
                 Connection conn = Mysql.getConnection();
@@ -252,7 +251,7 @@ public class QLDU extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         lbTrangthai = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        spDU = new javax.swing.JScrollPane();
         tableDrink = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -357,7 +356,7 @@ public class QLDU extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -409,7 +408,7 @@ public class QLDU extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/floppy-disk.png"))); // NOI18N
@@ -505,7 +504,7 @@ public class QLDU extends javax.swing.JFrame {
                 tableDrinkMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tableDrink);
+        spDU.setViewportView(tableDrink);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -525,7 +524,7 @@ public class QLDU extends javax.swing.JFrame {
                         .addComponent(btnfind, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addComponent(jScrollPane2)))
+                        .addComponent(spDU)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -558,7 +557,7 @@ public class QLDU extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spDU, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnfind, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -757,8 +756,8 @@ public class QLDU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbTrangthai;
+    private javax.swing.JScrollPane spDU;
     private javax.swing.JTable tableDrink;
     private javax.swing.JTextField tfDonvi;
     private javax.swing.JTextField tfFind;
