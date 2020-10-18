@@ -135,7 +135,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -336,7 +336,7 @@
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Component id="rbNam" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="tfTaikhoan" alignment="0" pref="115" max="32767" attributes="0"/>
+                                          <Component id="tfTaikhoan" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>

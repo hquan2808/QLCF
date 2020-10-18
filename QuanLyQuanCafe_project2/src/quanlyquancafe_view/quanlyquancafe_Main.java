@@ -268,9 +268,9 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BanHang_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BanHang_btnActionPerformed
-//        Banhang banhang = new Banhang(detail);
+        DatBan banhang = new DatBan(detail);
         this.setVisible(false);
-//        banhang.setVisible(true);
+        banhang.setVisible(true);
     }//GEN-LAST:event_BanHang_btnActionPerformed
 
     private void QLDoUong_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLDoUong_btnActionPerformed
