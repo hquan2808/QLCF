@@ -102,6 +102,11 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         DatBan_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_room_service_black_24dp.png"))); // NOI18N
         DatBan_btn.setMaximumSize(new java.awt.Dimension(82, 60));
         DatBan_btn.setPreferredSize(new java.awt.Dimension(120, 60));
+        DatBan_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DatBan_btnActionPerformed(evt);
+            }
+        });
 
         ThongKe_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_insert_chart_black_24dp.png"))); // NOI18N
         ThongKe_btn.setMaximumSize(new java.awt.Dimension(82, 60));
@@ -268,7 +273,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BanHang_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BanHang_btnActionPerformed
-        DatBan banhang = new DatBan(detail);
+        BanHang banhang = new BanHang(detail);
         this.setVisible(false);
         banhang.setVisible(true);
     }//GEN-LAST:event_BanHang_btnActionPerformed
@@ -308,6 +313,12 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         this.setVisible(false);
         qlnv.setVisible(true);
     }//GEN-LAST:event_QLNV_btnActionPerformed
+
+    private void DatBan_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatBan_btnActionPerformed
+        DatBan datban = new DatBan(detail);
+        this.setVisible(false);
+        datban.setVisible(true);
+    }//GEN-LAST:event_DatBan_btnActionPerformed
 
     /**
      * @param args the command line arguments

@@ -222,6 +222,9 @@
                   <Dimension value="[120, 60]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DatBan_btnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="ThongKe_btn">
               <Properties>
