@@ -33,6 +33,8 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
             QLNV_btn.setEnabled(false);
             jlb_QLNV.setEnabled(false);
             jlb_QLDoUong.setEnabled(false);
+            ThongKe_btn.setEnabled(false);
+            jlb_ThongKe.setEnabled(false);
         }
     }
 
@@ -111,6 +113,11 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         ThongKe_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_insert_chart_black_24dp.png"))); // NOI18N
         ThongKe_btn.setMaximumSize(new java.awt.Dimension(82, 60));
         ThongKe_btn.setPreferredSize(new java.awt.Dimension(120, 60));
+        ThongKe_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ThongKe_btnActionPerformed(evt);
+            }
+        });
 
         ThongTin_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/baseline_info_black_24dp.png"))); // NOI18N
         ThongTin_btn.setMaximumSize(new java.awt.Dimension(82, 60));
@@ -319,6 +326,13 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         this.setVisible(false);
         datban.setVisible(true);
     }//GEN-LAST:event_DatBan_btnActionPerformed
+
+    private void ThongKe_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongKe_btnActionPerformed
+        // TODO add your handling code here:
+        ThongKe thongke = new ThongKe(detail);
+        this.setVisible(false);
+        thongke.setVisible(true);
+    }//GEN-LAST:event_ThongKe_btnActionPerformed
 
     /**
      * @param args the command line arguments

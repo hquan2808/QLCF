@@ -680,7 +680,7 @@ public class QLNV extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void table_QLNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_QLNVMouseClicked
-        cbChucvu.removeAllItems();
+//        cbChucvu.removeAllItems();
         int click=table_QLNV.getSelectedRow();
         TableModel model=table_QLNV.getModel();
         
@@ -699,7 +699,8 @@ public class QLNV extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-        Disabled(); 
+        Disabled();
+        loadChucvu();
         reset();
         loadData(sql);
     }//GEN-LAST:event_btnExitActionPerformed

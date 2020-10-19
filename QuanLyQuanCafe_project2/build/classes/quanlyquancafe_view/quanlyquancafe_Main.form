@@ -238,6 +238,9 @@
                   <Dimension value="[120, 60]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ThongKe_btnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="ThongTin_btn">
               <Properties>
