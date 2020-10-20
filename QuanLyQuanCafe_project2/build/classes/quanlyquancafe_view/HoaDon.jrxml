@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="2.1435888100000016"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="144"/>
-	<queryString language="SQL">
+	<queryString language="MySQL">
 		<![CDATA[SELECT
      hoadon."tenNuoc" AS hoadon_tenNuoc,
      hoadon."soLuong" AS hoadon_soLuong,

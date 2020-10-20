@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1026,8 +1028,11 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         try {
+            Connection conn1 = Mysql.getConnection();
             JasperReport report=JasperCompileManager.compileReport("C:\\Users\\Dell\\Documents\\GitHub\\QLCF\\QuanLyQuanCafe_project2\\src\\quanlyquancafe_view\\HoaDon.jrxml");
-            JasperPrint print=JasperFillManager.fillReport(report, null, conn);
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            JasperPrint print = JasperFillManager.fillReport(report,
+               parameters, conn1);
             JasperViewer.viewReport(print,false);
         }
         catch (JRException ex) {
