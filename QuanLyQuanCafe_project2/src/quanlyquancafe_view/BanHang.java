@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
@@ -1018,7 +1017,6 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
                 Pay=true;
             }
             else {
-
                 lbTienthua.setText(formatter.format((convertedToNumbers(s1)-convertedToNumbers(s2[0])))+" "+s2[1]);
                 lblStatus.setText("Số tiền khách hàng đưa nhỏ hơn tổng tiền mua hàng trong hóa đơn!");
                 Pay=false;
@@ -1029,9 +1027,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         try {
             JasperReport report=JasperCompileManager.compileReport("C:\\Users\\Dell\\Documents\\GitHub\\QLCF\\QuanLyQuanCafe_project2\\src\\quanlyquancafe_view\\HoaDon.jrxml");
-
             JasperPrint print=JasperFillManager.fillReport(report, null, conn);
-
             JasperViewer.viewReport(print,false);
         }
         catch (JRException ex) {

@@ -166,6 +166,7 @@ public class QLNV extends javax.swing.JFrame {
                 ps.execute();
                 loadData(sql);
                 Disabled();
+                table_QLNV.setVisible(true);
                 lbTrangthai.setText("Thêm nhân viên thành công!");
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -184,6 +185,7 @@ public class QLNV extends javax.swing.JFrame {
                 reset();
                 loadData(sql);
                 Disabled();
+                table_QLNV.setVisible(true);
                 lbTrangthai.setText("Thay đổi thông tin thành công!");
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -255,7 +257,7 @@ public class QLNV extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        spTable = new javax.swing.JScrollPane();
         table_QLNV = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnFind = new javax.swing.JButton();
@@ -313,7 +315,7 @@ public class QLNV extends javax.swing.JFrame {
                 table_QLNVMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(table_QLNV);
+        spTable.setViewportView(table_QLNV);
         if (table_QLNV.getColumnModel().getColumnCount() > 0) {
             table_QLNV.getColumnModel().getColumn(0).setHeaderValue("Mã nhân viên");
             table_QLNV.getColumnModel().getColumn(1).setHeaderValue("Họ tên");
@@ -550,7 +552,7 @@ public class QLNV extends javax.swing.JFrame {
                         .addComponent(tfFind, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
@@ -594,12 +596,12 @@ public class QLNV extends javax.swing.JFrame {
                             .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfFind, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/home.png"))); // NOI18N
@@ -680,7 +682,7 @@ public class QLNV extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void table_QLNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_QLNVMouseClicked
-//        cbChucvu.removeAllItems();
+        cbChucvu.removeAllItems();
         int click=table_QLNV.getSelectedRow();
         TableModel model=table_QLNV.getModel();
         
@@ -700,9 +702,10 @@ public class QLNV extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
         Disabled();
-        loadChucvu();
+        table_QLNV.setVisible(true);
         reset();
         loadData(sql);
+        btnDelete.setEnabled(false);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -732,6 +735,8 @@ public class QLNV extends javax.swing.JFrame {
         add=false;
         change=true;
         Enabled();
+        loadChucvu();
+        table_QLNV.setVisible(false);
         btnAdd.setEnabled(false);
         btnDelete.setEnabled(false);
         btnEdit.setEnabled(false);
@@ -806,13 +811,13 @@ public class QLNV extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Detail detail= new Detail();
-//                if(detail.getRoll().equals("3")){
-//                   new QLNV(detail).setVisible(false);
-//                   Login login = new Login();
-//                   login.setVisible(true);
-//                }else{
+                if(detail.getRoll().equals("3")){
+                   new QLNV(detail).setVisible(false);
+                   Login login = new Login();
+                   login.setVisible(true);
+                }else{
                 new QLNV(detail).setVisible(true);
-//                }
+                }
             }
         });
     }
@@ -833,7 +838,6 @@ public class QLNV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTrangthai;
     private javax.swing.JLabel lbdiachi;
     private javax.swing.JLabel lbgioitinh;
@@ -846,6 +850,7 @@ public class QLNV extends javax.swing.JFrame {
     private javax.swing.JLabel lbxacnhanmk;
     private javax.swing.JRadioButton rbNam;
     private javax.swing.JRadioButton rbNu;
+    private javax.swing.JScrollPane spTable;
     private javax.swing.JTable table_QLNV;
     private javax.swing.JTextField tfDiachi;
     private javax.swing.JTextField tfFind;
