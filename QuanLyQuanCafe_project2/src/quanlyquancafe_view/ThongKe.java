@@ -7,10 +7,11 @@ package quanlyquancafe_view;
 
 import Sql.Mysql;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
@@ -31,43 +32,57 @@ public class ThongKe extends javax.swing.JFrame {
      */
     private Detail detail;
     private String sql="SELECT * FROM thongke";
+    private boolean leapYear=false,Year=false,Month=false,Day=false;
     public ThongKe(Detail d) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(this);
         detail= new Detail(d);
+        select_nam.setValue(Double.parseDouble(new SimpleDateFormat("yyyy").format(new java.util.Date())));
+//        int q = Integer.parseInt(select_thang.getSelectedItem().toString());
+//        System.out.println(q);
+        addDays();
+
         loadData(sql);
-//        Return();
-        chonSearch();
+        Refresh();
+//        chonSearch();
     }
-    private void Return(){
-        select_nam.setEnabled(false);
-        select_thang.setEnabled(false);
+    private void Refresh(){
+        Year=false;
+        Month=false;
+        Day=false;
         select_ngay.setEnabled(false);
-        select_nam.removeAllItems();
-        select_thang.removeAllItems();
-        select_ngay.removeAllItems();
+        select_thang.setEnabled(false);
+        select_nam.setEnabled(false);
+//        select_thang.setSelectedIndex(0);
+//        select_nam.setSelectedIndex(0);
     }
     private void chonSearch(){
+        Refresh();
+        if(rd_nam.isSelected()){
+            select_nam.setEnabled(true);
+            Year=true;
+        }
+        else
+        if(rd_thang.isSelected()){
+            select_thang.setEnabled(true);
+            select_nam.setEnabled(true);
+            Month=true;
+        }
+        else
         if(rd_ngay.isSelected()){
             select_ngay.setEnabled(true);
-            select_thang.setEnabled(false);
-            select_nam.setEnabled(false);
-        }
-        if(rd_thang.isSelected()){
-            select_ngay.setEnabled(false);
             select_thang.setEnabled(true);
-            select_nam.setEnabled(false);
-        }
-        if(rd_nam.isSelected()){
-            select_ngay.setEnabled(false);
-            select_thang.setEnabled(false);
             select_nam.setEnabled(true);
-        }
+            Day=true;
+        } 
     }
     private void loadData(String sql){
+        int count=0;
+        long tongTien=0;
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
         try{
-            String[] arry={"Nhân viên","Thời gian bán","Sản phẩm","Số lượng","Tổng tiền"};
+            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -75,17 +90,79 @@ public class ThongKe extends javax.swing.JFrame {
             while(rs.next()){
                 Vector vector=new Vector();
                 vector.add(rs.getString("tenNV").trim());
-                vector.add(rs.getString("thoiGian").trim()+" "+rs.getString("ngay").trim());
-                vector.add(rs.getString("sanPham").trim());
-                vector.add(rs.getInt("soLuong"));
-                vector.add(rs.getString("tongTien").trim());
+                vector.add(rs.getString("thoiGian").trim());
+                vector.add(rs.getString("ngay").trim());
+                vector.add(rs.getString("thoiGian").trim());
+                vector.add(rs.getString("tongTien").trim()+" VNĐ");
                 model.addRow(vector);
             }
             table_ThongKe.setModel(model);
+            lbHoadon.setText(String.valueOf(count));
+            lbTien.setText(formatter.format(tongTien)+" "+"VND");
             rs.close();
         }
         catch(Exception ex){
             ex.printStackTrace();
+        }
+    }
+    private double getDay(String s){
+        String [] arry= s.replace("/"," ").split("\\s");
+        return Double.parseDouble(arry[arry.length-3]);
+    }
+    private double getMonth(String s){
+        String [] arry = s.replace("/"," ").split("\\s");
+        return Double.parseDouble(arry[arry.length-2]);
+    }
+    private double getYear(String s){
+        String [] arry = s.replace("/"," ").split("\\s");
+        return Double.parseDouble(arry[arry.length-3]);
+    }
+//    private void checkYear(){
+//        if(Double.parseDouble(String.valueOf(select_nam.getValue()))%4==0 && Double.parseDouble(String.valueOf(cbxYear.getValue()))%100!=0 || Double.parseDouble(String.valueOf(cbxYear.getValue()))%400==0 ){
+//            leapYear=true;
+//        }
+//        else    leapYear=false;
+//    }
+    private void addDays(){
+        select_ngay.setEnabled(true);
+        String []day = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+        String q = select_thang.getSelectedItem().toString();
+        switch(q){
+            case "1":
+            case "3":
+            case "5":
+            case "7":
+            case "8":
+            case "10":
+            case "12":
+                select_ngay.removeAllItems();
+                for (String i : day) {
+                    select_ngay.addItem(i);
+                }
+                break;
+                
+            case "4":
+            case "6":
+            case "9":
+            case "11":
+                select_ngay.removeAllItems();
+                for (int i = 0; i <day.length ; i++) {
+                    select_ngay.addItem(day[i]);
+                }
+                break;
+            case "2":
+                select_ngay.removeAllItems();
+                if (leapYear == true) {
+                    for (int i = 0; i < day.length-2; i++) {
+                        select_ngay.addItem(day[i]);
+                    }
+                }else{
+                    for (int i = 0; i < day.length-3; i++) {
+                        select_ngay.addItem(day[i]);
+                    }
+                    break;
+                }
+                
         }
     }
     /**
@@ -104,7 +181,6 @@ public class ThongKe extends javax.swing.JFrame {
         rd_thang = new javax.swing.JRadioButton();
         rd_nam = new javax.swing.JRadioButton();
         select_ngay = new javax.swing.JComboBox<>();
-        select_thang = new javax.swing.JComboBox<>();
         select_nam = new javax.swing.JComboBox<>();
         btnReturn = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
@@ -116,6 +192,7 @@ public class ThongKe extends javax.swing.JFrame {
         lbTien = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnBieuDo = new javax.swing.JButton();
+        select_thang = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,12 +212,27 @@ public class ThongKe extends javax.swing.JFrame {
         buttonGroup1.add(rd_ngay);
         rd_ngay.setSelected(true);
         rd_ngay.setText("Xem theo ngày");
+        rd_ngay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rd_ngayActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rd_thang);
         rd_thang.setText("Xem theo tháng");
+        rd_thang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rd_thangActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rd_nam);
         rd_nam.setText("Xem theo năm");
+        rd_nam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rd_namActionPerformed(evt);
+            }
+        });
 
         select_ngay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +242,7 @@ public class ThongKe extends javax.swing.JFrame {
 
         jLabel1.setPreferredSize(new java.awt.Dimension(51, 20));
 
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/home.png"))); // NOI18N
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
@@ -176,6 +269,8 @@ public class ThongKe extends javax.swing.JFrame {
                 btnBieuDoActionPerformed(evt);
             }
         });
+
+        select_thang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,32 +299,35 @@ public class ThongKe extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(rd_nam)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(select_nam, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(rd_ngay)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(select_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(rd_thang)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(select_thang, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(24, 24, 24))))
+                                                .addGap(24, 24, 24))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(rd_thang)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(select_thang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(rd_nam)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(select_nam, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(rd_ngay)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(select_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(0, 0, Short.MAX_VALUE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(53, 53, 53)
                                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(123, 123, 123)
                                         .addComponent(btnBieuDo)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,6 +379,9 @@ public class ThongKe extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
+        quanlyquancafe_Main home = new quanlyquancafe_Main(detail);
+        this.setVisible(false);
+        home.setVisible(true);
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnBieuDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBieuDoActionPerformed
@@ -295,10 +396,24 @@ public class ThongKe extends javax.swing.JFrame {
         p.setRangeGridlinePaint(Color.black);
         ChartFrame frame = new ChartFrame("Bar Chart for Lương", chart);
         frame.setSize(450,350);
-        frame.setMaximumSize(new Dimension(20,500));
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnBieuDoActionPerformed
+
+    private void rd_ngayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_ngayActionPerformed
+        // TODO add your handling code here:
+        chonSearch();
+    }//GEN-LAST:event_rd_ngayActionPerformed
+
+    private void rd_thangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_thangActionPerformed
+        // TODO add your handling code here:
+        chonSearch();
+    }//GEN-LAST:event_rd_thangActionPerformed
+
+    private void rd_namActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_namActionPerformed
+        // TODO add your handling code here:
+        chonSearch();
+    }//GEN-LAST:event_rd_namActionPerformed
 
     /**
      * @param args the command line arguments
