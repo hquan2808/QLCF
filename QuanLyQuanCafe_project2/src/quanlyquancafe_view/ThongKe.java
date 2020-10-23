@@ -35,7 +35,6 @@ public class ThongKe extends javax.swing.JFrame {
      */
     private Detail detail;
     private String sql="SELECT * FROM thongke";
-//    private String sql1 = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
     private boolean leapYear=false,Year=false,Month=false,Day=false;
     public ThongKe(Detail d) {
         initComponents();
@@ -45,12 +44,7 @@ public class ThongKe extends javax.swing.JFrame {
         select_nam.setValue(Double.parseDouble(new SimpleDateFormat("yyyy").format(new java.util.Date())));
         checkYear();
         addDays();
-        
-//        searchNV(sql);
         loadData(sql);
-//        select_nam.removeAll();
-//        select_ngay.removeAllItems();
-//        select_thang.removeAllItems();
         Refresh();
     }
     private void Refresh(){
