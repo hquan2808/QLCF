@@ -35,6 +35,7 @@ public class ThongKe extends javax.swing.JFrame {
      */
     private Detail detail;
     private String sql="SELECT * FROM thongke";
+//    private String sql1 = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
     private boolean leapYear=false,Year=false,Month=false,Day=false;
     public ThongKe(Detail d) {
         initComponents();
@@ -60,7 +61,7 @@ public class ThongKe extends javax.swing.JFrame {
         select_thang.setEnabled(false);
         select_nam.setEnabled(false);
         select_thang.setSelectedIndex(0);
-//        select_ngay.setSelectedIndex(0);
+        select_ngay.setSelectedIndex(0);
     }
     private void chonSearch(){
         Refresh();
@@ -82,30 +83,6 @@ public class ThongKe extends javax.swing.JFrame {
             Day=true;
         } 
     }
-    private void searchNV(String sql){
-        try {
-            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
-            DefaultTableModel model=new DefaultTableModel(arry,0);
-            Connection conn = Mysql.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                if(rs.getString("tenNV").trim() == (select_NV.getSelectedItem().toString())){
-                    Vector vector=new Vector();
-                    vector.add(rs.getString("tenNV").trim());
-                    vector.add(rs.getString("thoiGian").trim());
-                    vector.add(rs.getString("ngay").trim());
-                    vector.add(rs.getString("thoiGian").trim());
-                    vector.add(rs.getString("tongTien").trim()+" VNĐ");
-                    model.addRow(vector);
-                }
-                table_ThongKe.setModel(model);
-                rs.close();
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ThongKe.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     private void loadData(String sql){
         int count=0;
         long tongTien=0;
@@ -126,7 +103,6 @@ public class ThongKe extends javax.swing.JFrame {
                 model.addRow(vector);
                 select_NV.addItem(rs.getString("tenNV"));
             }
-            
             table_ThongKe.setModel(model);
             lbHoadon.setText(String.valueOf(count));
             lbTien.setText(formatter.format(tongTien)+" "+"VND");
@@ -144,10 +120,11 @@ public class ThongKe extends javax.swing.JFrame {
             String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
+            sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                if (getDay(rs.getString("ngay"))==Double.parseDouble(select_ngay.getSelectedItem().toString()) && getMonth(rs.getString("ngay"))==Double.parseDouble(select_thang.getSelectedItem().toString()) && getYear(rs.getString("ngay"))==Double.parseDouble(select_nam.getValue().toString())) {
+                if (getNV(rs.getString("tenNV")) == select_NV.getSelectedItem().toString()&&getDay(rs.getString("ngay"))==Double.parseDouble(select_ngay.getSelectedItem().toString()) && getMonth(rs.getString("ngay"))==Double.parseDouble(select_thang.getSelectedItem().toString()) && getYear(rs.getString("ngay"))==Double.parseDouble(select_nam.getValue().toString())) {
                     Vector vector=new Vector();
                     vector.add(rs.getString("tenNV").trim());
                     vector.add(rs.getString("thoiGian").trim());
@@ -156,7 +133,6 @@ public class ThongKe extends javax.swing.JFrame {
                     vector.add(rs.getString("tongTien").trim()+" VNĐ");
                     model.addRow(vector);
                 }
-                
             }
             table_ThongKe.setModel(model);
             lbHoadon.setText(String.valueOf(count));
@@ -175,10 +151,11 @@ public class ThongKe extends javax.swing.JFrame {
             String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
+            sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                if (getMonth(rs.getString("ngay"))==Double.parseDouble(select_thang.getSelectedItem().toString()) && getYear(rs.getString("ngay"))==Double.parseDouble(select_nam.getValue().toString())) {
+                if (getMonth(rs.getString("ngay"))==Double.parseDouble(select_thang.getSelectedItem().toString()) && getYear(rs.getString("ngay"))==Double.parseDouble(select_nam.getValue().toString()) && getNV(rs.getString("tenNV")) == select_NV.getSelectedItem().toString()) {
                     Vector vector=new Vector();
                     vector.add(rs.getString("tenNV").trim());
                     vector.add(rs.getString("thoiGian").trim());
@@ -206,10 +183,43 @@ public class ThongKe extends javax.swing.JFrame {
             String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
+            sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                if (getYear(rs.getString("ngay"))==Double.parseDouble(select_nam.getValue().toString())) {
+                if (getYear(rs.getString("ngay"))== Double.parseDouble(select_nam.getValue().toString()) && getNV(rs.getString("tenNV")) == select_NV.getSelectedItem().toString()){
+                    Vector vector=new Vector();
+                    vector.add(rs.getString("tenNV").trim());
+                    vector.add(rs.getString("thoiGian").trim());
+                    vector.add(rs.getString("ngay").trim());
+                    vector.add(rs.getString("thoiGian").trim());
+                    vector.add(rs.getString("tongTien").trim()+" VNĐ");
+                    model.addRow(vector);
+                }
+                
+            }
+            table_ThongKe.setModel(model);
+            lbHoadon.setText(String.valueOf(count));
+            lbTien.setText(formatter.format(tongTien)+" "+"VND");
+            rs.close();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    private void FindNV(){
+        int count=0;
+        long tongTien=0;
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        try{
+            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
+            DefaultTableModel model=new DefaultTableModel(arry,0);
+            Connection conn = Mysql.getConnection();
+            sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                if (getNV(rs.getString("tenNV")) == select_NV.getSelectedItem().toString()){
                     Vector vector=new Vector();
                     vector.add(rs.getString("tenNV").trim());
                     vector.add(rs.getString("thoiGian").trim());
@@ -248,6 +258,9 @@ public class ThongKe extends javax.swing.JFrame {
     private double getYear(String s){
         String [] arry = s.replace("/"," ").split("\\s");
         return Double.parseDouble(arry[arry.length-1]);
+    }
+    private String getNV(String string){
+        return select_NV.getSelectedItem().toString();
     }
     private void checkYear(){
         if(Double.parseDouble(String.valueOf(select_nam.getValue()))%4==0 && Double.parseDouble(String.valueOf(select_nam.getValue()))%100!=0 || Double.parseDouble(String.valueOf(select_nam.getValue()))%400==0 ){
@@ -438,10 +451,13 @@ public class ThongKe extends javax.swing.JFrame {
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
+        select_thang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                select_thangActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Nhân viên:");
-
-        select_NV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả Nhân viên" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -618,15 +634,24 @@ public class ThongKe extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        if(Day==true)
-            FindDay();
-        else
-        if(Month==true)
-            FindMonth();
-        else
-        if(Year==true)
-            FindYear();
+//            String sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            FindNV();
+            if(Day==true){
+                FindDay();
+            }
+            else
+            if(Month==true){
+                FindMonth();
+            }
+            else
+            if(Year==true){
+                FindYear();
+            }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void select_thangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_thangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_select_thangActionPerformed
 
     /**
      * @param args the command line arguments
