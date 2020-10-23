@@ -10,9 +10,12 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -41,6 +44,8 @@ public class ThongKe extends javax.swing.JFrame {
         select_nam.setValue(Double.parseDouble(new SimpleDateFormat("yyyy").format(new java.util.Date())));
         checkYear();
         addDays();
+        
+//        searchNV(sql);
         loadData(sql);
 //        select_nam.removeAll();
 //        select_ngay.removeAllItems();
@@ -77,6 +82,30 @@ public class ThongKe extends javax.swing.JFrame {
             Day=true;
         } 
     }
+    private void searchNV(String sql){
+        try {
+            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
+            DefaultTableModel model=new DefaultTableModel(arry,0);
+            Connection conn = Mysql.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString("tenNV").trim() == (select_NV.getSelectedItem().toString())){
+                    Vector vector=new Vector();
+                    vector.add(rs.getString("tenNV").trim());
+                    vector.add(rs.getString("thoiGian").trim());
+                    vector.add(rs.getString("ngay").trim());
+                    vector.add(rs.getString("thoiGian").trim());
+                    vector.add(rs.getString("tongTien").trim()+" VNĐ");
+                    model.addRow(vector);
+                }
+                table_ThongKe.setModel(model);
+                rs.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void loadData(String sql){
         int count=0;
         long tongTien=0;
@@ -95,7 +124,9 @@ public class ThongKe extends javax.swing.JFrame {
                 vector.add(rs.getString("thoiGian").trim());
                 vector.add(rs.getString("tongTien").trim()+" VNĐ");
                 model.addRow(vector);
+                select_NV.addItem(rs.getString("tenNV"));
             }
+            
             table_ThongKe.setModel(model);
             lbHoadon.setText(String.valueOf(count));
             lbTien.setText(formatter.format(tongTien)+" "+"VND");
@@ -295,6 +326,8 @@ public class ThongKe extends javax.swing.JFrame {
         btnBieuDo = new javax.swing.JButton();
         select_thang = new javax.swing.JComboBox<>();
         select_nam = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        select_NV = new javax.swing.JComboBox<>();
 
         jPopupMenu1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -406,6 +439,10 @@ public class ThongKe extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Nhân viên:");
+
+        select_NV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả Nhân viên" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -435,20 +472,11 @@ public class ThongKe extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(24, 24, 24))
-                                            .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(layout.createSequentialGroup()
                                                         .addComponent(rd_thang)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(select_thang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(rd_nam)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(select_nam))
                                                     .addGroup(layout.createSequentialGroup()
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                             .addGroup(layout.createSequentialGroup()
@@ -456,16 +484,26 @@ public class ThongKe extends javax.swing.JFrame {
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(select_ngay, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                                .addGap(15, 15, 15))))
+                                                        .addGap(0, 0, Short.MAX_VALUE))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(rd_nam)
+                                                            .addComponent(jLabel3))
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(select_nam)
+                                                            .addComponent(select_NV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                .addGap(15, 15, 15))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnBieuDo)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(25, 25, 25))))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(53, 53, 53)
-                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(123, 123, 123)
-                                                .addComponent(btnBieuDo)))
+                                        .addGap(53, 53, 53)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())))))
         );
@@ -488,13 +526,16 @@ public class ThongKe extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rd_nam)
                             .addComponent(select_nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
-                        .addComponent(btnBieuDo)
                         .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(select_NV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(76, 76, 76)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(87, 87, 87)
+                            .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBieuDo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -637,6 +678,7 @@ public class ThongKe extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -646,6 +688,7 @@ public class ThongKe extends javax.swing.JFrame {
     private javax.swing.JRadioButton rd_nam;
     private javax.swing.JRadioButton rd_ngay;
     private javax.swing.JRadioButton rd_thang;
+    private javax.swing.JComboBox<String> select_NV;
     private javax.swing.JSpinner select_nam;
     private javax.swing.JComboBox<String> select_ngay;
     private javax.swing.JComboBox<String> select_thang;

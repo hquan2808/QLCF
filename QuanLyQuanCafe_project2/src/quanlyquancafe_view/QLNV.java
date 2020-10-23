@@ -531,6 +531,12 @@ public class QLNV extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tfFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFindActionPerformed(evt);
+            }
+        });
+
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/x-button.png"))); // NOI18N
         btnExit.setEnabled(false);
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -601,7 +607,7 @@ public class QLNV extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfFind, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/home.png"))); // NOI18N
@@ -778,6 +784,10 @@ public class QLNV extends javax.swing.JFrame {
         checkDecentralization();
         btnExit.setEnabled(true);
     }//GEN-LAST:event_btnFindActionPerformed
+
+    private void tfFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFindActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFindActionPerformed
 
     /**
      * @param args the command line arguments
