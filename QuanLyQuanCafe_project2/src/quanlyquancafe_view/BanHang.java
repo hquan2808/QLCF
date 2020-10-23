@@ -1028,11 +1028,11 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         try {
-            Connection conn1 = Mysql.getConnection();
+//            Connection conn1 = Mysql.getConnection();
             JasperReport report=JasperCompileManager.compileReport("C:\\Users\\Dell\\Documents\\GitHub\\QLCF\\QuanLyQuanCafe_project2\\src\\quanlyquancafe_view\\HoaDon.jrxml");
-            Map<String, Object> parameters = new HashMap<String, Object>();
+            
             JasperPrint print = JasperFillManager.fillReport(report,
-               parameters, conn1);
+               null, conn);
             JasperViewer.viewReport(print,false);
         }
         catch (JRException ex) {
