@@ -5,7 +5,7 @@
  */
 package quanlyquancafe_view;
 
-import Sql.Mysql;
+import Sql_and_library.Mysql;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,12 +17,12 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
+//import org.jfree.chart.ChartFactory;
+//import org.jfree.chart.ChartFrame;
+//import org.jfree.chart.JFreeChart;
+//import org.jfree.chart.plot.CategoryPlot;
+//import org.jfree.chart.plot.PlotOrientation;
+//import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -576,23 +576,23 @@ public class ThongKe extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnBieuDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBieuDoActionPerformed
-        // TODO add your handling code here:
-//        String sql="SELECT * FROM thongke";
-//        Connection conn = Mysql.getConnection();
-//        PreparedStatement ps = conn.prepareStatement(sql);
-//        ResultSet rs = ps.executeQuery();
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-//        dataset.setValue(lbTien.setText(formatter.format(tongTien)+" "+"VND"), "Lương", "Tháng 1");
-        dataset.setValue(85, "Lương", "Tháng 2");
-        dataset.setValue(90, "Lương", "Tháng 3");
-        dataset.setValue(100, "Lương", "Tháng 4");
-        JFreeChart chart = ChartFactory.createBarChart("Doanh thu", "","Triệu", dataset, PlotOrientation.VERTICAL,false,true,false);
-        CategoryPlot p = chart.getCategoryPlot();
-        p.setRangeGridlinePaint(Color.black);
-        ChartFrame frame = new ChartFrame("Bar Chart for Lương", chart);
-        frame.setSize(450,350);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+//        // TODO add your handling code here:
+////        String sql="SELECT * FROM thongke";
+////        Connection conn = Mysql.getConnection();
+////        PreparedStatement ps = conn.prepareStatement(sql);
+////        ResultSet rs = ps.executeQuery();
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+////        dataset.setValue(lbTien.setText(formatter.format(tongTien)+" "+"VND"), "Lương", "Tháng 1");
+//        dataset.setValue(85, "Lương", "Tháng 2");
+//        dataset.setValue(90, "Lương", "Tháng 3");
+//        dataset.setValue(100, "Lương", "Tháng 4");
+//        JFreeChart chart = ChartFactory.createBarChart("Doanh thu", "","Triệu", dataset, PlotOrientation.VERTICAL,false,true,false);
+//        CategoryPlot p = chart.getCategoryPlot();
+//        p.setRangeGridlinePaint(Color.black);
+//        ChartFrame frame = new ChartFrame("Bar Chart for Lương", chart);
+//        frame.setSize(450,350);
+//        frame.setVisible(true);
+//        frame.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnBieuDoActionPerformed
 
     private void rd_ngayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_ngayActionPerformed

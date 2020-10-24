@@ -5,7 +5,7 @@
  */
 package quanlyquancafe_view;
 
-import Sql.Mysql;
+import Sql_and_library.Mysql;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.sql.Connection;
