@@ -9,6 +9,7 @@ import Sql_and_library.Mysql;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -86,7 +87,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        kButton1.setText("Đăng nhập");
+        kButton1.setText("LOG IN");
+        kButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         kButton1.setHideActionText(true);
         kButton1.setkBackGroundColor(new java.awt.Color(208, 225, 249));
         kButton1.setkBorderRadius(40);
@@ -166,9 +168,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addComponent(Trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,7 +192,6 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_UserActionPerformed
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
-        // TODO add your handling code here:
         checkNull();
         String sql1 = "Select * from QLNV\n" + "where taiKhoan=? and matKhau=?";
         Connection conn = Mysql.getConnection();
