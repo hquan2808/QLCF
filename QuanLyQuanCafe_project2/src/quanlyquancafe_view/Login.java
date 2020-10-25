@@ -6,6 +6,7 @@
 package quanlyquancafe_view;
 
 import Sql_and_library.Mysql;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.sql.Connection;
@@ -102,11 +103,18 @@ public class Login extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("X");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel3MouseExited(evt);
             }
         });
 
@@ -209,6 +217,14 @@ public class Login extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+       jLabel3.setForeground(Color.red);
+    }//GEN-LAST:event_jLabel3MouseEntered
+
+    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+       jLabel3.setForeground(Color.white);
+    }//GEN-LAST:event_jLabel3MouseExited
 
     /**
      * @param args the command line arguments
