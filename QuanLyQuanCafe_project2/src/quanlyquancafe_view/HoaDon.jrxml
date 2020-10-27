@@ -33,7 +33,7 @@ FROM
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="61" splitType="Stretch">
+		<band height="69" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="260" height="20" uuid="466994d0-425e-41e2-b5d1-b5f0820463aa"/>
 				<textElement textAlignment="Center">
@@ -43,19 +43,26 @@ FROM
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="20" width="260" height="20" uuid="14e8a9af-c542-406a-a8e3-7c0f11c950f7"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Phường Trần Phú, Q.Hoàng Mai,Tp. Hà Nội]]></text>
 			</staticText>
-			<line>
-				<reportElement x="0" y="60" width="260" height="1" uuid="240988f9-fc90-45ef-a562-f6274299d182"/>
-			</line>
 			<staticText>
 				<reportElement x="0" y="40" width="260" height="20" uuid="ff82a8f7-4944-4574-9e7f-3952e8a25f80"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Điện thoại: 0338678732; Email: phi.nh.541@aptechlearning.edu.vn]]></text>
+				<text><![CDATA[Email: phi.nh.541@aptechlearning.edu.vn]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="10" y="50" width="260" height="17" uuid="2bd627a9-398e-4f27-ad9d-14b71ebae640"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Điện thoại: 0338678732]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="67" width="260" height="1" uuid="240988f9-fc90-45ef-a562-f6274299d182"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
