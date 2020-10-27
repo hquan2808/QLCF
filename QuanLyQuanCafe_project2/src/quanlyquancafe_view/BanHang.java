@@ -71,7 +71,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     }
     
     private void checkStatus(){
-        String queryString="SELECT * FROM datban";
+        String queryString="SELECT * FROM datban ";
         String[] day=lblDate.getText().split("\\s");
         try{
             PreparedStatement ps = conn.prepareStatement(queryString);
