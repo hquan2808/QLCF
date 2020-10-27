@@ -36,6 +36,7 @@ public class DatBan extends javax.swing.JFrame {
         Connection conn = Mysql.getConnection();
         loadBan();
         Load(sql);
+        reset();
     }
     private void Load(String sql){
         try{
@@ -630,7 +631,7 @@ public class DatBan extends javax.swing.JFrame {
         tfNote.setText(model.getValueAt(click, 6).toString());
         checkThanhtoan(model.getValueAt(click, 5).toString());
         btnEdit.setEnabled(true);
-        btnExit.setEnabled(true);
+        btnDelete.setEnabled(true);
     }//GEN-LAST:event_tbDatbanMouseClicked
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
