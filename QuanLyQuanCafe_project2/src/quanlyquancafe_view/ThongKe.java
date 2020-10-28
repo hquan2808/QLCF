@@ -90,9 +90,11 @@ public class ThongKe extends javax.swing.JFrame {
     private void loadData(String sql){
         int count=0;
         long tongTien=0;
+        select_NV.removeAllItems();
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         try{
-            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
+            sql ="SELECT * FROM thongke";
+            String[] arry={"Nhân viên","Thời gian","Ngày","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -102,11 +104,20 @@ public class ThongKe extends javax.swing.JFrame {
                 vector.add(rs.getString("tenNV").trim());
                 vector.add(rs.getString("thoiGian").trim());
                 vector.add(rs.getString("ngay").trim());
-                vector.add(rs.getString("thoiGian").trim());
-                vector.add(rs.getString("tongTien").trim()+" VNĐ");
+                vector.add(rs.getString("tongTien").trim());
                 model.addRow(vector);
-                select_NV.addItem(rs.getString("tenNV"));
+                String []s=rs.getString("tongTien").trim().split("\\s");
+                tongTien=convertedToNumbers(s[0])+tongTien;
+                count++;
             }
+            String sql1 = "select * from thongke group by tenNV";
+                PreparedStatement ps1 = conn.prepareStatement(sql1);
+                ResultSet rs1 = ps1.executeQuery();
+                select_NV.addItem("Tất cả nhân viên");
+                while(rs1.next()){
+                select_NV.addItem(rs1.getString("tenNV"));
+                }
+            rs1.close();
             table_ThongKe.setModel(model);
             lbHoadon.setText(String.valueOf(count));
             lbTien.setText(formatter.format(tongTien)+" "+"VND");
@@ -121,10 +132,14 @@ public class ThongKe extends javax.swing.JFrame {
         long tongTien=0;
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         try{
-            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
+            String[] arry={"Nhân viên","Thời gian","Ngày","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
-            sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            if(select_NV.getSelectedItem().toString().equals("Tất cả nhân viên")){
+                sql ="SELECT * FROM thongke";
+            }else{
+                sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            }
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -133,9 +148,11 @@ public class ThongKe extends javax.swing.JFrame {
                     vector.add(rs.getString("tenNV").trim());
                     vector.add(rs.getString("thoiGian").trim());
                     vector.add(rs.getString("ngay").trim());
-                    vector.add(rs.getString("thoiGian").trim());
-                    vector.add(rs.getString("tongTien").trim()+" VNĐ");
+                    vector.add(rs.getString("tongTien").trim());
                     model.addRow(vector);
+                    String []s=rs.getString("tongTien").trim().split("\\s");
+                    tongTien=convertedToNumbers(s[0])+tongTien;
+                    count++;
                 }
             }
             table_ThongKe.setModel(model);
@@ -152,10 +169,14 @@ public class ThongKe extends javax.swing.JFrame {
         long tongTien=0;
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         try{
-            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
+            String[] arry={"Nhân viên","Thời gian","Ngày","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
-            sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            if(select_NV.getSelectedItem().toString().equals("Tất cả nhân viên")){
+                sql ="SELECT * FROM thongke";
+            }else{
+                sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            }
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -164,9 +185,11 @@ public class ThongKe extends javax.swing.JFrame {
                     vector.add(rs.getString("tenNV").trim());
                     vector.add(rs.getString("thoiGian").trim());
                     vector.add(rs.getString("ngay").trim());
-                    vector.add(rs.getString("thoiGian").trim());
-                    vector.add(rs.getString("tongTien").trim()+" VNĐ");
+                    vector.add(rs.getString("tongTien").trim());
                     model.addRow(vector);
+                    String []s=rs.getString("tongTien").trim().split("\\s");
+                    tongTien=convertedToNumbers(s[0])+tongTien;
+                    count++;
                 }
                 
             }
@@ -184,10 +207,14 @@ public class ThongKe extends javax.swing.JFrame {
         long tongTien=0;
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         try{
-            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
+            String[] arry={"Nhân viên","Thời gian","Ngày","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
-            sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            if(select_NV.getSelectedItem().toString().equals("Tất cả nhân viên")){
+                sql ="SELECT * FROM thongke";
+            }else{
+                sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            }
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -196,9 +223,11 @@ public class ThongKe extends javax.swing.JFrame {
                     vector.add(rs.getString("tenNV").trim());
                     vector.add(rs.getString("thoiGian").trim());
                     vector.add(rs.getString("ngay").trim());
-                    vector.add(rs.getString("thoiGian").trim());
-                    vector.add(rs.getString("tongTien").trim()+" VNĐ");
+                    vector.add(rs.getString("tongTien").trim());
                     model.addRow(vector);
+                    String []s=rs.getString("tongTien").trim().split("\\s");
+                    tongTien=convertedToNumbers(s[0])+tongTien;
+                    count++;
                 }
                 
             }
@@ -216,10 +245,14 @@ public class ThongKe extends javax.swing.JFrame {
         long tongTien=0;
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         try{
-            String[] arry={"Nhân viên","Thời gian","Ngày","Thời gian","Tổng tiền"};
+            String[] arry={"Nhân viên","Thời gian","Ngày","Tổng tiền"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
-            sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            if(select_NV.getSelectedItem().toString().equals("Tất cả nhân viên")){
+                sql ="SELECT * FROM thongke";
+            }else{
+                sql = "SELECT * FROM thongke where tenNV like N'%"+select_NV.getSelectedItem().toString()+"%'";
+            }
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -228,11 +261,12 @@ public class ThongKe extends javax.swing.JFrame {
                     vector.add(rs.getString("tenNV").trim());
                     vector.add(rs.getString("thoiGian").trim());
                     vector.add(rs.getString("ngay").trim());
-                    vector.add(rs.getString("thoiGian").trim());
-                    vector.add(rs.getString("tongTien").trim()+" VNĐ");
+                    vector.add(rs.getString("tongTien").trim());
                     model.addRow(vector);
+                    String []s=rs.getString("tongTien").trim().split("\\s");
+                    tongTien=convertedToNumbers(s[0])+tongTien;
+                    count++;
                 }
-                
             }
             table_ThongKe.setModel(model);
             lbHoadon.setText(String.valueOf(count));
@@ -641,8 +675,7 @@ public class ThongKe extends javax.swing.JFrame {
     }//GEN-LAST:event_rd_namActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        // TODO add your handling code here:
-        Refresh();
+        loadData(sql);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void jPopupMenu1PopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenu1PopupMenuWillBecomeInvisible
