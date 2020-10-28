@@ -72,7 +72,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         pn_dangxuat = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        pn_thoat = new javax.swing.JPanel();
+        pn_KH = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -359,43 +359,43 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pn_thoat.setBackground(new java.awt.Color(51, 107, 135));
-        pn_thoat.addMouseListener(new java.awt.event.MouseAdapter() {
+        pn_KH.setBackground(new java.awt.Color(51, 107, 135));
+        pn_KH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pn_thoatMouseEntered(evt);
+                pn_KHMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                pn_thoatMouseExited(evt);
+                pn_KHMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pn_thoatMousePressed(evt);
+                pn_KHMousePressed(evt);
             }
         });
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_close_window_100px.png"))); // NOI18N
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_customer_100px.png"))); // NOI18N
 
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Thoát");
+        jLabel19.setText("Khách hàng");
 
-        javax.swing.GroupLayout pn_thoatLayout = new javax.swing.GroupLayout(pn_thoat);
-        pn_thoat.setLayout(pn_thoatLayout);
-        pn_thoatLayout.setHorizontalGroup(
-            pn_thoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pn_KHLayout = new javax.swing.GroupLayout(pn_KH);
+        pn_KH.setLayout(pn_KHLayout);
+        pn_KHLayout.setHorizontalGroup(
+            pn_KHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_thoatLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_KHLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel18)
                 .addGap(23, 23, 23))
         );
-        pn_thoatLayout.setVerticalGroup(
-            pn_thoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_thoatLayout.createSequentialGroup()
+        pn_KHLayout.setVerticalGroup(
+            pn_KHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_KHLayout.createSequentialGroup()
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel19)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -412,13 +412,13 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                     .addComponent(pn_thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pn_banhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(124, 124, 124)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pn_datban, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_KH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pn_datban, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_dangxuat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pn_thongke, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_thoat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pn_thongke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_dangxuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(120, 120, 120))
         );
         jPanel1Layout.setVerticalGroup(
@@ -432,12 +432,13 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(pn_banhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pn_QLDU, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pn_thoat, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_dangxuat, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_QLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pn_KH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pn_QLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pn_thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pn_dangxuat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(74, 74, 74))
         );
 
@@ -499,20 +500,20 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         resetColor(pn_QLDU);
     }//GEN-LAST:event_pn_QLDUMouseExited
 
-    private void pn_thoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thoatMouseEntered
+    private void pn_KHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_KHMouseEntered
         // TODO add your handling code here:
-        setColor(pn_thoat);
-    }//GEN-LAST:event_pn_thoatMouseEntered
+        setColor(pn_KH);
+    }//GEN-LAST:event_pn_KHMouseEntered
 
     private void pn_banhangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_banhangMouseExited
         // TODO add your handling code here:
         resetColor(pn_banhang);
     }//GEN-LAST:event_pn_banhangMouseExited
 
-    private void pn_thoatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thoatMouseExited
+    private void pn_KHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_KHMouseExited
         // TODO add your handling code here:
-        resetColor(pn_thoat);
-    }//GEN-LAST:event_pn_thoatMouseExited
+        resetColor(pn_KH);
+    }//GEN-LAST:event_pn_KHMouseExited
 
     private void pn_datbanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_datbanMouseExited
         // TODO add your handling code here:
@@ -616,13 +617,12 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pn_dangxuatMousePressed
 
-    private void pn_thoatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thoatMousePressed
+    private void pn_KHMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_KHMousePressed
         // TODO add your handling code here:
-        int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn thoát chương trình hay không?", "Thông báo", 2);
-        if(click==JOptionPane.YES_OPTION){
-            System.exit(0);
-        }
-    }//GEN-LAST:event_pn_thoatMousePressed
+        KhachHang KhachHang = new KhachHang(detail);
+        this.setVisible(false);
+        KhachHang.setVisible(true);  
+    }//GEN-LAST:event_pn_KHMousePressed
 
     /**
      * @param args the command line arguments
@@ -693,12 +693,12 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel pn_KH;
     private javax.swing.JPanel pn_QLDU;
     private javax.swing.JPanel pn_QLNV;
     private javax.swing.JPanel pn_banhang;
     private javax.swing.JPanel pn_dangxuat;
     private javax.swing.JPanel pn_datban;
-    private javax.swing.JPanel pn_thoat;
     private javax.swing.JPanel pn_thongke;
     private javax.swing.JPanel pn_thongtin;
     // End of variables declaration//GEN-END:variables
