@@ -35,6 +35,14 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
             pn_thongke.setEnabled(false);
         }
     }
+
+    public quanlyquancafe_Main() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public quanlyquancafe_Main(Models.Detail detail) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private void setColor(JPanel panel){
         panel.setBackground(new java.awt.Color(144,175,197));
     }
