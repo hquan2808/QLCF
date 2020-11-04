@@ -5,6 +5,8 @@
  */
 package quanlyquancafe_view;
 
+import Models.Detail;
+
 /**
  *
  * @author Dell
