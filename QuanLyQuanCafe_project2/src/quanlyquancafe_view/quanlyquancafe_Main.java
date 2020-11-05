@@ -5,6 +5,7 @@
  */
 package quanlyquancafe_view;
 
+import Models.Detail;
 import Sql_and_library.Mysql;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,6 +13,10 @@ import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import quanlycafe_Banhang.BanHang;
+import quanlyquancafe_QuanLy.QuanLy;
+import quanlyquancafe_Thongke.ThongKe;
+import quanlyquancafe_Setting.Thongtin;
 
 /**
  *
@@ -40,9 +45,11 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public quanlyquancafe_Main(Models.Detail detail) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    /**
+     *
+     * @param detail
+     */
+    
     private void setColor(JPanel panel){
         panel.setBackground(new java.awt.Color(144,175,197));
     }
@@ -575,9 +582,9 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
     private void pn_QLDUMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLDUMousePressed
         // TODO add your handling code here:
-        QLDU qldu = new QLDU(detail);
-        this.setVisible(false);
-        qldu.setVisible(true);
+//        QLDU qldu = new QLDU(detail);
+//        this.setVisible(false);
+//        qldu.setVisible(true);
     }//GEN-LAST:event_pn_QLDUMousePressed
 
     private void pn_banhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_banhangMousePressed
@@ -589,9 +596,9 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
     private void pn_datbanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_datbanMousePressed
         // TODO add your handling code here:
-        DatBan datban = new DatBan(detail);
-        this.setVisible(false);
-        datban.setVisible(true);
+//        DatBan datban = new DatBan(detail);
+//        this.setVisible(false);
+//        datban.setVisible(true);
     }//GEN-LAST:event_pn_datbanMousePressed
 
     private void pn_thongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMousePressed
@@ -603,9 +610,9 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
     private void pn_QLNVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLNVMousePressed
         // TODO add your handling code here:
-        QLNV qlnv = new QLNV(detail);
+        QuanLy ql = new QuanLy(detail);
         this.setVisible(false);
-        qlnv.setVisible(true);
+        ql.setVisible(true);
     }//GEN-LAST:event_pn_QLNVMousePressed
 
     private void pn_thongtinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongtinMousePressed
