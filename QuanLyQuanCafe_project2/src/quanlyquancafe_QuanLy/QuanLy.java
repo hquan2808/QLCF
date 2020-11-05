@@ -33,8 +33,6 @@ public class QuanLy extends javax.swing.JFrame {
         jPanel7.add(qlhh);
         jPanel7.updateUI();
     }
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -209,7 +207,7 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLHH.setBorder(BorderFactory.createLineBorder((Color.black)));
         BTN_QLB.setBorder(null);
         BTN_QLNV.setBorder(null);
-        BTN_QLB.setBorder(null);
+        BTN_QLLHH.setBorder(null);
         jpQLHH qlhh = new jpQLHH(detail);
         qlhh.setSize(1050,650);
         jPanel7.removeAll();
@@ -222,7 +220,7 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLNV.setBorder(BorderFactory.createLineBorder((Color.black)));
         BTN_QLB.setBorder(null);
         BTN_QLHH.setBorder(null);
-        BTN_QLB.setBorder(null);
+        BTN_QLLHH.setBorder(null);
         jpQLNV qlnv = new jpQLNV(detail);
         qlnv.setSize(1050,650);
         jPanel7.removeAll();
@@ -236,6 +234,15 @@ public class QuanLy extends javax.swing.JFrame {
 
     private void BTN_QLLHHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_QLLHHMouseClicked
         // TODO add your handling code here:
+        BTN_QLLHH.setBorder(BorderFactory.createLineBorder((Color.black)));
+        BTN_QLB.setBorder(null);
+        BTN_QLHH.setBorder(null);
+        BTN_QLNV.setBorder(null);
+        jpLHH qllhh = new jpLHH(detail);
+        qllhh.setSize(1050,650);
+        jPanel7.removeAll();
+        jPanel7.add(qllhh);
+        jPanel7.updateUI();
     }//GEN-LAST:event_BTN_QLLHHMouseClicked
 
     /**
