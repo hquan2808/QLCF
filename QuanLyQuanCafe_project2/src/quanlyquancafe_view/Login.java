@@ -33,6 +33,7 @@ public class Login extends javax.swing.JFrame {
         User.setBackground(new java.awt.Color(0,0,0,1));
         Password.setBackground(new java.awt.Color(0,0,0,1));
     }
+    
     private boolean checkNull(){
         if(User.getText().equals("")){
             Trangthai.setText("Bạn chưa nhập tài khoản đăng nhập!");
@@ -193,7 +194,7 @@ public class Login extends javax.swing.JFrame {
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
         checkNull();
-        String sql1 = "Select * from QLNV\n" + "where taiKhoan=? and matKhau=?";
+        String sql1 = "Select * from tblqlnv\n" + "where TaiKhoan=? and MatKhau=?";
         Connection conn = Mysql.getConnection();
         try {
             PreparedStatement ps = conn.prepareStatement(sql1);
@@ -201,8 +202,9 @@ public class Login extends javax.swing.JFrame {
             ps.setString(2,Password.getText());
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Detail detail = new Detail(rs.getString("taiKhoan").trim(),rs.getString("tenNV").trim(),rs.getString("Roll").trim());
+                Detail detail = new Detail(rs.getString("TaiKhoan").trim(),rs.getString("tenNV").trim(),rs.getString("Roll").trim());
                 quanlyquancafe_Main  main = new quanlyquancafe_Main(detail);
+                
                 this.setVisible(false);
                 main.setVisible(true);
             }

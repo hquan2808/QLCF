@@ -31,7 +31,7 @@ public class QLNV extends javax.swing.JFrame {
     boolean add = false;
     boolean change = false;
     private Detail detail;
-    private String sql="SELECT * FROM qlnv ORDER BY maNV";
+    private String sql="SELECT * FROM tblqlnv ORDER BY idNV";
     public QLNV(Detail d) {
         initComponents();
         setResizable(false);
@@ -179,7 +179,7 @@ public class QLNV extends javax.swing.JFrame {
     private void addNV(){
         if(checkNull()){
             try {
-                String sqlAddNV = "INSERT INTO QLNV (maNV,tenNV,ngaySinh,sdt,gioiTinh,diaChi,taiKhoan,matKhau,Roll) VALUES (N'"+tfMa.getText()+"',N'"+tfTen.getText()+"',N'"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',N'"+tfSdt.getText()+"',N'"+gioiTinh()+"',N'"+tfDiachi.getText()+"',N'"+tfTaikhoan.getText()+"',N'"+tfMatkhau.getText()+"',N'"+cbChucvu.getSelectedItem().toString()+"')";
+                String sqlAddNV = "INSERT INTO tblqlnv (idNV,tenNV,ngaySinh,sdt,GioiTinh,DiaChi,taiKhoan,MatKhau,Roll) VALUES (N'"+tfMa.getText()+"',N'"+tfTen.getText()+"',N'"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',N'"+tfSdt.getText()+"',N'"+gioiTinh()+"',N'"+tfDiachi.getText()+"',N'"+tfTaikhoan.getText()+"',N'"+tfMatkhau.getText()+"',N'"+cbChucvu.getSelectedItem().toString()+"')";
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlAddNV);
                 ps.execute();
@@ -196,7 +196,7 @@ public class QLNV extends javax.swing.JFrame {
         if(checkNull()){
             int click=table_QLNV.getSelectedRow();
             TableModel model=table_QLNV.getModel();
-            String sqlChange="UPDATE QLNV SET maNV='"+tfMa.getText()+"',Roll='"+cbChucvu.getSelectedItem().toString()+"', tenNV=N'"+tfTen.getText()+"', ngaySinh='"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',gioiTinh='"+gioiTinh()+"', sdt='"+(tfSdt.getText())+"', diaChi='"+tfDiachi.getText()+"',taiKhoan='"+(tfTaikhoan.getText())+"',matKhau='"+(tfMatkhau.getText())+"' WHERE maNV=N'"+model.getValueAt(click, 0)+"'";
+            String sqlChange="UPDATE tblqlnv SET idNV='"+tfMa.getText()+"',Roll='"+cbChucvu.getSelectedItem().toString()+"', tenNV=N'"+tfTen.getText()+"', ngaySinh='"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',GioiTinh='"+gioiTinh()+"', sdt='"+(tfSdt.getText())+"', diaChi='"+tfDiachi.getText()+"',taiKhoan='"+(tfTaikhoan.getText())+"',MatKhau='"+(tfMatkhau.getText())+"' WHERE idNV=N'"+model.getValueAt(click, 0)+"'";
             try {
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlChange);
@@ -217,7 +217,7 @@ public class QLNV extends javax.swing.JFrame {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                if(rs.getString("maNV").toString().trim().equals(tfMa.getText())){
+                if(rs.getString("idNV").toString().trim().equals(tfMa.getText())){
                     lbTrangthai.setText("Mã nhân viên đã tồn tại");
                     return false;
                 }
@@ -249,12 +249,12 @@ public class QLNV extends javax.swing.JFrame {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Vector vector=new Vector();
-                vector.add(rs.getString("maNV").trim());
+                vector.add(rs.getString("idNV").trim());
                 vector.add(rs.getString("tenNV").trim());
-                vector.add(rs.getString("gioiTinh").trim());
+                vector.add(rs.getString("GioiTinh").trim());
                 vector.add(rs.getString("ngaySinh").trim());
                 vector.add(rs.getString("sdt").trim());
-                vector.add(rs.getString("diaChi").trim());
+                vector.add(rs.getString("DiaChi").trim());
                 vector.add(rs.getString("Roll").trim());
                 model.addRow(vector);
             }
@@ -816,7 +816,7 @@ public class QLNV extends javax.swing.JFrame {
         int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa nhân viên này hay không?", "Thông báo", 2);
         if(click==JOptionPane.YES_OPTION){
             
-            String sqlDelete="DELETE FROM QLNV WHERE maNV='"+tfMa.getText()+"'";
+            String sqlDelete="DELETE FROM tblqlnv WHERE idNV='"+tfMa.getText()+"'";
             try {
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlDelete);
@@ -852,16 +852,13 @@ public class QLNV extends javax.swing.JFrame {
     private void tfSdtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSdtKeyReleased
        tfSdt.setText(cutChar(tfSdt.getText()));
         
-        if(tfSdt.getText().length()==11 || tfSdt.getText().length()==10 ){
-            
+        if(tfSdt.getText().length()==10 ){
             btnSave.setEnabled(true);
             lbTrangthai.setText("Số điện thoại đã hợp lệ!!");
         }
         else
-        if(tfSdt.getText().length()>11 || tfSdt.getText().length()<10){
             btnSave.setEnabled(false);
-            lbTrangthai.setText("Số điện thoại không được nhỏ hơn 10 số hoặc vượt quá 11 số!!");
-        }
+            lbTrangthai.setText("Số điện thoại không phải 11 số!!");
     }//GEN-LAST:event_tfSdtKeyReleased
     private void checkDecentralization(){
         if(String.valueOf(detail.getUser().substring(0, 4)).equals("User")){
@@ -873,7 +870,7 @@ public class QLNV extends javax.swing.JFrame {
         }
     }
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        String sql = "SELECT * FROM QLNV where maNV like N'%"+tfFind.getText()+"%' or tenNV like N'%"+tfFind.getText()+"%' or gioiTinh like N'%"+tfFind.getText()+"%' or ngaySinh like N'%"+tfFind.getText()+"%' or sdt like N'%"+tfFind.getText()+"%' or diaChi like N'%"+tfFind.getText()+"%' or taiKhoan like N'%"+tfFind.getText()+"%' or Roll like N'%"+tfFind.getText()+"'";
+        String sql = "SELECT * FROM tblqlnv where idNV like N'%"+tfFind.getText()+"%' or tenNV like N'%"+tfFind.getText()+"%' or GioiTinh like N'%"+tfFind.getText()+"%' or ngaySinh like N'%"+tfFind.getText()+"%' or sdt like N'%"+tfFind.getText()+"%' or DiaChi like N'%"+tfFind.getText()+"%' or taiKhoan like N'%"+tfFind.getText()+"%' or Roll like N'%"+tfFind.getText()+"'";
         Disabled();
         loadData(sql);
         tfFind.setText("");
@@ -981,15 +978,15 @@ public class QLNV extends javax.swing.JFrame {
 
     private void loadAccount(String s) {
         try {
-            String sql = "SELECT * FROM QLNV WHERE maNV = '"+s+"'";
+            String sql = "SELECT * FROM tblqlnv WHERE idNV = '"+s+"'";
             
             Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {                
                 tfTaikhoan.setText(rs.getString("taiKhoan").trim());
-                tfMatkhau.setText(rs.getString("matKhau").trim());
-                tfXacnhanmk.setText(rs.getString("matKhau").trim());
+                tfMatkhau.setText(rs.getString("MatKhau").trim());
+                tfXacnhanmk.setText(rs.getString("MatKhau").trim());
             } 
             rs.close();
         } catch (Exception e) {
