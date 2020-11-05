@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package quanlyquancafe_view;
-import Models.Detail;
 import Sql_and_library.Mysql;
 import java.awt.Dimension;
 import java.awt.Graphics;

@@ -29,7 +29,7 @@ public class Mysql {
             Connection connection = null;
             try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlycaphenew?serverTimezone=Asia/Bangkok", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlycaphenew?serverTimezone=UTC", "root", "");
             return connection;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -38,7 +38,7 @@ public class Mysql {
         }  
         public Mysql(){
             try{
-               conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlycaphenew?serverTimezone=Asia/Bangkok", "root", "");
+               conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlycaphenew?serverTimezone=UTC", "root", "");
            }catch(SQLException ex){
                JOptionPane.showMessageDialog(null, "Kết nối thất bại !");
            }  

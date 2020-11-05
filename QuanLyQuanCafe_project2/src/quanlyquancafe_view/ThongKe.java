@@ -5,7 +5,6 @@
  */
 package quanlyquancafe_view;
 
-import Models.Detail;
 import Sql_and_library.Mysql;
 import java.awt.Color;
 import java.awt.Font;

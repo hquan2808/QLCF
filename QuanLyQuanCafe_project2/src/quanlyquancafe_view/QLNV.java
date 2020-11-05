@@ -5,7 +5,6 @@
  */
 package quanlyquancafe_view;
 
-import Models.Detail;
 import Sql_and_library.Mysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
