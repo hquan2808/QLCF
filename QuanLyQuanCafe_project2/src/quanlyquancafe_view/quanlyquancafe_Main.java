@@ -30,9 +30,9 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         Connection conn = Mysql.getConnection();
         detail = new Detail(d);
         if(detail.getRoll().equals("Nhân viên")){
-            pn_QLDU.setEnabled(false);
-            pn_QLNV.setEnabled(false);
-            pn_thongke.setEnabled(false);
+            pn_QLDU.setVisible(false);
+            pn_QLNV.setVisible(false);
+            pn_thongke.setVisible(false);
         }
     }
     private void setColor(JPanel panel){
@@ -299,7 +299,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Quản lý nhân viên");
+        jLabel9.setText("Quản lý");
 
         javax.swing.GroupLayout pn_QLNVLayout = new javax.swing.GroupLayout(pn_QLNV);
         pn_QLNV.setLayout(pn_QLNVLayout);
@@ -595,9 +595,9 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
     private void pn_QLNVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLNVMousePressed
         // TODO add your handling code here:
-        QLNV qlnv = new QLNV(detail);
+        QuanLy ql = new QuanLy(detail);
         this.setVisible(false);
-        qlnv.setVisible(true);
+        ql.setVisible(true);
     }//GEN-LAST:event_pn_QLNVMousePressed
 
     private void pn_thongtinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongtinMousePressed

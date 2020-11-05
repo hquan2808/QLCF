@@ -5,15 +5,10 @@
  */
 package quanlyquancafe_view;
 import Sql_and_library.Mysql;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -24,38 +19,43 @@ public class KhachHang extends javax.swing.JFrame {
     /**
      * Creates new form KhacHang
      */
-    private Detail detail;
-    private String sql="SELECT * FROM tblkhachhang INNER JOIN tblloaikhachhang ON tblkhachhang.MaLKH = tblloaikhachhang.MaLKH";
+    private final Detail detail;
+    private final String sql="SELECT * FROM tblkhachhang INNER JOIN tblloaikhachhang ON tblkhachhang.MaLKH = tblloaikhachhang.MaLKH";
     public KhachHang(Detail d) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(this);
         detail = new Detail(d); 
         loadData(sql);
-        
+    }
+    private String getMoTa(String string){
+        return cb_MoTa.getSelectedItem().toString();
+    }
+    private String getSDT(String string){
+        return tfSDT.getText();
     }
     private void Refresh(){
-        tfMaKH.setText("");
         tfSDT.setText("");
+        cb_MoTa.setSelectedIndex(0);
     }
     private void loadData(String sql){
         try{
-            String[] arry={"Mã Khách Hàng","Tên Khách Hàng","Số điện thoại","Mô tả","Giảm giá"};
+            String[] arry={"Tên Khách Hàng","Số điện thoại","Mô tả","Giảm giá"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                Vector vector=new Vector();
-                vector.add(rs.getString("MaKhachHang").trim());
-                vector.add(rs.getString("tenKH").trim());
-                vector.add(rs.getString("SDT").trim());
-                vector.add(rs.getString("MoTa").trim());
-                vector.add(rs.getInt("GiamGia"));
-                model.addRow(vector);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while(rs.next()){
+                        Vector vector=new Vector();
+                        vector.add(rs.getString("tenKH").trim());
+                        vector.add(rs.getString("SDT").trim());
+                        vector.add(rs.getString("MoTa").trim());
+                        vector.add(rs.getInt("GiamGia")+"%");
+                        model.addRow(vector);
+                }
+                tableKH.setModel(model);
             }
-            tableKH.setModel(model);
-            rs.close();
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -77,12 +77,12 @@ public class KhachHang extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableKH = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tfMaKH = new javax.swing.JTextField();
         tfSDT = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnRefresh1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        cb_MoTa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -150,12 +150,7 @@ public class KhachHang extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 107, 135));
         jLabel2.setText("Tìm kiếm");
 
-        jLabel3.setText("Mã KH : ");
-
         jLabel4.setText("SĐT : ");
-
-        tfMaKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 107, 135)));
-        tfMaKH.setOpaque(false);
 
         tfSDT.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 107, 135)));
         tfSDT.setOpaque(false);
@@ -176,6 +171,10 @@ public class KhachHang extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Cấp độ : ");
+
+        cb_MoTa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn cấp bậc", "Khách thường", "Bronze", "Silver", "Gold" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -186,16 +185,6 @@ public class KhachHang extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfSDT)
-                            .addComponent(tfMaKH))
-                        .addGap(48, 48, 48))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -205,7 +194,17 @@ public class KhachHang extends javax.swing.JFrame {
                                 .addComponent(btnRefresh1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(74, 74, 74))))))
+                                .addGap(74, 74, 74))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfSDT)
+                            .addComponent(cb_MoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,15 +214,15 @@ public class KhachHang extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(70, 70, 70)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(tfMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
+                        .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(tfSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(86, 86, 86)
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cb_MoTa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(100, 100, 100)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRefresh1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -254,14 +253,21 @@ public class KhachHang extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        String sql1="SELECT * FROM tblkhachhang INNER JOIN tblloaikhachhang ON tblkhachhang.MaLKH = tblloaikhachhang.MaLKH WHERE MaKhachHang LIKE N'%"+tfMaKH.getText()+"%' OR SDT LIKE "+tfSDT.getText()+"";
-        loadData(sql1);
+        String sql_base = "SELECT * FROM tblkhachhang INNER JOIN tblloaikhachhang ON tblkhachhang.MaLKH = tblloaikhachhang.MaLKH WHERE SDT LIKE N'%"+tfSDT.getText()+"%'";
+        String sql="SELECT * FROM tblkhachhang INNER JOIN tblloaikhachhang ON tblkhachhang.MaLKH = tblloaikhachhang.MaLKH WHERE SDT LIKE N'%"+tfSDT.getText()+"%' AND MoTa LIKE N'%"+cb_MoTa.getSelectedItem().toString()+"%'";
+        
+        if(cb_MoTa.getSelectedItem().toString().equals("Chọn cấp bậc")){
+            loadData(sql_base);
+        }else{
+            loadData(sql);
+        }
         Refresh();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefresh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh1ActionPerformed
         // TODO add your handling code here:
         Refresh();
+        loadData(sql);
     }//GEN-LAST:event_btnRefresh1ActionPerformed
 
     /**
@@ -310,6 +316,7 @@ public class KhachHang extends javax.swing.JFrame {
     private javax.swing.JButton btnRefresh1;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel btn_home;
+    private javax.swing.JComboBox<String> cb_MoTa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -318,7 +325,6 @@ public class KhachHang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableKH;
-    private javax.swing.JTextField tfMaKH;
     private javax.swing.JTextField tfSDT;
     // End of variables declaration//GEN-END:variables
 }
