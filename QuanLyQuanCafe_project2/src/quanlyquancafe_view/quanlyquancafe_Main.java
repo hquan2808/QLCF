@@ -35,7 +35,6 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         Connection conn = Mysql.getConnection();
         detail = new Detail(d);
         if(detail.getRoll().equals("Nhân viên")){
-            pn_QLDU.setEnabled(false);
             pn_QLNV.setEnabled(false);
             pn_thongke.setEnabled(false);
         }
@@ -69,25 +68,19 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         pn_thongtin = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        pn_datban = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         pn_thongke = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         pn_banhang = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        pn_QLDU = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         pn_QLNV = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         pn_dangxuat = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        pn_KH = new javax.swing.JPanel();
+        pn_thoat = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -95,6 +88,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(912, 585));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -124,11 +118,11 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         pn_thongtin.setLayout(pn_thongtinLayout);
         pn_thongtinLayout.setHorizontalGroup(
             pn_thongtinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pn_thongtinLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         pn_thongtinLayout.setVerticalGroup(
             pn_thongtinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,45 +131,6 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addContainerGap())
-        );
-
-        pn_datban.setBackground(new java.awt.Color(51, 107, 135));
-        pn_datban.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pn_datbanMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                pn_datbanMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pn_datbanMousePressed(evt);
-            }
-        });
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_jingle_bell_100px.png"))); // NOI18N
-
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Đặt bàn");
-
-        javax.swing.GroupLayout pn_datbanLayout = new javax.swing.GroupLayout(pn_datban);
-        pn_datban.setLayout(pn_datbanLayout);
-        pn_datbanLayout.setHorizontalGroup(
-            pn_datbanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-            .addGroup(pn_datbanLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pn_datbanLayout.setVerticalGroup(
-            pn_datbanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_datbanLayout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addGap(7, 7, 7))
         );
 
         pn_thongke.setBackground(new java.awt.Color(51, 107, 135));
@@ -202,9 +157,9 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         pn_thongke.setLayout(pn_thongkeLayout);
         pn_thongkeLayout.setHorizontalGroup(
             pn_thongkeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_thongkeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(23, 23, 23))
         );
@@ -213,7 +168,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
             .addGroup(pn_thongkeLayout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                 .addGap(7, 7, 7))
         );
 
@@ -241,58 +196,19 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         pn_banhang.setLayout(pn_banhangLayout);
         pn_banhangLayout.setHorizontalGroup(
             pn_banhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pn_banhangLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         pn_banhangLayout.setVerticalGroup(
             pn_banhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_banhangLayout.createSequentialGroup()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
                 .addGap(7, 7, 7))
-        );
-
-        pn_QLDU.setBackground(new java.awt.Color(51, 107, 135));
-        pn_QLDU.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pn_QLDUMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                pn_QLDUMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pn_QLDUMousePressed(evt);
-            }
-        });
-
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_coffee_to_go_100px_1.png"))); // NOI18N
-
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Quản lý đồ uống");
-
-        javax.swing.GroupLayout pn_QLDULayout = new javax.swing.GroupLayout(pn_QLDU);
-        pn_QLDU.setLayout(pn_QLDULayout);
-        pn_QLDULayout.setHorizontalGroup(
-            pn_QLDULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pn_QLDULayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel12)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pn_QLDULayout.setVerticalGroup(
-            pn_QLDULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_QLDULayout.createSequentialGroup()
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addContainerGap())
         );
 
         pn_QLNV.setBackground(new java.awt.Color(51, 107, 135));
@@ -314,17 +230,17 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Quản lý nhân viên");
+        jLabel9.setText("Quản lý");
 
         javax.swing.GroupLayout pn_QLNVLayout = new javax.swing.GroupLayout(pn_QLNV);
         pn_QLNV.setLayout(pn_QLNVLayout);
         pn_QLNVLayout.setHorizontalGroup(
             pn_QLNVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pn_QLNVLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         pn_QLNVLayout.setVerticalGroup(
             pn_QLNVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,11 +275,11 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         pn_dangxuat.setLayout(pn_dangxuatLayout);
         pn_dangxuatLayout.setHorizontalGroup(
             pn_dangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pn_dangxuatLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel16)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         pn_dangxuatLayout.setVerticalGroup(
             pn_dangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,43 +290,43 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pn_KH.setBackground(new java.awt.Color(51, 107, 135));
-        pn_KH.addMouseListener(new java.awt.event.MouseAdapter() {
+        pn_thoat.setBackground(new java.awt.Color(51, 107, 135));
+        pn_thoat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pn_KHMouseEntered(evt);
+                pn_thoatMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                pn_KHMouseExited(evt);
+                pn_thoatMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pn_KHMousePressed(evt);
+                pn_thoatMousePressed(evt);
             }
         });
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_customer_100px.png"))); // NOI18N
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_close_window_100px.png"))); // NOI18N
 
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Khách hàng");
+        jLabel19.setText("Thoát");
 
-        javax.swing.GroupLayout pn_KHLayout = new javax.swing.GroupLayout(pn_KH);
-        pn_KH.setLayout(pn_KHLayout);
-        pn_KHLayout.setHorizontalGroup(
-            pn_KHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pn_thoatLayout = new javax.swing.GroupLayout(pn_thoat);
+        pn_thoat.setLayout(pn_thoatLayout);
+        pn_thoatLayout.setHorizontalGroup(
+            pn_thoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_KHLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_thoatLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel18)
                 .addGap(23, 23, 23))
         );
-        pn_KHLayout.setVerticalGroup(
-            pn_KHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_KHLayout.createSequentialGroup()
+        pn_thoatLayout.setVerticalGroup(
+            pn_thoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_thoatLayout.createSequentialGroup()
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel19)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -418,43 +334,36 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pn_QLNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pn_QLDU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(124, 124, 124)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pn_thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_banhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(124, 124, 124)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pn_datban, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_KH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addGap(100, 100, 100)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pn_thongke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_dangxuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(120, 120, 120))
+                    .addComponent(pn_QLNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(122, 122, 122)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pn_banhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(140, 140, 140)
+                        .addComponent(pn_thongke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pn_dangxuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pn_thoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pn_thongke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pn_datban, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pn_banhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pn_QLDU, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pn_KH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pn_QLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pn_thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pn_dangxuat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(74, 74, 74))
+                    .addComponent(pn_thongke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_banhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_QLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(63, 63, 63)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pn_thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_dangxuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_thoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(51, 107, 135));
@@ -469,31 +378,35 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(131, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 984, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(205, 205, 205))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(52, 52, 52))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1209, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE))
+                .addGap(0, 297, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
         );
 
         pack();
@@ -505,35 +418,10 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         setColor(pn_thongtin);
     }//GEN-LAST:event_pn_thongtinMouseEntered
 
-    private void pn_QLDUMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLDUMouseEntered
-        // TODO add your handling code here:
-        setColor(pn_QLDU);
-    }//GEN-LAST:event_pn_QLDUMouseEntered
-
-    private void pn_QLDUMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLDUMouseExited
-        // TODO add your handling code here:
-        resetColor(pn_QLDU);
-    }//GEN-LAST:event_pn_QLDUMouseExited
-
-    private void pn_KHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_KHMouseEntered
-        // TODO add your handling code here:
-        setColor(pn_KH);
-    }//GEN-LAST:event_pn_KHMouseEntered
-
     private void pn_banhangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_banhangMouseExited
         // TODO add your handling code here:
         resetColor(pn_banhang);
     }//GEN-LAST:event_pn_banhangMouseExited
-
-    private void pn_KHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_KHMouseExited
-        // TODO add your handling code here:
-        resetColor(pn_KH);
-    }//GEN-LAST:event_pn_KHMouseExited
-
-    private void pn_datbanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_datbanMouseExited
-        // TODO add your handling code here:
-        resetColor(pn_datban);
-    }//GEN-LAST:event_pn_datbanMouseExited
 
     private void pn_thongkeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMouseExited
         // TODO add your handling code here:
@@ -565,11 +453,6 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         setColor(pn_banhang);
     }//GEN-LAST:event_pn_banhangMouseEntered
 
-    private void pn_datbanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_datbanMouseEntered
-        // TODO add your handling code here:
-        setColor(pn_datban);
-    }//GEN-LAST:event_pn_datbanMouseEntered
-
     private void pn_thongkeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMouseEntered
         // TODO add your handling code here:
         setColor(pn_thongke);
@@ -580,26 +463,12 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         setColor(pn_QLNV);
     }//GEN-LAST:event_pn_QLNVMouseEntered
 
-    private void pn_QLDUMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLDUMousePressed
-        // TODO add your handling code here:
-//        QLDU qldu = new QLDU(detail);
-//        this.setVisible(false);
-//        qldu.setVisible(true);
-    }//GEN-LAST:event_pn_QLDUMousePressed
-
     private void pn_banhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_banhangMousePressed
         // TODO add your handling code here:
         BanHang banhang = new BanHang(detail);
         this.setVisible(false);
         banhang.setVisible(true);
     }//GEN-LAST:event_pn_banhangMousePressed
-
-    private void pn_datbanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_datbanMousePressed
-        // TODO add your handling code here:
-//        DatBan datban = new DatBan(detail);
-//        this.setVisible(false);
-//        datban.setVisible(true);
-    }//GEN-LAST:event_pn_datbanMousePressed
 
     private void pn_thongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMousePressed
         // TODO add your handling code here:
@@ -632,12 +501,23 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pn_dangxuatMousePressed
 
-    private void pn_KHMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_KHMousePressed
+    private void pn_thoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thoatMouseEntered
         // TODO add your handling code here:
-        KhachHang KhachHang = new KhachHang(detail);
-        this.setVisible(false);
-        KhachHang.setVisible(true);  
-    }//GEN-LAST:event_pn_KHMousePressed
+        setColor(pn_thoat);
+    }//GEN-LAST:event_pn_thoatMouseEntered
+
+    private void pn_thoatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thoatMouseExited
+        // TODO add your handling code here:
+        resetColor(pn_thoat);
+    }//GEN-LAST:event_pn_thoatMouseExited
+
+    private void pn_thoatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thoatMousePressed
+        // TODO add your handling code here:
+        int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn thoát chương trình hay không?", "Thông báo", 2);
+        if(click==JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_pn_thoatMousePressed
 
     /**
      * @param args the command line arguments
@@ -692,28 +572,22 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel pn_KH;
-    private javax.swing.JPanel pn_QLDU;
     private javax.swing.JPanel pn_QLNV;
     private javax.swing.JPanel pn_banhang;
     private javax.swing.JPanel pn_dangxuat;
-    private javax.swing.JPanel pn_datban;
+    private javax.swing.JPanel pn_thoat;
     private javax.swing.JPanel pn_thongke;
     private javax.swing.JPanel pn_thongtin;
     // End of variables declaration//GEN-END:variables
