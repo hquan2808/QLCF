@@ -243,6 +243,15 @@ public class QuanLy extends javax.swing.JFrame {
 
     private void BTN_QLBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_QLBMouseClicked
         // TODO add your handling code here:
+        BTN_QLB.setBorder(BorderFactory.createLineBorder((Color.black)));
+        BTN_QLLHH.setBorder(null);
+        BTN_QLHH.setBorder(null);
+        BTN_QLNV.setBorder(null);
+        jpBan qlb = new jpBan(detail);
+        qlb.setSize(1050,650);
+        jPanel7.removeAll();
+        jPanel7.add(qlb);
+        jPanel7.updateUI();
     }//GEN-LAST:event_BTN_QLBMouseClicked
 
     private void BTN_QLLHHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_QLLHHMouseClicked
