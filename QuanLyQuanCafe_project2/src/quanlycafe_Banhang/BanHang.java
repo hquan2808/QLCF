@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import quanlyquancafe_view.Login;
 import quanlyquancafe_view.quanlyquancafe_Main;
 
 /**
@@ -40,6 +41,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         initComponents();
         setResizable(false);
         setLocationRelativeTo(this);
+        detail= new Detail(d);
         lbNhanVien.setText(d.getName());
         lblTime.setText(String.valueOf(new SimpleDateFormat("HH:mm:ss").format(new java.util.Date())));
         lblDate.setText(String.valueOf(new SimpleDateFormat("EEEE dd/MM/yyyy").format(new java.util.Date())));
@@ -329,14 +331,14 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Detail detail= new Detail();
-//                if(detail.getRoll().equals("3")){
-//                   new BanHang(detail).setVisible(false);
-//                   Login login = new Login();
-//                   login.setVisible(true);
-//                }else{
+                if(detail.getRoll().equals("3")){
+                   new BanHang(detail).setVisible(false);
+                   Login login = new Login();
+                   login.setVisible(true);
+                }else{
                 new BanHang(detail).setVisible(true);
                 }
-//            }
+            }
         });
     }
 

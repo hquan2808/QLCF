@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import Models.Detail;
+import quanlyquancafe_view.quanlyquancafe_Main;
 /**
  *
  * @author Hoang Quan
@@ -46,6 +47,7 @@ public class QuanLy extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        btn_home = new javax.swing.JLabel();
         BTN_QLNV = new keeptoo.KButton();
         BTN_QLB = new keeptoo.KButton();
         BTN_QLHH = new keeptoo.KButton();
@@ -68,12 +70,20 @@ public class QuanLy extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Quản Lý");
 
+        btn_home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_back_arrow_50px.png"))); // NOI18N
+        btn_home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_homeMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+                .addComponent(btn_home)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(54, 54, 54))
         );
@@ -83,6 +93,9 @@ public class QuanLy extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3)
                 .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(btn_home)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         BTN_QLNV.setText("QUẢN LÝ NHÂN VIÊN");
@@ -245,6 +258,13 @@ public class QuanLy extends javax.swing.JFrame {
         jPanel7.updateUI();
     }//GEN-LAST:event_BTN_QLLHHMouseClicked
 
+    private void btn_homeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMousePressed
+        // TODO add your handling code here:
+        quanlyquancafe_Main home = new quanlyquancafe_Main(detail);
+        this.setVisible(false);
+        home.setVisible(true);
+    }//GEN-LAST:event_btn_homeMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -292,6 +312,7 @@ public class QuanLy extends javax.swing.JFrame {
     private keeptoo.KButton BTN_QLHH;
     private keeptoo.KButton BTN_QLLHH;
     private keeptoo.KButton BTN_QLNV;
+    private javax.swing.JLabel btn_home;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
