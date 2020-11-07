@@ -3,32 +3,35 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="17"/>
-	<queryString language="SQL">
+	<parameter name="Mahoadon" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[SELECT
-     HoaDon."tenNuoc" AS HoaDon_tenNuoc,
-     HoaDon."soLuong" AS HoaDon_soLuong,
-     HoaDon."thanhTien" AS HoaDon_thanhTien,
-     ThongTinHoaDon."ban" AS ThongTinHoaDon_ban,
-     ThongTinHoaDon."tongTien" AS ThongTinHoaDon_tongTien,
-     ThongTinHoaDon."tienKH" AS ThongTinHoaDon_tienKH,
-     ThongTinHoaDon."tienThua" AS ThongTinHoaDon_tienThua,
-     ThongTinHoaDon."tenNV" AS ThongTinHoaDon_tenNV,
-     ThongTinHoaDon."ngay" AS ThongTinHoaDon_ngay,
-     ThongTinHoaDon."thoiGian" AS ThongTinHoaDon_thoiGian
+     tblban.`TenBan` AS tblban_TenBan,
+     tblchitiethd.`Gia` AS tblchitiethd_Gia,
+     tblhoadon.`GioDen` AS tblhoadon_GioDen,
+     tblhoadon.`TongTien` AS tblhoadon_TongTien,
+     tblthucdon.`TenMon` AS tblthucdon_TenMon,
+     tblxuathoadon.`mahoadon` AS tblxuathoadon_mahoadon,
+     tblchitiethd.`SoLuong` AS tblchitiethd_SoLuong,
+     tblhoadon.`MaHoaDon` AS tblhoadon_MaHoaDon
 FROM
-     "dbo"."HoaDon" HoaDon,
-     "dbo"."ThongTinHoaDon" ThongTinHoaDon]]>
+     `tblban` tblban INNER JOIN `tblhoadon` tblhoadon ON tblban.`MaBan` = tblhoadon.`MaBan`
+     INNER JOIN `tblchitiethd` tblchitiethd ON tblhoadon.`MaHoaDon` = tblchitiethd.`MaHoaDon`
+     INNER JOIN `tblxuathoadon` tblxuathoadon ON tblhoadon.`MaHoaDon` = tblxuathoadon.`mahoadon`
+     INNER JOIN `tblthucdon` tblthucdon ON tblchitiethd.`MaMon` = tblthucdon.`MaMon`
+     INNER JOIN `tblnhommon` tblnhommon ON tblthucdon.`MaLoai` = tblnhommon.`MaLoai`
+where 
+	tblhoadon.`MaHoaDon` = tblxuathoadon.`mahoadon`]]>
 	</queryString>
-	<field name="HoaDon_tenNuoc" class="java.lang.String"/>
-	<field name="HoaDon_soLuong" class="java.lang.Integer"/>
-	<field name="HoaDon_thanhTien" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_ban" class="java.lang.Integer"/>
-	<field name="ThongTinHoaDon_tongTien" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_tienKH" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_tienThua" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_tenNV" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_ngay" class="java.lang.String"/>
-	<field name="ThongTinHoaDon_thoiGian" class="java.lang.String"/>
+	<field name="tblban_TenBan" class="java.lang.String"/>
+	<field name="tblchitiethd_Gia" class="java.lang.Integer"/>
+	<field name="tblhoadon_GioDen" class="java.sql.Timestamp"/>
+	<field name="tblhoadon_TongTien" class="java.lang.Integer"/>
+	<field name="tblthucdon_TenMon" class="java.lang.String"/>
+	<field name="tblxuathoadon_mahoadon" class="java.lang.Integer"/>
+	<field name="tblchitiethd_SoLuong" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -64,51 +67,50 @@ FROM
 		</band>
 	</title>
 	<pageHeader>
-		<band height="22" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="50" height="20" uuid="7bd837c4-f2db-421c-b762-8e68ca878ef2"/>
-				<text><![CDATA[Ngày bán:]]></text>
-			</staticText>
+		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement x="50" y="0" width="107" height="20" uuid="ffdfd011-e67a-4bb4-a7ed-981a69f2195f"/>
+				<reportElement x="144" y="0" width="116" height="20" uuid="ffdfd011-e67a-4bb4-a7ed-981a69f2195f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tblhoadon_GioDen}.toString()]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="67" height="20" uuid="0f8f4a44-9b07-4cfd-9d51-23e7667a3341"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tblban_TenBan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="67" y="1" width="77" height="20" uuid="19abf743-a537-469b-b588-56e70eacefe5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Ngày Bán :]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="41" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="0" width="260" height="1" uuid="bbb65a73-54fe-466f-ae1b-ecb179b28a31"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="1" width="50" height="20" uuid="3ba83666-7967-48d1-914f-333ef907f064"/>
-				<textElement>
-					<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[Bàn số:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="50" y="0" width="36" height="21" uuid="0f8f4a44-9b07-4cfd-9d51-23e7667a3341"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-			</textField>
-			<staticText>
-				<reportElement x="167" y="21" width="93" height="20" uuid="6e9d0588-f3f8-48f2-b906-8e8c1d466766"/>
-				<textElement>
+				<reportElement x="167" y="1" width="93" height="20" uuid="6e9d0588-f3f8-48f2-b906-8e8c1d466766"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Thành tiền]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="21" width="111" height="20" uuid="a7a1ba19-0827-48ee-8b27-cd433fac0cc7"/>
+				<reportElement x="0" y="1" width="111" height="20" uuid="a7a1ba19-0827-48ee-8b27-cd433fac0cc7"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tên thức uống]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="111" y="21" width="56" height="20" uuid="5b7ca9de-f6e4-40bd-adcb-7eb1c69593ee"/>
-				<textElement>
+				<reportElement x="111" y="1" width="56" height="20" uuid="5b7ca9de-f6e4-40bd-adcb-7eb1c69593ee"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Số lượng]]></text>
@@ -119,12 +121,17 @@ FROM
 		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="111" y="0" width="56" height="20" uuid="086f195e-cb44-40c5-b8d5-8455a105f427"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tblchitiethd_SoLuong}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="111" height="20" uuid="7bfccb58-e0c3-4c4b-bf07-f6babfdc283d"/>
+				<textFieldExpression><![CDATA[$F{tblthucdon_TenMon}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="167" y="0" width="93" height="20" uuid="b7de92c8-f92f-4137-9b6e-6b0c7da33487"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tblchitiethd_Gia}*$F{tblchitiethd_SoLuong}+" VNĐ"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -142,7 +149,7 @@ FROM
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="122" splitType="Stretch">
+		<band height="90" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="260" height="10" uuid="d61c2e4f-ef8b-41e8-a7bc-f3cfe95320ac"/>
 				<box>
@@ -163,6 +170,8 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement x="167" y="10" width="93" height="20" uuid="f4150a0b-31e7-48ea-99c4-ab604fc20d6c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tblhoadon_TongTien}+" VNĐ"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="30" width="260" height="12" uuid="ead3edb2-ca15-4589-9177-1196c64fb6b5"/>
