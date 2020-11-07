@@ -18,6 +18,7 @@ import Models.DsOrder;
 import Models.HoaDon;
 import Models.Loai;
 import Models.ThucDon;
+import java.util.Vector;
 
 /**
  *
@@ -29,7 +30,7 @@ public class Mysql {
             Connection connection = null;
             try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quancaphe?serverTimezone=UTC", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/crewmate?serverTimezone=Asia/Bangkok", "root", "");
             return connection;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -38,7 +39,7 @@ public class Mysql {
         }  
         public Mysql(){
             try{
-               conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quancaphe?serverTimezone=UTC", "root", "");
+               conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/crewmate?serverTimezone=Asia/Bangkok", "root", "");
            }catch(SQLException ex){
                JOptionPane.showMessageDialog(null, "Kết nối thất bại !");
            }  
@@ -47,9 +48,9 @@ public class Mysql {
         ArrayList<ThucDon> arrThucDon = null;
         String sql;
         if(ma == null){
-            sql = "Select * From thucdon";
+            sql = "Select * From tblthucdon";
         }else{
-            sql = "Select * From thucdon Where MaLoai = '"+ma+"'";
+            sql = "Select * From tblthucdon Where MaLoai = '"+ma+"'";
         }
         try{
             Statement st = conn.createStatement();
@@ -66,7 +67,7 @@ public class Mysql {
     }
         public ArrayList<Loai> GetLoai(){
         ArrayList<Loai> arrloai = null;
-        String sql = "Select * From nhommon";
+        String sql = "Select * From tblnhommon";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -82,7 +83,7 @@ public class Mysql {
     }
     public int UpDateTrangThaiBan(Ban b){
          int update = 0;
-        String sql = "UPDATE ban SET TrangThai = '"+b.GetTrangThai()+"' WHERE MaBan = '"+b.GetMaBan()+"'";
+        String sql = "UPDATE tblban SET TrangThai = '"+b.GetTrangThai()+"' WHERE MaBan = '"+b.GetMaBan()+"'";
         try{
             Statement st = conn.createStatement();
             update = st.executeUpdate(sql);
@@ -93,7 +94,7 @@ public class Mysql {
     }
     public int UpdateChiTiet(ChiTietHD ct){
         int update = 0;
-        String sql = "UPDATE chitiethd SET SoLuong = '"+ct.GetSoLuong()+"', Gia = '"+ct.GetGia()+"' WHERE MaChiTietHD = '"+ct.GetMaChiTietHD()+"'";
+        String sql = "UPDATE tblchitiethd SET SoLuong = '"+ct.GetSoLuong()+"', Gia = '"+ct.GetGia()+"' WHERE MaChiTietHD = '"+ct.GetMaChiTietHD()+"'";
         try{
             Statement st = conn.createStatement();
             update = st.executeUpdate(sql);
@@ -104,7 +105,7 @@ public class Mysql {
     }
     public int InsertHoaDon(HoaDon hd, String gio){
         int insert = 0;
-        String sql = "Insert into hoadon (MaBan, GioDen, TrangThai) values ('"+hd.GetMaBan()+"', '"+gio+"', '"+hd.GetTrangThai()+"')";
+        String sql = "Insert into tblhoadon (MaBan, GioDen, TrangThai) values ('"+hd.GetMaBan()+"', '"+gio+"', '"+hd.GetTrangThai()+"')";
         try{
             Statement st = conn.createStatement();
             insert = st.executeUpdate(sql);
@@ -114,7 +115,7 @@ public class Mysql {
     }
     public int ThanhToan(HoaDon hd){
         int update = 0;
-        String sql = "UPDATE hoadon SET TongTien = '"+hd.GetTongTien()+"', TrangThai = 1 WHERE MaHoaDon = '"+hd.GetMaHD()+"'";
+        String sql = "UPDATE tblhoadon SET TongTien = '"+hd.GetTongTien()+"', TrangThai = 1 WHERE MaHoaDon = '"+hd.GetMaHD()+"'";
         try{
             Statement st = conn.createStatement();
             update = st.executeUpdate(sql);
@@ -125,7 +126,7 @@ public class Mysql {
     }
     public int HuyHD(HoaDon hd){
         int update = 0;
-        String sql = "Delete From hoadon WHERE MaHoaDon = '"+hd.GetMaHD()+"'";
+        String sql = "Delete From tblhoadon WHERE MaHoaDon = '"+hd.GetMaHD()+"'";
         try{
             Statement st = conn.createStatement();
             update = st.executeUpdate(sql);
@@ -138,9 +139,9 @@ public class Mysql {
         ArrayList<Ban> arrBan = null;
         String sql;
         if(maban == 0)
-            sql = "Select * From ban";
+            sql = "Select * From tblban";
         else
-            sql = "Select * From ban Where maBan = '"+maban+"'";
+            sql = "Select * From tblban Where maBan = '"+maban+"'";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -158,7 +159,7 @@ public class Mysql {
         int check = 0;
         try{
             String sql;
-            sql = "Delete From chitiethd Where MaMon = '"+mamon+"' AND MaHoaDon = '"+mahd+"'";
+            sql = "Delete From tblchitiethd Where MaMon = '"+mamon+"' AND MaHoaDon = '"+mahd+"'";
             Statement st = conn.createStatement();
             st.executeUpdate(sql);
             check = 1;
@@ -173,7 +174,7 @@ public class Mysql {
     public int CheckDsMon(int mahd, int maban){
         String sql;
         int dem = 0;
-            sql = "Select * From hoadon AS hd INNER JOIN chitiethd AS ct ON ct.MaHoaDon = hd.MaHoaDon Where MaBan = '"+maban+"' AND ct.MaHoaDon = '"+mahd+"' AND TrangThai = 0";
+            sql = "Select * From tblhoadon AS hd INNER JOIN tblchitiethd AS ct ON ct.MaHoaDon = hd.MaHoaDon Where MaBan = '"+maban+"' AND ct.MaHoaDon = '"+mahd+"' AND TrangThai = 0";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -187,7 +188,7 @@ public class Mysql {
     }   
     public int UpdateBan(Ban b){
         int update = 0;
-        String sql = "UPDATE ban SET TenBan = '"+b.GetTenBan()+"', TrangThai = '"+b.GetTrangThai()+"' WHERE MaBan = '"+b.GetMaBan()+"'";
+        String sql = "UPDATE tblban SET TenBan = '"+b.GetTenBan()+"', TrangThai = '"+b.GetTrangThai()+"' WHERE MaBan = '"+b.GetMaBan()+"'";
         try{
             Statement st = conn.createStatement();
             update = st.executeUpdate(sql);
@@ -198,7 +199,7 @@ public class Mysql {
     }
     public String GetMaLoai(String TenLoai){
         String maloai = null;
-        String sql = "Select MaLoai From nhommon Where TenLoai = '"+TenLoai+"'";
+        String sql = "Select MaLoai From tblnhommon Where TenLoai = '"+TenLoai+"'";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -215,7 +216,7 @@ public class Mysql {
         ArrayList<ThucDon> arrThucDon = null;
         String sql;
 
-            sql = "Select * From thucdon Where MaMon = '"+ma+"'";
+            sql = "Select * From tblthucdon Where MaMon = '"+ma+"'";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -232,7 +233,7 @@ public class Mysql {
      public ArrayList<DsOrder> GetDsOrder(int ma){
         ArrayList<DsOrder> arrDs = null;
         String sql;
-            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, MaHoaDon From chitiethd AS ct INNER JOIN thucdon AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '"+ma+"'";
+            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, MaHoaDon From tblchitiethd AS ct INNER JOIN tblthucdon AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '"+ma+"'";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -250,7 +251,7 @@ public class Mysql {
         ChiTietHD arrDs = null;
         String sql;
 
-            sql = "Select SoLuong, Gia, MaChiTietHD From chitiethd AS ct INNER JOIN hoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon Where MaMon = '"+ma+"' AND MaBan = '"+maban+"' AND hd.TrangThai = 0";
+            sql = "Select SoLuong, Gia, MaChiTietHD From tblchitiethd AS ct INNER JOIN tblhoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon Where MaMon = '"+ma+"' AND MaBan = '"+maban+"' AND hd.TrangThai = 0";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -268,7 +269,7 @@ public class Mysql {
     public HoaDon GetHDbyMaBan(int ma){
         String sql;
         HoaDon arrhd = null;
-            sql = "Select * From hoadon Where MaBan = '"+ma+"' AND TrangThai = 0";
+            sql = "Select * From tblhoadon Where MaBan = '"+ma+"' AND TrangThai = 0";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -296,9 +297,34 @@ public class Mysql {
         }
         return mahd;        
     } 
+    public Loai GetLoaiByMa(String manhom){
+        Loai loai = null;
+        String sql = "Select * From tblnhommon Where MaLoai = '"+manhom+"'";
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                loai = new Loai(rs.getString(1), rs.getString(2), rs.getString(3));
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi !");
+        }
+        return loai; 
+    }
+    public int UpdateLoai(Loai b){
+        int update = 0;
+        String sql = "UPDATE tblnhommon SET TenLoai = '"+b.GetTenLoai()+"', MauSac = '"+b.GetMauSac()+"' WHERE MaLoai = '"+b.GetMaLoai()+"'";
+        try{
+            Statement st = conn.createStatement();
+            update = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Update Loại không thành công !");
+        }
+        return update;
+    }
     public int UpdateHD(HoaDon hd){
         int update = 0;
-        String sql = "UPDATE hoadon SET GiamGia = '"+hd.GetGiamGia()+"' WHERE MaHoaDon = '"+hd.GetMaHD()+"'";
+        String sql = "UPDATE tblhoadon SET GiamGia = '"+hd.GetGiamGia()+"' WHERE MaHoaDon = '"+hd.GetMaHD()+"'";
         try{
             Statement st = conn.createStatement();
             update = st.executeUpdate(sql);
@@ -309,12 +335,167 @@ public class Mysql {
     }    
     public int InsertChiTietHD(ChiTietHD cthd){
         int insert = 0;
-        String sql = "Insert into chitiethd (MaHoaDon, MaMon, SoLuong, Gia) values ('"+cthd.GetMaHD()+"', '"+cthd.GetMaMon()+"', '"+cthd.GetSoLuong()+"', '"+cthd.GetGia()+"')";
+        String sql = "Insert into tblchitiethd (MaHoaDon, MaMon, SoLuong, Gia) values ('"+cthd.GetMaHD()+"', '"+cthd.GetMaMon()+"', '"+cthd.GetSoLuong()+"', '"+cthd.GetGia()+"')";
         try{
             Statement st = conn.createStatement();
             insert = st.executeUpdate(sql);
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Thêm chi tiết hóa đơn không thành công !"+ex.toString());
+        }
+        return insert;
+    }
+    public ArrayList<Ban> SearchBan(String ten){
+        ArrayList<Ban> arrtd = null;
+        String sql;
+            sql = "SELECT * FROM tblban WHERE TenBan LIKE '"+ten+"%'";
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            arrtd = new ArrayList<Ban>();
+            while(rs.next()){
+                Ban td = new Ban(rs.getInt(1), rs.getString(2), rs.getString(3));
+                arrtd.add(td);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "lỗi !");
+        }
+        return arrtd;
+    } 
+    public boolean DeleteBan(ArrayList<Integer> listMaBan){
+        boolean check = false;
+        try{
+            String sql;
+            for(int ma : listMaBan){
+                sql = "Delete From tblban Where MaBan = '"+ma+"'";
+                Statement st = conn.createStatement();
+                st.executeUpdate(sql);
+            } 
+            check = true;
+        }catch(SQLException ex){
+            
+        }
+        return check;
+    }   
+    public int InsertBan(Ban b){
+        int insert = 0;
+        String sql = "Insert into ban (TenBan, TrangThai) values ('"+b.GetTenBan()+"', '"+b.GetTrangThai()+"')";
+        try{
+            Statement st = conn.createStatement();
+            insert = st.executeUpdate(sql);
+        }catch(SQLException ex){
+        }
+        return insert;
+    }
+    public int InsertLoai(Loai b){
+        int insert = 0;
+        String sql = "Insert into tblnhommon (TenLoai, MauSac) values ('"+b.GetTenLoai()+"', '"+b.GetMauSac()+"')";
+        try{
+            Statement st = conn.createStatement();
+            insert = st.executeUpdate(sql);
+        }catch(SQLException ex){
+        }
+        return insert;
+    }    
+    public boolean DeleteNhom(ArrayList<String> lismanhom){
+        boolean check = false;
+        try{
+            String sql;
+            for(String ma : lismanhom){
+                sql = "Delete From tblnhommon Where MaLoai = '"+ma+"'";
+                Statement st = conn.createStatement();
+                st.executeUpdate(sql);
+            } 
+            check = true;
+        }catch(SQLException ex){
+            
+        }
+        return check;
+    } 
+    public ArrayList<Loai> SearchLoai(String ten){
+        ArrayList<Loai> arrtd = null;
+        String sql;
+            sql = "SELECT * FROM tblnhommon WHERE TenLoai LIKE '"+ten+"%'";
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            arrtd = new ArrayList<Loai>();
+            while(rs.next()){
+                Loai td = new Loai(rs.getString(1), rs.getString(2), rs.getString(3));
+                arrtd.add(td);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "lỗi !");
+        }
+        return arrtd;
+    } 
+    public ArrayList<ThucDon> SearchMon(String ten){
+        ArrayList<ThucDon> arrtd = null;
+        String sql;
+            sql = "SELECT * FROM tblthucdon WHERE TenMon LIKE '"+ten+"%'";
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            arrtd = new ArrayList<ThucDon>();
+            while(rs.next()){
+                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+                arrtd.add(td);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "lỗi !");
+        }
+        return arrtd;
+    }
+    public Vector GetNhomMon(){
+        Vector arrloai = null;
+        String sql = "Select * From tblnhommon";
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            arrloai = new Vector();
+            Loai all = new Loai(null, "Tất cả các món","");
+            arrloai.add(all);            
+            while(rs.next()){
+                Loai sp = new Loai(rs.getString(1), rs.getString(2), rs.getString(3));
+                arrloai.add(sp);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi !");
+        }
+        return arrloai; 
+    }
+    public boolean DeleteThucDon(ArrayList<String> listMamon){
+        boolean check = false;
+        try{
+            String sql;
+            for(String ma : listMamon){
+                sql = "Delete From tblthucdon Where MaMon = '"+ma+"'";
+                Statement st = conn.createStatement();
+                st.executeUpdate(sql);
+            } 
+            check = true;
+        }catch(SQLException ex){
+            
+        }
+        return check;
+    }
+    public int UpdateThucDon(ThucDon td){
+        int update = 0;
+        String sql = "UPDATE tblthucdon SET TenMon = '"+td.GetTenMon()+"', MaLoai = '"+td.GetMaLoai()+"', DonGia = '"+td.GetDonGia()+"', DVT = '"+td.GetDVT()+"' WHERE MaMon = '"+td.GetMaMon()+"'";
+        try{
+            Statement st = conn.createStatement();
+            update = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Update món không thành công !");
+        }
+        return update;
+    }
+    public int InsertThucDon(ThucDon td){
+        int insert = 0;
+        String sql = "Insert into tblthucdon (TenMon, MaLoai, DonGia, DVT) values ('"+td.GetTenMon()+"', '"+td.GetMaLoai()+"', '"+td.GetDonGia()+"', '"+td.GetDVT()+"')";
+        try{
+            Statement st = conn.createStatement();
+            insert = st.executeUpdate(sql);
+        }catch(SQLException ex){
         }
         return insert;
     }

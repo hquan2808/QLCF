@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -33,6 +34,8 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         User.setBackground(new java.awt.Color(0,0,0,1));
         Password.setBackground(new java.awt.Color(0,0,0,1));
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(kButton1);
     }
     
     private boolean checkNull(){
@@ -122,6 +125,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        Trangthai.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Trangthai.setForeground(new java.awt.Color(255, 255, 255));
         Trangthai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -170,9 +174,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addGap(18, 18, 18)
                 .addComponent(Trangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,29 +198,32 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_UserActionPerformed
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
-        checkNull();
-        String sql1 = "Select * from tblqlnv\n" + "where TaiKhoan=? and MatKhau=?";
-        Connection conn = Mysql.getConnection();
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql1);
-            ps.setString(1,User.getText());
-            ps.setString(2,Password.getText());
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                Detail detail = new Detail(rs.getString("TaiKhoan").trim(),rs.getString("tenNV").trim(),rs.getString("Roll").trim());
-                quanlyquancafe_Main  main = new quanlyquancafe_Main(detail);
-                
-                this.setVisible(false);
-                main.setVisible(true);
+        if(checkNull()==true){;
+            String sql1 = "Select * from tblqlnv\n" + "where TaiKhoan=? and MatKhau=?";
+            Connection conn = Mysql.getConnection();
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql1);
+                ps.setString(1,User.getText());
+                ps.setString(2,Password.getText());
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    Detail detail = new Detail(rs.getString("TaiKhoan").trim(),rs.getString("tenNV").trim(),rs.getString("Roll").trim());
+                    quanlyquancafe_Main  main = new quanlyquancafe_Main(detail);
+                    this.setVisible(false);
+                    main.setVisible(true);
+                }
+                else{
+                Trangthai.setText("Tài khoản đăng nhập không đúng");
+                }
+            } catch (SQLException ex) {
+                Trangthai.setText("Lấy thông tin thất bại");
             }
-        } catch (SQLException ex) {
-            Trangthai.setText("Tài khoản đăng nhập không đúng");
         }
     }//GEN-LAST:event_kButton1ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
-        int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn thoát chương trình hay không?", "Thông báo", 2);
+        int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn thoát chương trình hay không?", "Thông báo",2);
         if(click==JOptionPane.YES_OPTION){
             System.exit(0);
         }

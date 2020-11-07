@@ -376,7 +376,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
       
     }
 
-    void updateUI() {
+    public void updateUI() {
         
     }
 }

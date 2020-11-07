@@ -19,7 +19,7 @@ public class QuanLy extends javax.swing.JFrame {
     /**
      * Creates new form QuanLy
      */
-     private final Detail detail;
+     private Detail detail;
     public QuanLy(Detail d) {
         initComponents();
         setResizable(false);
@@ -28,7 +28,7 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLHH.setBorder(BorderFactory.createLineBorder((Color.black)));
         BTN_QLB.setBorder(null);
         BTN_QLNV.setBorder(null);
-        jpQLHH qlhh = new jpQLHH(detail);
+        jpQLHH qlhh = new jpQLHH();
         qlhh.setSize(1050,650);
         jPanel7.removeAll();
         jPanel7.add(qlhh);
@@ -103,9 +103,9 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLNV.setkHoverEndColor(new java.awt.Color(176, 224, 230));
         BTN_QLNV.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         BTN_QLNV.setkHoverStartColor(new java.awt.Color(16, 78, 139));
-        BTN_QLNV.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BTN_QLNVMouseClicked(evt);
+        BTN_QLNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_QLNVActionPerformed(evt);
             }
         });
 
@@ -114,9 +114,9 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLB.setkHoverEndColor(new java.awt.Color(176, 224, 230));
         BTN_QLB.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         BTN_QLB.setkHoverStartColor(new java.awt.Color(16, 78, 139));
-        BTN_QLB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BTN_QLBMouseClicked(evt);
+        BTN_QLB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_QLBActionPerformed(evt);
             }
         });
 
@@ -125,9 +125,9 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLHH.setkHoverEndColor(new java.awt.Color(176, 224, 230));
         BTN_QLHH.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         BTN_QLHH.setkHoverStartColor(new java.awt.Color(16, 78, 139));
-        BTN_QLHH.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BTN_QLHHMouseClicked(evt);
+        BTN_QLHH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_QLHHActionPerformed(evt);
             }
         });
 
@@ -136,9 +136,9 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLLHH.setkHoverEndColor(new java.awt.Color(176, 224, 230));
         BTN_QLLHH.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         BTN_QLLHH.setkHoverStartColor(new java.awt.Color(16, 78, 139));
-        BTN_QLLHH.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BTN_QLLHHMouseClicked(evt);
+        BTN_QLLHH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_QLLHHActionPerformed(evt);
             }
         });
 
@@ -215,21 +215,26 @@ public class QuanLy extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BTN_QLHHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_QLHHMouseClicked
+    private void btn_homeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMousePressed
         // TODO add your handling code here:
+        quanlyquancafe_Main home = new quanlyquancafe_Main(detail);
+        this.setVisible(false);
+        home.setVisible(true);
+    }//GEN-LAST:event_btn_homeMousePressed
+
+    private void BTN_QLHHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_QLHHActionPerformed
         BTN_QLHH.setBorder(BorderFactory.createLineBorder((Color.black)));
         BTN_QLB.setBorder(null);
         BTN_QLNV.setBorder(null);
         BTN_QLLHH.setBorder(null);
-        jpQLHH qlhh = new jpQLHH(detail);
+        jpQLHH qlhh = new jpQLHH();
         qlhh.setSize(1050,650);
         jPanel7.removeAll();
         jPanel7.add(qlhh);
         jPanel7.updateUI();
-    }//GEN-LAST:event_BTN_QLHHMouseClicked
+    }//GEN-LAST:event_BTN_QLHHActionPerformed
 
-    private void BTN_QLNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_QLNVMouseClicked
-        // TODO add your handling code here:
+    private void BTN_QLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_QLNVActionPerformed
         BTN_QLNV.setBorder(BorderFactory.createLineBorder((Color.black)));
         BTN_QLB.setBorder(null);
         BTN_QLHH.setBorder(null);
@@ -239,23 +244,21 @@ public class QuanLy extends javax.swing.JFrame {
         jPanel7.removeAll();
         jPanel7.add(qlnv);
         jPanel7.updateUI();
-    }//GEN-LAST:event_BTN_QLNVMouseClicked
+    }//GEN-LAST:event_BTN_QLNVActionPerformed
 
-    private void BTN_QLBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_QLBMouseClicked
-        // TODO add your handling code here:
+    private void BTN_QLBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_QLBActionPerformed
         BTN_QLB.setBorder(BorderFactory.createLineBorder((Color.black)));
         BTN_QLLHH.setBorder(null);
         BTN_QLHH.setBorder(null);
         BTN_QLNV.setBorder(null);
-        jpBan qlb = new jpBan(detail);
+        jpBan qlb = new jpBan();
         qlb.setSize(1050,650);
         jPanel7.removeAll();
         jPanel7.add(qlb);
         jPanel7.updateUI();
-    }//GEN-LAST:event_BTN_QLBMouseClicked
+    }//GEN-LAST:event_BTN_QLBActionPerformed
 
-    private void BTN_QLLHHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_QLLHHMouseClicked
-        // TODO add your handling code here:
+    private void BTN_QLLHHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_QLLHHActionPerformed
         BTN_QLLHH.setBorder(BorderFactory.createLineBorder((Color.black)));
         BTN_QLB.setBorder(null);
         BTN_QLHH.setBorder(null);
@@ -265,14 +268,7 @@ public class QuanLy extends javax.swing.JFrame {
         jPanel7.removeAll();
         jPanel7.add(qllhh);
         jPanel7.updateUI();
-    }//GEN-LAST:event_BTN_QLLHHMouseClicked
-
-    private void btn_homeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMousePressed
-        // TODO add your handling code here:
-        quanlyquancafe_Main home = new quanlyquancafe_Main(detail);
-        this.setVisible(false);
-        home.setVisible(true);
-    }//GEN-LAST:event_btn_homeMousePressed
+    }//GEN-LAST:event_BTN_QLLHHActionPerformed
 
     /**
      * @param args the command line arguments

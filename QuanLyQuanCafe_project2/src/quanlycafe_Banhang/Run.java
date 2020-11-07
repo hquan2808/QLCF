@@ -11,8 +11,7 @@ import quanlyquancafe_view.quanlyquancafe_Main;
  *
  * @author Dell
  */
-class Run {
-
+public class Run {
     public static quanlyquancafe_Main QlCafe;
     public static void QLCF() {
         QlCafe = new quanlyquancafe_Main();

@@ -5,6 +5,7 @@
  */
 package quanlyquancafe_QuanLy;
 
+import Models.Ban;
 import Models.Detail;
 import Sql_and_library.Mysql;
 import java.awt.Color;
@@ -13,10 +14,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import quanlycafe_Banhang.BanHang;
+import quanlycafe_Banhang.Run;
 
 /**
  *
@@ -27,125 +31,130 @@ public class jpBan extends javax.swing.JPanel {
     /**
      * Creates new form jpBan
      */
+    public static jpBan B;
+    private Mysql cn = new Mysql();
     private boolean add = false;
     private boolean change = false;
     private Detail detail;
     private String sql="SELECT * FROM tblban ORDER BY MaBan";
-    public jpBan(Detail d) {
+    public jpBan() {
         initComponents();
         setStyle();
-        detail= new Detail(d);
+//        detail= new Detail(d);
         loadData(sql);
-        Disabled();
+//        Disabled();
+        B = this;
     }
-    private void Disabled(){
-        lbMaHH.setEnabled(false);
-        tftenLHH.setEnabled(false);
-    }
-    private void Enabled(){
-        lbMaHH.setEnabled(true);
-        tftenLHH.setEnabled(true);
-    }
-    private void reset(){
-        add=false;
-        change=false;
-        lbMaHH.setText("");
-        tftenLHH.setText("");
-        lbTrangthai.setText("");
-        btnAdd.setEnabled(true);
-        btnSave.setEnabled(false);
-        btnEdit.setEnabled(false);
-        btnDelete.setEnabled(false);
-        btnExit.setEnabled(false);
-    }
-    private void loadData(String sql){
-        try{
-            String[] arry={"Mã Bàn","Tên Bàn","Trạng Thái"};
-            DefaultTableModel model=new DefaultTableModel(arry,0);
-            Connection conn = Mysql.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                Vector vector=new Vector();
-                vector.add(rs.getString("MaBan").trim());
-                vector.add(rs.getString("TenBan").trim());
-                vector.add(rs.getString("TrangThai").trim());
-                model.addRow(vector);
+//    private void Disabled(){
+//        lbMaHH.setEnabled(false);
+//        tftenLHH.setEnabled(false);
+//    }
+//    private void Enabled(){
+//        lbMaHH.setEnabled(true);
+//        tftenLHH.setEnabled(true);
+//    }
+//    private void reset(){
+//        add=false;
+//        change=false;
+//        lbMaHH.setText("");
+//        tftenLHH.setText("");
+//        lbTrangthai.setText("");
+//        btnAdd.setEnabled(true);
+//        btnSave.setEnabled(false);
+//        btnEdit.setEnabled(false);
+//        btnDelete.setEnabled(false);
+//        btnExit.setEnabled(false);
+//    }
+    public void loadData(String sql){
+       ArrayList<Ban> arrTable = cn.GetBan(0);
+        DefaultTableModel tbmodel = new DefaultTableModel();
+
+        tbmodel.addColumn("Mã Bàn");
+        tbmodel.addColumn("Tên bàn");
+        tbmodel.addColumn("Trạng thái");
+
+        if (arrTable != null) {
+            int soban = 0;
+            for (Ban b : arrTable) {
+                soban++;
+                tbmodel.addRow(new Object[]{b.GetMaBan(), b.GetTenBan(), b.GetTrangThai()});
             }
-            tblLHH.setModel(model);
-            rs.close();
+            lblthongtin.setText(String.valueOf(soban)+" bàn");
+        } else {
+            JOptionPane.showMessageDialog(null, "Không có bàn nào");
         }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
+        tbBan.setModel(tbmodel);
+        for(int i = 0; i < tbBan.getColumnCount();i++){
+            Class<?> col = tbBan.getColumnClass(i);
+            tbBan.setDefaultEditor(col, null);
+        }     
     }
     private void setStyle(){
-        tftenLHH.setBackground(new java.awt.Color(0,0,0,0));
-        tblLHH.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD,12));
-        tblLHH.getTableHeader().setOpaque(false);
-        tblLHH.getTableHeader().setBackground(new Color(51,107,135));
-        tblLHH.getTableHeader().setForeground(new Color(51,107,135));
-        tblLHH.setRowHeight(25);
+        tbBan.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD,12));
+        tbBan.getTableHeader().setOpaque(false);
+        tbBan.getTableHeader().setBackground(new Color(51,107,135));
+        tbBan.getTableHeader().setForeground(new Color(51,107,135));
+        tbBan.setRowHeight(25);
     }
-    private boolean checkNull(){
-        if(tftenLHH.getText().equals("")){
-            lbTrangthai.setText("Chưa nhập tên bàn");
-            return false;
-        }
-        return true;
-    }
-    private void addLHH(){
-        if(checkNull()){
-            String sqlAdd="INSERT INTO tblban (TenBan,TrangThai) VALUES (N'"+tftenLHH.getText()+"',null)";
-            try {
-                Connection conn = Mysql.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sqlAdd);
-                ps.execute();
-                reset();
-                loadData(sql);
-                Disabled();
-                lbTrangthai.setText("Thêm Loại Hàng Hóa thành công!");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }   
-        }
-    }
-    private void editLHH(){
-        if(checkNull()){
-            int click=tblLHH.getSelectedRow();
-            TableModel model=tblLHH.getModel();
-            String sqlAdd="UPDATE tblban SET TenBan = N'"+tftenLHH.getText()+"' WHERE  MaLHH = '"+lbMaHH.getText()+"' ";
-            try {
-                Connection conn = Mysql.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sqlAdd);
-                ps.execute();
-                loadData(sql);
-                Disabled();
-                tblLHH.setVisible(true);
-                lbTrangthai.setText("Thay đổi Tên Bàn thành công!");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }   
-        }
-    }
-    private boolean check(){
-        try {
-            Connection conn = Mysql.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                if(rs.getString("TenBan").toString().trim().equals(tftenLHH.getText())){
-                    lbTrangthai.setText("Tên bàn bạn nhập đã tồn tại");
-                    return false;
-                }
-            }
-            rs.close();
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return true;
-    }
+//    private boolean checkNull(){
+//        if(tftenLHH.getText().equals("")){
+//            lbTrangthai.setText("Chưa nhập tên bàn");
+//            return false;
+//        }
+//        return true;
+//    }
+//    private void addLHH(){
+//        if(checkNull()){
+//            String sqlAdd="INSERT INTO tblban (TenBan,TrangThai) VALUES (N'"+tftenLHH.getText()+"',null)";
+//            try {
+//                Connection conn = Mysql.getConnection();
+//                PreparedStatement ps = conn.prepareStatement(sqlAdd);
+//                ps.execute();
+//                reset();
+//                loadData(sql);
+//                Disabled();
+//                lbTrangthai.setText("Thêm bàn thành công!");
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }   
+//        }
+//    }
+//    private void editLHH(){
+//        if(checkNull()){
+//            int click=tbBan.getSelectedRow();
+//            TableModel model=tbBan.getModel();
+//            String sqlAdd="UPDATE tblban SET TenBan = N'"+tftenLHH.getText()+"' WHERE  MaLHH = '"+lbMaHH.getText()+"' ";
+//            try {
+//                Connection conn = Mysql.getConnection();
+//                PreparedStatement ps = conn.prepareStatement(sqlAdd);
+//                ps.execute();
+//                loadData(sql);
+//                Disabled();
+//                tbBan.setVisible(true);
+//                lbTrangthai.setText("Thay đổi Tên Bàn thành công!");
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }   
+//        }
+//    }
+//    private boolean check(){
+//        try {
+//            Connection conn = Mysql.getConnection();
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//            while(rs.next()){
+//                if(rs.getString("TenBan").toString().trim().equals(tftenLHH.getText())){
+//                    lbTrangthai.setText("Tên bàn bạn nhập đã tồn tại");
+//                    return false;
+//                }
+//            }
+//            rs.close();
+//        }
+//        catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return true;
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,18 +167,16 @@ public class jpBan extends javax.swing.JPanel {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblLHH = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        tftenLHH = new javax.swing.JTextField();
-        btnExit = new javax.swing.JButton();
+        tbBan = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         lbTrangthai = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        lbMaHH = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblthongtin = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txttim = new javax.swing.JTextField();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 165, 173));
         kGradientPanel1.setkStartColor(new java.awt.Color(196, 223, 230));
@@ -179,7 +186,7 @@ public class jpBan extends javax.swing.JPanel {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 107, 135)));
 
-        tblLHH.setModel(new javax.swing.table.DefaultTableModel(
+        tbBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -190,29 +197,14 @@ public class jpBan extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        tblLHH.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tblLHH.setRowHeight(25);
-        tblLHH.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbBan.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tbBan.setRowHeight(25);
+        tbBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblLHHMouseClicked(evt);
+                tbBanMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblLHH);
-
-        jLabel2.setText("Tên Bàn : ");
-
-        tftenLHH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 107, 135)));
-        tftenLHH.setEnabled(false);
-        tftenLHH.setOpaque(false);
-
-        btnExit.setBackground(new java.awt.Color(255, 255, 255));
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_delete_48px.png"))); // NOI18N
-        btnExit.setEnabled(false);
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(tbBan);
 
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_add_48px.png"))); // NOI18N
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -241,90 +233,92 @@ public class jpBan extends javax.swing.JPanel {
             }
         });
 
-        btnSave.setBackground(new java.awt.Color(255, 255, 255));
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_save_60px.png"))); // NOI18N
-        btnSave.setEnabled(false);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Mã Bàn : ");
-
-        lbMaHH.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lbMaHH.setForeground(new java.awt.Color(51, 107, 135));
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 107, 135));
         jLabel1.setText("Bàn");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel2.setText("Tổng số bàn:");
+
+        lblthongtin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblthongtin.setForeground(new java.awt.Color(153, 0, 0));
+        lblthongtin.setText("Total");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Tìm bàn:");
+
+        txttim.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txttim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttimActionPerformed(evt);
+            }
+        });
+        txttim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttimKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbTrangthai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnSave)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(lbTrangthai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tftenLHH, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lbMaHH, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txttim, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblthongtin)))
+                        .addGap(0, 50, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txttim))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(lbMaHH, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addComponent(btnAdd)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnEdit)
+                        .addGap(53, 53, 53)
+                        .addComponent(btnDelete)
                         .addGap(30, 30, 30)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(tftenLHH, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnAdd))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnEdit)
-                                    .addComponent(btnDelete)))
-                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)))
+                            .addComponent(lblthongtin))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -335,14 +329,14 @@ public class jpBan extends javax.swing.JPanel {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(132, 132, 132)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -357,96 +351,106 @@ public class jpBan extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblLHHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLHHMouseClicked
-        // TODO add your handling code here:
-        int click=tblLHH.getSelectedRow();
-        TableModel model=tblLHH.getModel();
-        lbMaHH.setText(model.getValueAt(click, 0).toString());
-        tftenLHH.setText(model.getValueAt(click, 1).toString());
-
-        this.btnEdit.setEnabled(true);
-        this.btnDelete.setEnabled(true);
-    }//GEN-LAST:event_tblLHHMouseClicked
-
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
-        Disabled();
-        reset();
-        loadData(sql);
-    }//GEN-LAST:event_btnExitActionPerformed
+    private void tbBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBanMouseClicked
+        btnEdit.setEnabled(true);        
+        btnDelete.setEnabled(true);
+    }//GEN-LAST:event_tbBanMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-
-        reset();
-        add=true;
-        Enabled();
-        btnAdd.setEnabled(false);
-        btnSave.setEnabled(true);
-        btnExit.setEnabled(true);
+        Them_Ban ban = new Them_Ban(Run.QlCafe, true);
+        ban.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-        add=false;
-        change=true;
-        Enabled();
-        btnAdd.setEnabled(false);
-        btnDelete.setEnabled(false);
-        btnEdit.setEnabled(false);
-        btnSave.setEnabled(true);
-        btnExit.setEnabled(true);
+        int select=tbBan.getSelectedRow();
+        if(select<0){
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn nào !");
+        }else{
+            int MaBan = (int) tbBan.getValueAt(select, 0);
+            Sua_Ban sua = new Sua_Ban(Run.QlCafe, true, MaBan);
+            sua.setVisible(true);
+        }
+        
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa đồ uống này hay không?", "Thông báo", 2);
-        if(click==JOptionPane.YES_OPTION){
+        int[] selectedRows = tbBan.getSelectedRows();
 
-            String sqlDelete="DELETE FROM tblban WHERE MaBan='"+lbMaHH.getText()+"'";
-            try {
-                Connection conn = Mysql.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sqlDelete);
-                ps.execute();
-                reset();
-                loadData(sql);
-                Disabled();
-                lbTrangthai.setText("Xóa bàn thành công!");
-            } catch (SQLException e) {
-                e.printStackTrace();
+        if (selectedRows.length <= 0) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn bàn nào !");
+        } else {
+            ArrayList<Integer> ListMaBan = new ArrayList<Integer>();
+            String sp = "";
+            for (int i : selectedRows) {
+                int ma = (int) tbBan.getValueAt(i, 0);
+                ListMaBan.add(ma);
+                String tenban = (String) tbBan.getValueAt(i, 1);
+
+                sp += tenban + "\n";
             }
-        }else reset();
+            int qs;
+            qs = JOptionPane.showConfirmDialog(null, "Xóa bàn: \n " + sp, "Xóa bàn", JOptionPane.YES_NO_OPTION);
+            if (qs == JOptionPane.YES_OPTION) {
+                boolean xoa = cn.DeleteBan(ListMaBan);
+
+                if (xoa == true) {
+                    jpBan.B.loadData(sql);
+                    jpBan.B.updateUI();
+                    try{
+                        BanHang.bh.taoBan();
+                        BanHang.bh.updateUI();
+                    }catch(Exception e){
+                        
+                    }
+                }else
+                    JOptionPane.showMessageDialog(null, "Không xóa được bàn !");
+
+            }
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
-        if(add==true){
-            if(check()){
-                addLHH();
+    private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
+        ArrayList<Ban> arrTable = cn.SearchBan(txttim.getText());
+        if(arrTable != null){
+            DefaultTableModel tbmodel = new DefaultTableModel();
+
+            tbmodel.addColumn("Mã Bàn");
+            tbmodel.addColumn("Tên bàn");
+            tbmodel.addColumn("Trạng thái");
+
+            int soban = 0;
+            for (Ban b : arrTable) {
+                soban++;
+                tbmodel.addRow(new Object[]{b.GetMaBan(), b.GetTenBan(), b.GetTrangThai()});
+            }
+            lblthongtin.setText(String.valueOf(soban)+" bàn");
+            tbBan.setModel(tbmodel);
+            for(int i = 0; i < tbBan.getColumnCount();i++){
+                Class<?> col = tbBan.getColumnClass(i);
+                tbBan.setDefaultEditor(col, null);
             }
         }
-        else{
-            if(change==true)
-            editLHH();
-        }
-    }//GEN-LAST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttimKeyReleased
+
+    private void txttimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttimActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JLabel lbMaHH;
     private javax.swing.JLabel lbTrangthai;
-    private javax.swing.JTable tblLHH;
-    private javax.swing.JTextField tftenLHH;
+    private javax.swing.JLabel lblthongtin;
+    private javax.swing.JTable tbBan;
+    private javax.swing.JTextField txttim;
     // End of variables declaration//GEN-END:variables
 }
