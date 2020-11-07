@@ -285,7 +285,7 @@ public class Mysql {
     public int GetMaHD(int ma){
         String sql;
         int mahd = 0;
-            sql = "Select MaHoaDon From hoadon Where MaBan = '"+ma+"' AND TrangThai = 0";
+            sql = "Select MaHoaDon From tblhoadon Where MaBan = '"+ma+"' AND TrangThai = 0";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
