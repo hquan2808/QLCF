@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="280" pageHeight="400" columnWidth="260" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="e0684103-aae2-4b74-9d1a-f5d4893b75f2">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="17"/>
+	<property name="ireport.y" value="111"/>
 	<parameter name="Mahoadon" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -15,15 +15,18 @@
      tblthucdon.`TenMon` AS tblthucdon_TenMon,
      tblxuathoadon.`mahoadon` AS tblxuathoadon_mahoadon,
      tblchitiethd.`SoLuong` AS tblchitiethd_SoLuong,
-     tblhoadon.`MaHoaDon` AS tblhoadon_MaHoaDon
+     tblhoadon.`MaHoaDon` AS tblhoadon_MaHoaDon,
+     tblhoadon.`GiamGia` AS tblhoadon_GiamGia,
+SUM(tblchitiethd.`Gia`*tblchitiethd.`SoLuong`) AS tbl
 FROM
      `tblban` tblban INNER JOIN `tblhoadon` tblhoadon ON tblban.`MaBan` = tblhoadon.`MaBan`
      INNER JOIN `tblchitiethd` tblchitiethd ON tblhoadon.`MaHoaDon` = tblchitiethd.`MaHoaDon`
      INNER JOIN `tblxuathoadon` tblxuathoadon ON tblhoadon.`MaHoaDon` = tblxuathoadon.`mahoadon`
      INNER JOIN `tblthucdon` tblthucdon ON tblchitiethd.`MaMon` = tblthucdon.`MaMon`
      INNER JOIN `tblnhommon` tblnhommon ON tblthucdon.`MaLoai` = tblnhommon.`MaLoai`
-where 
-	tblhoadon.`MaHoaDon` = tblxuathoadon.`mahoadon`]]>
+where
+	tblhoadon.`MaHoaDon`= tblxuathoadon.`mahoadon`
+GROUP BY tblthucdon.`TenMon` ]]>
 	</queryString>
 	<field name="tblban_TenBan" class="java.lang.String"/>
 	<field name="tblchitiethd_Gia" class="java.lang.Integer"/>
@@ -32,6 +35,9 @@ where
 	<field name="tblthucdon_TenMon" class="java.lang.String"/>
 	<field name="tblxuathoadon_mahoadon" class="java.lang.Integer"/>
 	<field name="tblchitiethd_SoLuong" class="java.lang.Integer"/>
+	<field name="tblhoadon_MaHoaDon" class="java.lang.Integer"/>
+	<field name="tblhoadon_GiamGia" class="java.lang.Integer"/>
+	<field name="tbl" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -136,7 +142,7 @@ where
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="20" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField>
 				<reportElement x="144" y="0" width="76" height="20" uuid="8e444c01-82d4-44bf-83b5-3915c38fd2fe"/>
 				<textElement textAlignment="Right"/>
@@ -149,7 +155,7 @@ where
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="90" splitType="Stretch">
+		<band height="135" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="260" height="10" uuid="d61c2e4f-ef8b-41e8-a7bc-f3cfe95320ac"/>
 				<box>
@@ -166,34 +172,58 @@ where
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tổng tiền:]]></text>
+				<text><![CDATA[Thành tiền :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="167" y="10" width="93" height="20" uuid="f4150a0b-31e7-48ea-99c4-ab604fc20d6c"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{tblhoadon_TongTien}+" VNĐ"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tblhoadon_TongTien}+$F{tblhoadon_GiamGia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="30" width="260" height="12" uuid="ead3edb2-ca15-4589-9177-1196c64fb6b5"/>
+				<reportElement x="0" y="100" width="260" height="12" uuid="ead3edb2-ca15-4589-9177-1196c64fb6b5"/>
 				<box>
 					<topPen lineWidth="2.0" lineStyle="Dotted"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="42" width="260" height="20" uuid="08d02e4a-f9ce-49de-ab0b-c91b556061fe"/>
+				<reportElement x="0" y="100" width="260" height="20" uuid="08d02e4a-f9ce-49de-ab0b-c91b556061fe"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Cảm ơn quý khách hàng !]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="62" width="260" height="20" uuid="d62c4d2f-769c-4515-a661-79041905fabf"/>
+				<reportElement x="0" y="115" width="260" height="20" uuid="d62c4d2f-769c-4515-a661-79041905fabf"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Hẹn gặp lại !]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="167" height="20" uuid="fb7e61b9-0804-4db0-a81e-9829106ffc8c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Giảm giá :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="167" height="20" uuid="4b1a9c15-1fe6-43df-90dd-eb493abe6547"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tổng tiền:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="30" width="93" height="20" uuid="7c646db0-d8d2-40a7-b066-ab606c991a02"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tblhoadon_GiamGia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="50" width="93" height="20" uuid="8df0cf22-4679-4e27-9584-e7b8c3168310"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tblhoadon_TongTien}+" VNĐ"]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

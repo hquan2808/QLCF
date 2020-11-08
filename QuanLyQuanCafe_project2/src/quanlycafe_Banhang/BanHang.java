@@ -103,6 +103,9 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
             thread.start();
         }
     }
+    private void Update(){
+        lblTime.setText(String.valueOf(new SimpleDateFormat("HH:mm:ss").format(new java.util.Date())));
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -363,6 +366,7 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
     @Override
     public void run() {
         while(true){
+            Update();
             try{
                 Thread.sleep(1);  
             }catch(Exception ex){

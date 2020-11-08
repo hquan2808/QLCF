@@ -75,11 +75,10 @@ public class DLThanhToan extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(216, 226, 67));
+        jPanel1.setBackground(new java.awt.Color(95, 164, 154));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 51)));
 
         lblTongTien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblTongTien.setForeground(new java.awt.Color(220, 33, 33));
         lblTongTien.setText("....");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -108,7 +107,6 @@ public class DLThanhToan extends javax.swing.JDialog {
         jLabel3.setText("Số tiền khách đưa:");
 
         lbltienthoi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbltienthoi.setForeground(new java.awt.Color(209, 20, 20));
         lbltienthoi.setText("...");
 
         btnxacnhan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -123,7 +121,7 @@ public class DLThanhToan extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Số tiền cần trả:");
 
-        hoadon.setBackground(new java.awt.Color(216, 226, 67));
+        hoadon.setBackground(new java.awt.Color(95, 164, 154));
         hoadon.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         hoadon.setText("In hóa đơn thanh toán");
 
