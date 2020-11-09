@@ -11,6 +11,7 @@ import Sql_and_library.Mysql;
 import Sql_and_library.Mysql;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -26,7 +27,6 @@ public class Sua_Nhom extends javax.swing.JDialog {
      * 
      */
     String mausac, MaNhom;
-    private String sql="SELECT * FROM tblnhommon ORDER BY MaMon";
     public Sua_Nhom(java.awt.Frame parent, boolean modal, String manhom) {
         super(parent, modal);
         initComponents();
@@ -36,6 +36,8 @@ public class Sua_Nhom extends javax.swing.JDialog {
         txtten.setText(l.GetTenLoai());
         jpmau.setBackground(Color.decode(mausac));
         lblten.setText("Sửa nhóm - "+l.GetTenLoai());  
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(jButton2);
  
         ColorSelectionModel model = chonmau.getSelectionModel();
         ChangeListener changeListener = new ChangeListener() {
@@ -223,11 +225,12 @@ public class Sua_Nhom extends javax.swing.JDialog {
         loai.SetMaLoai(MaNhom);
         int update = cn.UpdateLoai(loai);
         if(update > 0){
-            jpLHH.nhom.loadData(sql);
+            String sql="SELECT * FROM tblnhommon";
+            jpLHH.nhom.loadNhomMon(sql);
             jpLHH.nhom.updateUI();
             try{
                 jpQLHH.td.Fillcbb();
-                jpQLHH.td.loadData(null);
+//                jpQLHH.td.loadData(null);
                 jpQLHH.td.updateUI();
                 jpThucDon.td.FillLoai();
                 jpThucDon.td.updateUI();

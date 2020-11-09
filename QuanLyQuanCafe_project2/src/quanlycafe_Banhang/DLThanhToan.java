@@ -12,12 +12,14 @@ import Models.HoaDon;
 import Models.ireport;
 import Sql_and_library.Mysql;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JRootPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -47,6 +49,8 @@ public class DLThanhToan extends javax.swing.JDialog {
         MaBan = maban;
         jLabel1.setText(tenban + " - Thanh toán");
         lblTongTien.setText(String.valueOf(chuyentien.format(tongtien) +" VNĐ"));
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(btnxacnhan);
     }
 
     /**
@@ -233,8 +237,26 @@ public class DLThanhToan extends javax.swing.JDialog {
         BanHang.bh.fillLb();
         ireport ir = new ireport();
         ir.setMaHD(MaHD);
+        float Tien=0;
         try{
-            String sqldelete = "Insert into tblxuathoadon (mahoadon) values ('"+ir.getMaHD()+"')";
+            String sqlgiamgia = "Select GiamGia from tblhoadon where Mahoadon='"+hd.GetMaHD()+"'";
+            Statement st = conn.createStatement();
+            ResultSet rs  = st.executeQuery(sqlgiamgia);
+            if(rs.next()){
+                Tien = rs.getInt("GiamGia");
+            }
+        }catch(SQLException ex){
+            System.out.println("In Giảm giá lỗi");
+        }
+        float Tiengiam = 0;
+        if(Tien<=100){
+            Tiengiam=(hd.GetTongTien()/(1-Tien/100)-hd.GetTongTien());
+        }else if(Tien>100){
+            Tiengiam=Tien;
+        }
+        ir.setGiamGia(Tiengiam);
+        try{
+            String sqldelete = "Insert into tblxuathoadon (mahoadon,tienGiam) values ('"+ir.getMaHD()+"','"+ir.getGiamGia()+"')";
             Statement st = conn.createStatement();
             st.executeUpdate(sqldelete);
         }catch(SQLException ex){

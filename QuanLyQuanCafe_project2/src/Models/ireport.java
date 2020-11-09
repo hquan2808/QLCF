@@ -10,7 +10,15 @@ package Models;
  * @author Dell
  */
 public class ireport {
-    int MaHD;
+    int MaHD;float GiamGia;
+
+    public float getGiamGia() {
+        return GiamGia;
+    }
+
+    public void setGiamGia(float GiamGia) {
+        this.GiamGia = GiamGia;
+    }
 
     public int getMaHD() {
         return MaHD;

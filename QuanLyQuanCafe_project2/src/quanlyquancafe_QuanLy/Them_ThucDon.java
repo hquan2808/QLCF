@@ -12,6 +12,7 @@ import Sql_and_library.Mysql;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 /**
@@ -27,6 +28,8 @@ public class Them_ThucDon extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         Fillcbb();
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(jButton1);
         
     }
     private void Fillcbb() {
@@ -223,7 +226,8 @@ public class Them_ThucDon extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Thêm mới không thành công!");
             return;
         }
-        jpQLHH.td.loadData(MaNhom);
+        String sql="SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai ";
+        jpQLHH.td.loadData(sql);
         jpQLHH.td.updateUI();
         try{
             jpThucDon.td.FillLoai();

@@ -13,6 +13,7 @@ import Models.HoaDon;
 import Models.ThucDon;
 import Sql_and_library.Mysql;
 import java.util.ArrayList;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -50,6 +51,8 @@ public class DLSoLuong extends javax.swing.JDialog {
             txtSl.setText(String.valueOf(mon.GetSoLuong()));
             
         }
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(jButton1);
                 
 
     }

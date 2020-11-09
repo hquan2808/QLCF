@@ -2,42 +2,47 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="280" pageHeight="400" columnWidth="260" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="e0684103-aae2-4b74-9d1a-f5d4893b75f2">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="111"/>
+	<property name="ireport.y" value="101"/>
 	<parameter name="Mahoadon" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      tblban.`TenBan` AS tblban_TenBan,
+     tblchitiethd.`MaHoaDon` AS tblchitiethd_MaHoaDon,
+     tblchitiethd.`SoLuong` AS tblchitiethd_SoLuong,
      tblchitiethd.`Gia` AS tblchitiethd_Gia,
+     tblhoadon.`GiamGia` AS tblhoadon_GiamGia,
      tblhoadon.`GioDen` AS tblhoadon_GioDen,
      tblhoadon.`TongTien` AS tblhoadon_TongTien,
-     tblthucdon.`TenMon` AS tblthucdon_TenMon,
+     tblnhommon.`TenLoai` AS tblnhommon_TenLoai,
      tblxuathoadon.`mahoadon` AS tblxuathoadon_mahoadon,
-     tblchitiethd.`SoLuong` AS tblchitiethd_SoLuong,
-     tblhoadon.`MaHoaDon` AS tblhoadon_MaHoaDon,
-     tblhoadon.`GiamGia` AS tblhoadon_GiamGia,
-SUM(tblchitiethd.`Gia`*tblchitiethd.`SoLuong`) AS tbl
+     tblxuathoadon.`tienGiam` AS tblxuathoadon_tienGiam,
+     tblthucdon.`TenMon` AS tblthucdon_TenMon,
+     tblthucdon.`DonGia` AS tblthucdon_DonGia,
+     tblthucdon.`DVT` AS tblthucdon_DVT
 FROM
      `tblban` tblban INNER JOIN `tblhoadon` tblhoadon ON tblban.`MaBan` = tblhoadon.`MaBan`
      INNER JOIN `tblchitiethd` tblchitiethd ON tblhoadon.`MaHoaDon` = tblchitiethd.`MaHoaDon`
-     INNER JOIN `tblxuathoadon` tblxuathoadon ON tblhoadon.`MaHoaDon` = tblxuathoadon.`mahoadon`
      INNER JOIN `tblthucdon` tblthucdon ON tblchitiethd.`MaMon` = tblthucdon.`MaMon`
-     INNER JOIN `tblnhommon` tblnhommon ON tblthucdon.`MaLoai` = tblnhommon.`MaLoai`
-where
-	tblhoadon.`MaHoaDon`= tblxuathoadon.`mahoadon`
-GROUP BY tblthucdon.`TenMon` ]]>
+     INNER JOIN `tblnhommon` tblnhommon ON tblthucdon.`MaLoai` = tblnhommon.`MaLoai`,
+     `tblxuathoadon` tblxuathoadon
+where 
+     tblhoadon.`MaHoaDon`= tblxuathoadon.`mahoadon`]]>
 	</queryString>
 	<field name="tblban_TenBan" class="java.lang.String"/>
+	<field name="tblchitiethd_MaHoaDon" class="java.lang.Integer"/>
+	<field name="tblchitiethd_SoLuong" class="java.lang.Integer"/>
 	<field name="tblchitiethd_Gia" class="java.lang.Integer"/>
+	<field name="tblhoadon_GiamGia" class="java.lang.Integer"/>
 	<field name="tblhoadon_GioDen" class="java.sql.Timestamp"/>
 	<field name="tblhoadon_TongTien" class="java.lang.Integer"/>
-	<field name="tblthucdon_TenMon" class="java.lang.String"/>
+	<field name="tblnhommon_TenLoai" class="java.lang.String"/>
 	<field name="tblxuathoadon_mahoadon" class="java.lang.Integer"/>
-	<field name="tblchitiethd_SoLuong" class="java.lang.Integer"/>
-	<field name="tblhoadon_MaHoaDon" class="java.lang.Integer"/>
-	<field name="tblhoadon_GiamGia" class="java.lang.Integer"/>
-	<field name="tbl" class="java.math.BigDecimal"/>
+	<field name="tblxuathoadon_tienGiam" class="java.lang.Float"/>
+	<field name="tblthucdon_TenMon" class="java.lang.String"/>
+	<field name="tblthucdon_DonGia" class="java.lang.Integer"/>
+	<field name="tblthucdon_DVT" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -75,9 +80,9 @@ GROUP BY tblthucdon.`TenMon` ]]>
 	<pageHeader>
 		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement x="144" y="0" width="116" height="20" uuid="ffdfd011-e67a-4bb4-a7ed-981a69f2195f"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{tblhoadon_GioDen}.toString()]]></textFieldExpression>
+				<reportElement x="144" y="1" width="116" height="20" uuid="ffdfd011-e67a-4bb4-a7ed-981a69f2195f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tblhoadon_GioDen}.toLocaleString()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="67" height="20" uuid="0f8f4a44-9b07-4cfd-9d51-23e7667a3341"/>
@@ -87,7 +92,7 @@ GROUP BY tblthucdon.`TenMon` ]]>
 				<textFieldExpression><![CDATA[$F{tblban_TenBan}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="67" y="1" width="77" height="20" uuid="19abf743-a537-469b-b588-56e70eacefe5"/>
+				<reportElement x="67" y="0" width="77" height="20" uuid="19abf743-a537-469b-b588-56e70eacefe5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
@@ -101,43 +106,55 @@ GROUP BY tblthucdon.`TenMon` ]]>
 				<reportElement x="0" y="0" width="260" height="1" uuid="bbb65a73-54fe-466f-ae1b-ecb179b28a31"/>
 			</line>
 			<staticText>
-				<reportElement x="167" y="1" width="93" height="20" uuid="6e9d0588-f3f8-48f2-b906-8e8c1d466766"/>
+				<reportElement x="192" y="1" width="68" height="20" uuid="6e9d0588-f3f8-48f2-b906-8e8c1d466766"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Thành tiền]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="1" width="111" height="20" uuid="a7a1ba19-0827-48ee-8b27-cd433fac0cc7"/>
+				<reportElement x="0" y="1" width="80" height="20" uuid="a7a1ba19-0827-48ee-8b27-cd433fac0cc7"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tên thức uống]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="111" y="1" width="56" height="20" uuid="5b7ca9de-f6e4-40bd-adcb-7eb1c69593ee"/>
-				<textElement textAlignment="Center">
+				<reportElement x="80" y="1" width="55" height="20" uuid="5b7ca9de-f6e4-40bd-adcb-7eb1c69593ee"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Số lượng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="2" width="48" height="20" uuid="798cb3cc-8d41-4608-ba8d-003c1dcc22b7"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Đơn Giá]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="111" y="0" width="56" height="20" uuid="086f195e-cb44-40c5-b8d5-8455a105f427"/>
+				<reportElement x="93" y="0" width="32" height="20" uuid="086f195e-cb44-40c5-b8d5-8455a105f427"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tblchitiethd_SoLuong}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="111" height="20" uuid="7bfccb58-e0c3-4c4b-bf07-f6babfdc283d"/>
-				<textFieldExpression><![CDATA[$F{tblthucdon_TenMon}]]></textFieldExpression>
+				<reportElement x="0" y="0" width="93" height="20" uuid="7bfccb58-e0c3-4c4b-bf07-f6babfdc283d"/>
+				<textFieldExpression><![CDATA[$F{tblnhommon_TenLoai}+" "+$F{tblthucdon_TenMon}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="167" y="0" width="93" height="20" uuid="b7de92c8-f92f-4137-9b6e-6b0c7da33487"/>
+				<reportElement x="192" y="0" width="68" height="20" uuid="b7de92c8-f92f-4137-9b6e-6b0c7da33487"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tblchitiethd_Gia}*$F{tblchitiethd_SoLuong}+" VNĐ"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="0" width="68" height="20" uuid="1d249135-c59a-4f57-9092-3540965f339f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{tblchitiethd_Gia}+" VNĐ"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -168,19 +185,19 @@ GROUP BY tblthucdon.`TenMon` ]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="10" width="167" height="20" uuid="780f4139-a3a2-4b5e-a0d2-2d428dfc9a6e"/>
+				<reportElement x="0" y="10" width="125" height="20" uuid="780f4139-a3a2-4b5e-a0d2-2d428dfc9a6e"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Thành tiền :]]></text>
+				<text><![CDATA[Tổng tiền :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="167" y="10" width="93" height="20" uuid="f4150a0b-31e7-48ea-99c4-ab604fc20d6c"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{tblhoadon_TongTien}+$F{tblhoadon_GiamGia}]]></textFieldExpression>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{tblhoadon_TongTien}+$F{tblxuathoadon_tienGiam}.intValue()+" VND"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="100" width="260" height="12" uuid="ead3edb2-ca15-4589-9177-1196c64fb6b5"/>
+				<reportElement x="0" y="71" width="260" height="12" uuid="ead3edb2-ca15-4589-9177-1196c64fb6b5"/>
 				<box>
 					<topPen lineWidth="2.0" lineStyle="Dotted"/>
 				</box>
@@ -201,27 +218,27 @@ GROUP BY tblthucdon.`TenMon` ]]>
 				<text><![CDATA[Hẹn gặp lại !]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="30" width="167" height="20" uuid="fb7e61b9-0804-4db0-a81e-9829106ffc8c"/>
+				<reportElement x="0" y="30" width="125" height="20" uuid="fb7e61b9-0804-4db0-a81e-9829106ffc8c"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Giảm giá :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="50" width="167" height="20" uuid="4b1a9c15-1fe6-43df-90dd-eb493abe6547"/>
+				<reportElement x="0" y="50" width="125" height="20" uuid="4b1a9c15-1fe6-43df-90dd-eb493abe6547"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tổng tiền:]]></text>
+				<text><![CDATA[Tiền cần trả:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="167" y="30" width="93" height="20" uuid="7c646db0-d8d2-40a7-b066-ab606c991a02"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{tblhoadon_GiamGia}]]></textFieldExpression>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{tblxuathoadon_tienGiam}.intValue()+" VNĐ"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="167" y="50" width="93" height="20" uuid="8df0cf22-4679-4e27-9584-e7b8c3168310"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{tblhoadon_TongTien}+" VNĐ"]]></textFieldExpression>
 			</textField>
 		</band>

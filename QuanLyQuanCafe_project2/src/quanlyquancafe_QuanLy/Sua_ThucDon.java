@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 /**
@@ -36,6 +37,8 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         txtTenMon.setText(td.get(0).GetTenMon());
         txtGia.setText(String.valueOf(td.get(0).GetDonGia()));
         txtdvt.setText(td.get(0).GetDVT());  
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(jButton1);
 
     }
     private void Fillcbb() {
@@ -239,7 +242,8 @@ public class Sua_ThucDon extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Sửa không thành công!");
             return;
         }
-        jpQLHH.td.loadData(MaNhom);
+        String sql="SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai ";
+        jpQLHH.td.loadData(sql);
         jpQLHH.td.updateUI();
         try{
             jpThucDon.td.FillLoai();

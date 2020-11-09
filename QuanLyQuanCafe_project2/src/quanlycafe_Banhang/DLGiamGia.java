@@ -8,6 +8,7 @@ package quanlycafe_Banhang;
 import quanlycafe_Banhang.JpGoiMon;
 import Models.HoaDon;
 import Sql_and_library.Mysql;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -31,6 +32,8 @@ public class DLGiamGia extends javax.swing.JDialog {
         this.mahd = mahd;
         
         jLabel1.setText(tenban+" - Giảm giá");
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(jButton2);
     }
 
     /**

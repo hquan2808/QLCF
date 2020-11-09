@@ -42,13 +42,15 @@ public class jpLHH extends javax.swing.JPanel {
         initComponents();
         setStyle();
         detail= new Detail(d);
-        loadData(sql);
+        loadNhomMon(sql);
+        nhom = this;
     }
-    public void loadData(String sql){
+    public void loadNhomMon(String sql){
+        Mysql cn = new Mysql();
         try{
             String[] arry={"Mã Loại","Tên Loại","Màu Sắc"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
-            Connection conn = Mysql.getConnection();
+            Connection conn = cn.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             int soloai=0;
@@ -341,7 +343,7 @@ public class jpLHH extends javax.swing.JPanel {
                 boolean xoa = cn.DeleteNhom(listmamon);
 
                 if (xoa == true) {
-                    loadData(sql);
+                    loadNhomMon(sql);
                     try{
                         jpQLHH.td.Fillcbb();
                         jpQLHH.td.loadData(null);

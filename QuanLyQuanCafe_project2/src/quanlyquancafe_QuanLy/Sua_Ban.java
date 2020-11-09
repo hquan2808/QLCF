@@ -10,6 +10,7 @@ import Models.Ban;
 import Sql_and_library.Mysql;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -35,6 +36,8 @@ public class Sua_Ban extends javax.swing.JDialog {
         tenban = mb[1];
         txttenban.setText(mb[1]);
         lblten.setText("Sửa bàn - "+b.get(0).GetTenBan());
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(jButton1);
     }
 
     /**

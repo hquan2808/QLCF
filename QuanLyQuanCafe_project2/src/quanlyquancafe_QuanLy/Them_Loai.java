@@ -10,6 +10,7 @@ import Models.Loai;
 import Sql_and_library.Mysql;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -18,17 +19,18 @@ import quanlycafe_Banhang.jpThucDon;
 
 /**
  *
- * @author ThangIKCU
+ * @author 
  */
 public class Them_Loai extends javax.swing.JDialog {
     Mysql cn = new Mysql();
     /**
      * Creates new form 
      */
-    private String sql="SELECT * FROM tblnhommon ORDER BY MaMon";
     public Them_Loai(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(jButton2);
         
         ColorSelectionModel model = chonmau.getSelectionModel();
         ChangeListener changeListener = new ChangeListener() {
@@ -208,11 +210,12 @@ public class Them_Loai extends javax.swing.JDialog {
         l.SetMauSac(hex);
         int insert = cn.InsertLoai(l);
         if(insert > 0){
-            jpLHH.nhom.loadData(sql);
-           jpLHH.nhom.updateUI();
+            String sql="SELECT * FROM tblnhommon";
+            jpLHH.nhom.loadNhomMon(sql);
+            jpLHH.nhom.updateUI();
           try{
                jpQLHH.td.Fillcbb();
-              jpQLHH.td.updateUI();
+               jpQLHH.td.updateUI();
                jpThucDon.td.FillLoai();
                jpThucDon.td.updateUI();
            }catch(Exception e){

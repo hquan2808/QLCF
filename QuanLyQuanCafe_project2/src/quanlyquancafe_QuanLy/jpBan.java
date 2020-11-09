@@ -40,31 +40,9 @@ public class jpBan extends javax.swing.JPanel {
     public jpBan() {
         initComponents();
         setStyle();
-//        detail= new Detail(d);
         loadData(sql);
-//        Disabled();
         B = this;
     }
-//    private void Disabled(){
-//        lbMaHH.setEnabled(false);
-//        tftenLHH.setEnabled(false);
-//    }
-//    private void Enabled(){
-//        lbMaHH.setEnabled(true);
-//        tftenLHH.setEnabled(true);
-//    }
-//    private void reset(){
-//        add=false;
-//        change=false;
-//        lbMaHH.setText("");
-//        tftenLHH.setText("");
-//        lbTrangthai.setText("");
-//        btnAdd.setEnabled(true);
-//        btnSave.setEnabled(false);
-//        btnEdit.setEnabled(false);
-//        btnDelete.setEnabled(false);
-//        btnExit.setEnabled(false);
-//    }
     public void loadData(String sql){
        ArrayList<Ban> arrTable = cn.GetBan(0);
         DefaultTableModel tbmodel = new DefaultTableModel();

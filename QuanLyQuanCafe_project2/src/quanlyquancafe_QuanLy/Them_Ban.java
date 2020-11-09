@@ -9,6 +9,7 @@ import quanlycafe_Banhang.BanHang;
 import Models.Ban;
 import Sql_and_library.Mysql;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -23,6 +24,8 @@ public class Them_Ban extends javax.swing.JDialog {
     public Them_Ban(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        JRootPane rp = this.getRootPane();
+        rp.setDefaultButton(jButton2);
     }
 
     /**

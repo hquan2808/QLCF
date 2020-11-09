@@ -45,7 +45,7 @@ public class jpQLHH extends javax.swing.JPanel {
         setStyle();
         loadData(sql);
         Fillcbb();
-//        loadLoaiNuoc();
+        td = this;
     }
     private void setStyle(){
 //        lbText.setBackground(new java.awt.Color(0,0,0,0));
@@ -61,37 +61,6 @@ public class jpQLHH extends javax.swing.JPanel {
         tbThucDon.setRowHeight(25);
         
     }
-//    private void Disabled(){
-//        lbText.setEnabled(false);
-//        cbLoai.setEnabled(false);
-//        tfTen.setEnabled(false);
-//        tfDonvi.setEnabled(false);
-//        tfSoluong.setEnabled(false);
-//        tfGia.setEnabled(false);
-//    }
-//    private void Enabled(){
-//        lbText.setEnabled(true);
-//        cbLoai.setEnabled(true);
-//        tfTen.setEnabled(true);
-//        tfDonvi.setEnabled(true);
-//        tfSoluong.setEnabled(true);
-//        tfGia.setEnabled(true);
-//    }
-//    private void loadLoaiNuoc(){
-//        String sql_LHH = "SELECT * FROM tblnhommon ";
-//        cbLoai.removeAllItems();
-//        try {
-//            Connection conn = Mysql.getConnection();
-//            PreparedStatement ps = conn.prepareStatement(sql_LHH);
-//            ResultSet rs = ps.executeQuery();
-//            while(rs.next()){
-//                cbLoai.addItem(rs.getString("TenLoai"));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(jpQLHH.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//            
-//    }
     public void Fillcbb() {
         Vector Vcbb = cn.GetNhomMon();
 
@@ -130,131 +99,6 @@ public class jpQLHH extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }
-//    private double convertedToNumbers(String s){
-//        String number="";
-//        String []array=s.replace(","," ").split("\\s");
-//        for(String i:array){
-//            number=number.concat(i);
-//        }
-//        return Double.parseDouble(number);
-//    }
-//    private void reset(){
-//        add=false;
-//        change=false;
-//        loadLoaiNuoc();
-//        lbText.setText("");
-//        cbLoai.setSelectedIndex(0);
-//        tfTen.setText("");
-//        tfDonvi.setText("");
-//        tfSoluong.setText("");
-//        tfGia.setText("");
-//        lbTrangthai.setText("Trạng Thái");
-//        btnAdd.setEnabled(true);
-//        btnSave.setEnabled(false);
-//        btnEdit.setEnabled(false);
-//        btnDelete.setEnabled(false);
-//        btnExit.setEnabled(false);
-//    }
-//    
-//    private void checkKyTu(String arry){
-//        char[] character=arry.toCharArray();
-//        for(int i = 0; i<character.length;i++){
-//            if(String.valueOf(character[i]).matches("\\D+")){
-//                btnSave.setEnabled(false);
-//                lbTrangthai.setText("Số lượng không thể chứa kí tự");
-//                break;
-//            }
-//            else btnSave.setEnabled(true);
-//        }
-//    }
-//    private boolean checkNull(){
-//        if(cbLoai.getSelectedItem().equals("")){
-//            lbTrangthai.setText("Bạn chưa chọn loại thức uống!");
-//            return false;
-//        }
-//        else
-//        if(tfTen.getText().equals("")){
-//            lbTrangthai.setText("Bạn chưa nhập tên thức uống");
-//            return false;
-//        }
-//        else   
-//        if(tfDonvi.getText().equals("")){
-//            lbTrangthai.setText("Bạn chưa nhập đơn vị tính!");
-//            return false;
-//        }
-//        else   
-//        if(tfSoluong.getText().equals("")){
-//            lbTrangthai.setText("Bạn chưa nhập số lượng nước!");
-//            return false;
-//        }
-//        else   
-//        if(tfGia.getText().equals("")){
-//            lbTrangthai.setText("Bạn chưa nhập giá!");
-//            return false;
-//        }
-//        return true;
-//    }
-//    private String cutChar(String arry){
-//        return arry.replaceAll("\\D+","");
-//    }
-//    
-//    private String cutNumber(String arry){
-//        return arry.replaceAll("\\d+","");
-//    }
-//    private void addDrink(){
-//        if(checkNull()){
-//            String sqlAdd="INSERT INTO tblthucdon (MamMon,TenHH,GiaSP,donVi,SoLuong) VALUES (N'"+cbLoai.getSelectedIndex()+"',N'"+tfTen.getText()+"',N'"+(tfGia.getText().replace(",",""))+"',N'"+tfDonvi.getText()+"',"+tfSoluong.getText()+")";
-//            try {
-//                Connection conn = Mysql.getConnection();
-//                PreparedStatement ps = conn.prepareStatement(sqlAdd);
-//                ps.execute();
-//                reset();
-//                loadData(sql);
-//                Disabled();
-//                lbTrangthai.setText("Thêm thức uống thành công!");
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }   
-//        }
-//    }
-//    private void editDrink(){
-//         if(checkNull()){
-//            int click=tbThucDon.getSelectedRow();
-//            TableModel model=tbThucDon.getModel();
-//            String sqlChange="UPDATE tblthucdon INNER JOIN tblnhommon ON tblthucdon.MaLoai = tblthucdon.MaLoai SET  tblthucdon.TenMon=N'"+cbLoai.getSelectedItem()+"', tblthucdon.TenHH=N'"+tfTen.getText()+"', tblthucdon.GiaSP='"+(tfGia.getText().replace(",",""))+"', tblthucdon.donVi='"+tfDonvi.getText()+"',tblthucdon.SoLuong="+tfSoluong.getText()+" WHERE tblthucdon.MaMon=N'"+model.getValueAt(click, 0)+"'";
-//            try {
-//                Connection conn = Mysql.getConnection();
-//                PreparedStatement ps = conn.prepareStatement(sqlChange);
-//                ps.execute();
-//                reset();
-//                loadData(sql);
-//                loadLoaiNuoc();
-//                Disabled();
-//                lbTrangthai.setText("Thay đổi thông tin thành công!");
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            } 
-//        }
-//     }
-//    private boolean check(){
-//        try {
-//            Connection conn = Mysql.getConnection();
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            ResultSet rs = ps.executeQuery();
-//            while(rs.next()){
-//                if(rs.getString("TenHH").toString().trim().equals(tfTen.getText())){
-//                    lbTrangthai.setText("Thức uống bạn nhập đã tồn tại");
-//                    return false;
-//                }
-//            }
-//            rs.close();
-//        }
-//        catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return true;
-//    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -499,7 +343,7 @@ public class jpQLHH extends javax.swing.JPanel {
             if (qs == JOptionPane.YES_OPTION) {
                 boolean xoa = cn.DeleteThucDon(ListMaBan);
                 if (xoa == true) {
-                    loadData(null);
+                    loadData(sql);
                     try{
                         jpThucDon.td.FillLoai();
                         jpThucDon.td.updateUI();
