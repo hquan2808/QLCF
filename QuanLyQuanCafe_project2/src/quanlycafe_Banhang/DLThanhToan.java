@@ -9,7 +9,6 @@ import quanlycafe_Banhang.JpGoiMon;
 import quanlycafe_Banhang.BanHang;
 import Models.Ban;
 import Models.HoaDon;
-import Models.ireport;
 import Sql_and_library.Mysql;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -235,8 +234,8 @@ public class DLThanhToan extends javax.swing.JDialog {
         BanHang.bh.taoBan();
         JpGoiMon.gm.removeAll();
         BanHang.bh.fillLb();
-        ireport ir = new ireport();
-        ir.setMaHD(MaHD);
+//        ireport ir = new ireport();
+//        ir.setMaHD(MaHD);
         float Tien=0;
         try{
             String sqlgiamgia = "Select GiamGia from tblhoadon where Mahoadon='"+hd.GetMaHD()+"'";
@@ -254,19 +253,14 @@ public class DLThanhToan extends javax.swing.JDialog {
         }else if(Tien>100){
             Tiengiam=Tien;
         }
-        ir.setGiamGia(Tiengiam);
-        try{
-            String sqldelete = "Insert into tblxuathoadon (mahoadon,tienGiam) values ('"+ir.getMaHD()+"','"+ir.getGiamGia()+"')";
-            Statement st = conn.createStatement();
-            st.executeUpdate(sqldelete);
-        }catch(SQLException ex){
-            System.out.println("In hóa đơn lỗi");
-        }
+        HashMap mahd = new HashMap();
+        mahd.put("Mahoadon", hd.GetMaHD());
+        mahd.put("Tiengiam", Tiengiam);
         if(hoadon.isSelected()==true){
             try {
             JasperReport report=JasperCompileManager.compileReport("C:\\Users\\Dell\\Documents\\GitHub\\QLCF\\QuanLyQuanCafe_project2\\src\\quanlycafe_Banhang\\hoadon.jrxml");
             
-            JasperPrint print=JasperFillManager.fillReport(report,null, conn);
+            JasperPrint print=JasperFillManager.fillReport(report,mahd, conn);
             
             JasperViewer.viewReport(print,false);
             }

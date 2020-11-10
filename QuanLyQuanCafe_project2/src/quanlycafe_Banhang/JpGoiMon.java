@@ -530,14 +530,6 @@ public final class JpGoiMon extends javax.swing.JPanel {
             return;
             
         }if(btngoi.getText().equals("Thanh toán")){
-            Connection conn = cn.getConnection();
-            try{
-            String sqldelete = "DELETE FROM tblxuathoadon";
-            Statement st = conn.createStatement();
-            st.execute(sqldelete);
-        }catch(SQLException ex){
-            System.out.println("xóa bảng lỗi");
-        }
             DLThanhToan thanhtoan = new DLThanhToan(Run.QlCafe, true, tongtien, TenBan, MaBan, MaHD);//tongtien trang thai ban ten ban
             thanhtoan.setVisible(true);
             
