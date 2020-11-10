@@ -27,7 +27,7 @@ import quanlyquancafe_view.quanlyquancafe_Main;
  *
  * @author Dell
  */
-public class BanHang extends javax.swing.JFrame implements Runnable,ActionListener {
+public class BanHang extends javax.swing.JFrame implements Runnable{
     private Detail detail;
     private Thread thread;
     private Mysql con1 = new Mysql();
@@ -374,12 +374,6 @@ public class BanHang extends javax.swing.JFrame implements Runnable,ActionListen
             }
         }
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      
-    }
-
     public void updateUI() {
         
     }

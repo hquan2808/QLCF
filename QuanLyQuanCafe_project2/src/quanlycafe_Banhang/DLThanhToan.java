@@ -10,12 +10,16 @@ import quanlycafe_Banhang.BanHang;
 import Models.Ban;
 import Models.HoaDon;
 import Sql_and_library.Mysql;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JRootPane;
@@ -30,9 +34,10 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author ThangIKCU
  */
-public class DLThanhToan extends javax.swing.JDialog {
+public class DLThanhToan extends javax.swing.JDialog implements Runnable{
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
    Mysql cn = new Mysql(); 
+   private Thread thread;
    Connection conn = cn.getConnection();
    /**
      * Creates new form DLThanhToan
@@ -43,6 +48,7 @@ public class DLThanhToan extends javax.swing.JDialog {
     public DLThanhToan(java.awt.Frame parent, boolean modal, int tongtien, String tenban, int maban, int mahd) {
         super(parent, modal);
         initComponents();
+        Start();
         tong = tongtien;
         MaHD = mahd;
         MaBan = maban;
@@ -51,7 +57,21 @@ public class DLThanhToan extends javax.swing.JDialog {
         JRootPane rp = this.getRootPane();
         rp.setDefaultButton(btnxacnhan);
     }
-
+    private void Start(){
+        if(thread==null){
+            thread= new Thread(this);
+            thread.start();
+        }
+    }
+    private void Update(){
+      if(hoadon.isSelected()==true){
+          lbTenKhach.setVisible(true);
+          txtTenKhach.setVisible(true);
+      }else{
+          lbTenKhach.setVisible(false);
+            txtTenKhach.setVisible(false);
+      }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +92,8 @@ public class DLThanhToan extends javax.swing.JDialog {
         btnxacnhan = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         hoadon = new javax.swing.JCheckBox();
+        lbTenKhach = new javax.swing.JLabel();
+        txtTenKhach = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(500, 200));
@@ -81,11 +103,11 @@ public class DLThanhToan extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(95, 164, 154));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 51)));
 
-        lblTongTien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblTongTien.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTongTien.setText("....");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Tiền thừa");
+        jLabel4.setText("Tiền thừa :");
 
         txtTienDua.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -107,7 +129,7 @@ public class DLThanhToan extends javax.swing.JDialog {
         jLabel1.setText("Bàn 5 - Thanh toán");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Số tiền khách đưa:");
+        jLabel3.setText("Số tiền khách đưa :");
 
         lbltienthoi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbltienthoi.setText("...");
@@ -122,57 +144,70 @@ public class DLThanhToan extends javax.swing.JDialog {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Số tiền cần trả:");
+        jLabel2.setText("Số tiền cần trả :");
 
         hoadon.setBackground(new java.awt.Color(95, 164, 154));
         hoadon.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         hoadon.setText("In hóa đơn thanh toán");
+
+        lbTenKhach.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbTenKhach.setText("Tên khách :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
+                                .addGap(29, 29, 29)
                                 .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbltienthoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtTienDua, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(hoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 17, Short.MAX_VALUE))))
+                                        .addComponent(txtTienDua, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(hoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lbTenKhach)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 8, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(lbltienthoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(12, 12, 12)
                         .addComponent(btnxacnhan)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnhuy)))
-                .addContainerGap())
+                        .addGap(37, 37, 37)
+                        .addComponent(btnhuy, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbTenKhach)
+                    .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblTongTien))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtTienDua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,7 +228,7 @@ public class DLThanhToan extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,8 +269,6 @@ public class DLThanhToan extends javax.swing.JDialog {
         BanHang.bh.taoBan();
         JpGoiMon.gm.removeAll();
         BanHang.bh.fillLb();
-//        ireport ir = new ireport();
-//        ir.setMaHD(MaHD);
         float Tien=0;
         try{
             String sqlgiamgia = "Select GiamGia from tblhoadon where Mahoadon='"+hd.GetMaHD()+"'";
@@ -256,7 +289,10 @@ public class DLThanhToan extends javax.swing.JDialog {
         HashMap mahd = new HashMap();
         mahd.put("Mahoadon", hd.GetMaHD());
         mahd.put("Tiengiam", Tiengiam);
+        mahd.put("KhachDua", txtTienDua.getText());
+        mahd.put("TraLai", lbltienthoi.getText());
         if(hoadon.isSelected()==true){
+            mahd.put("TenKhach",txtTenKhach.getText());
             try {
             JasperReport report=JasperCompileManager.compileReport("C:\\Users\\Dell\\Documents\\GitHub\\QLCF\\QuanLyQuanCafe_project2\\src\\quanlycafe_Banhang\\hoadon.jrxml");
             
@@ -266,6 +302,13 @@ public class DLThanhToan extends javax.swing.JDialog {
             }
             catch (JRException ex) {
                 ex.printStackTrace();
+            }
+        try{
+            String inserttenkh = "Insert into tblkhachhang (MaHD,TenKH) values ('"+hd.GetMaHD()+"','"+txtTenKhach.getText()+"')";
+            PreparedStatement ps = conn.prepareStatement(inserttenkh);
+                ps.execute();
+        }catch(SQLException ex){
+                System.out.println("In tên khách hàng lỗi");
             }
         }
         this.dispose();
@@ -285,8 +328,22 @@ public class DLThanhToan extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbTenKhach;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lbltienthoi;
+    private javax.swing.JTextField txtTenKhach;
     private javax.swing.JTextField txtTienDua;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        while(true){
+            Update();
+            try{
+                Thread.sleep(1);  
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+    }
 }
