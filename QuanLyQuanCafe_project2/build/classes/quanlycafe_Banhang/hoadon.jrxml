@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="280" pageHeight="400" columnWidth="260" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="e0684103-aae2-4b74-9d1a-f5d4893b75f2">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="117"/>
 	<parameter name="Mahoadon" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -35,9 +35,7 @@
      tblthucdon.`DonGia` AS tblthucdon_DonGia,
      tblthucdon.`DVT` AS tblthucdon_DVT,
      $P{Tiengiam} AS tbl_TienGiam,
-     $P{TenKhach} AS tbl_TenKH,
-     $P{KhachDua} AS tbl_Khachdua,
-     $P{TraLai} AS tbl_Tralai
+     $P{TenKhach} AS tbl_TenKH
 FROM
      `tblban` tblban INNER JOIN `tblhoadon` tblhoadon ON tblban.`MaBan` = tblhoadon.`MaBan`
      INNER JOIN `tblchitiethd` tblchitiethd ON tblhoadon.`MaHoaDon` = tblchitiethd.`MaHoaDon`
@@ -59,8 +57,6 @@ WHERE
 	<field name="tblthucdon_DVT" class="java.lang.String"/>
 	<field name="tbl_TienGiam" class="java.lang.Object"/>
 	<field name="tbl_TenKH" class="java.lang.Object"/>
-	<field name="tbl_Khachdua" class="java.lang.Object"/>
-	<field name="tbl_Tralai" class="java.lang.Object"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

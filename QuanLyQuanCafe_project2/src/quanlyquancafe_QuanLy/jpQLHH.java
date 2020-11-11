@@ -48,12 +48,6 @@ public class jpQLHH extends javax.swing.JPanel {
         td = this;
     }
     private void setStyle(){
-//        lbText.setBackground(new java.awt.Color(0,0,0,0));
-//        tfDonvi.setBackground(new java.awt.Color(0,0,0,0));
-//        tfFind.setBackground(new java.awt.Color(0,0,0,0));
-//        tfGia.setBackground(new java.awt.Color(0,0,0,0));
-//        tfSoluong.setBackground(new java.awt.Color(0,0,0,0));
-//        tfTen.setBackground(new java.awt.Color(0,0,0,0));
         tbThucDon.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD,12));
         tbThucDon.getTableHeader().setOpaque(false);
         tbThucDon.getTableHeader().setBackground(new Color(51,107,135));
@@ -365,20 +359,6 @@ public class jpQLHH extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tbThucDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbThucDonMouseClicked
-//        cbLoai.removeAllItems();
-//        int click=tbThucDon.getSelectedRow();
-//        TableModel model=tbThucDon.getModel();
-//
-//        lbText.setText(model.getValueAt(click, 0).toString());
-//        cbLoai.addItem(model.getValueAt(click, 1).toString());
-//        tfTen.setText(model.getValueAt(click, 2).toString());
-//        tfDonvi.setText(model.getValueAt(click, 3).toString());
-//        tfSoluong.setText(model.getValueAt(click, 4).toString());
-//
-//        String []s1=model.getValueAt(click,5).toString().split("\\s");
-//        tfGia.setText(s1[0]);
-
-        //tfGia.setText(model.getValueAt(click, 5).toString());
 
         this.btnEdit.setEnabled(true);
         this.btnDelete.setEnabled(true);
@@ -412,8 +392,12 @@ public class jpQLHH extends javax.swing.JPanel {
 
     private void cbbNhomMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNhomMonItemStateChanged
         Loai selected = (Loai) cbbNhomMon.getSelectedItem();
-        loadData(selected.GetMaLoai());
-        // TODO add your handling code here:
+        if(selected.GetMaLoai()== null){
+            loadData(sql);
+        }else{
+            String sqlcb="SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai Where tblnhommon.MaLoai='"+selected.GetMaLoai()+"'";
+            loadData(sqlcb);
+        }
     }//GEN-LAST:event_cbbNhomMonItemStateChanged
 
 

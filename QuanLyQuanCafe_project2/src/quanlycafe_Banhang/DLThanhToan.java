@@ -22,6 +22,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -35,7 +36,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author ThangIKCU
  */
 public class DLThanhToan extends javax.swing.JDialog implements Runnable{
-    NumberFormat chuyentien = new DecimalFormat("#,###,###");
+   NumberFormat chuyentien = new DecimalFormat("#,###,###");
    Mysql cn = new Mysql(); 
    private Thread thread;
    Connection conn = cn.getConnection();
@@ -48,6 +49,10 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
     public DLThanhToan(java.awt.Frame parent, boolean modal, int tongtien, String tenban, int maban, int mahd) {
         super(parent, modal);
         initComponents();
+        lbTenKhach.setVisible(false);
+        txtTenKhach.setVisible(false);
+        lbTenKhach1.setVisible(false);
+        txtTenKhach1.setVisible(false);
         Start();
         tong = tongtien;
         MaHD = mahd;
@@ -67,9 +72,13 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
       if(hoadon.isSelected()==true){
           lbTenKhach.setVisible(true);
           txtTenKhach.setVisible(true);
+          lbTenKhach1.setVisible(true);
+          txtTenKhach1.setVisible(true);
       }else{
           lbTenKhach.setVisible(false);
-            txtTenKhach.setVisible(false);
+          txtTenKhach.setVisible(false);
+          lbTenKhach1.setVisible(false);
+          txtTenKhach1.setVisible(false);
       }
     }
     /**
@@ -94,6 +103,8 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
         hoadon = new javax.swing.JCheckBox();
         lbTenKhach = new javax.swing.JLabel();
         txtTenKhach = new javax.swing.JTextField();
+        lbTenKhach1 = new javax.swing.JLabel();
+        txtTenKhach1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(500, 200));
@@ -153,10 +164,23 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
         lbTenKhach.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbTenKhach.setText("Tên khách :");
 
+        lbTenKhach1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbTenKhach1.setText("Số Điện Thoại:");
+
+        txtTenKhach1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTenKhach1KeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,32 +191,35 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
                                 .addGap(29, 29, 29)
                                 .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtTienDua, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(hoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lbTenKhach)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 8, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43)
-                                .addComponent(lbltienthoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(lbltienthoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtTienDua, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(hoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(3, 3, 3))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lbTenKhach1)
+                                            .addComponent(lbTenKhach))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtTenKhach, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                            .addComponent(txtTenKhach1))))
+                                .addGap(0, 16, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
+                        .addGap(21, 21, 21)
                         .addComponent(btnxacnhan)
-                        .addGap(37, 37, 37)
+                        .addGap(28, 28, 28)
                         .addComponent(btnhuy, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,19 +230,23 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbTenKhach)
                     .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblTongTien))
-                .addGap(18, 18, 18)
+                    .addComponent(lbTenKhach1)
+                    .addComponent(txtTenKhach1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTongTien)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtTienDua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lbltienthoi))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(hoadon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -290,6 +321,12 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
         mahd.put("Mahoadon", hd.GetMaHD());
         mahd.put("Tiengiam", Tiengiam);
         if(hoadon.isSelected()==true){
+            if(txtTenKhach.getText().equals("")){
+                txtTenKhach.setText("Khách Ngoài");
+            }
+            if(txtTenKhach1.getText().equals("")){
+                txtTenKhach1.setText("null");
+            }
             mahd.put("TenKhach",txtTenKhach.getText());
             try {
             JasperReport report=JasperCompileManager.compileReport("C:\\Users\\Dell\\Documents\\GitHub\\QLCF\\QuanLyQuanCafe_project2\\src\\quanlycafe_Banhang\\hoadon.jrxml");
@@ -302,15 +339,23 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
                 ex.printStackTrace();
             }
         try{
-            String inserttenkh = "Insert into tblkhachhang (MaHD,TenKH) values ('"+hd.GetMaHD()+"','"+txtTenKhach.getText()+"')";
+            String inserttenkh = "Insert into tblkhachhang (MaHD,TenKH,SDT) values ('"+hd.GetMaHD()+"',N'"+txtTenKhach.getText()+"','"+txtTenKhach1.getText()+"')";
             PreparedStatement ps = conn.prepareStatement(inserttenkh);
-                ps.execute();
+            ps.execute();
         }catch(SQLException ex){
                 System.out.println("In tên khách hàng lỗi");
             }
         }
         this.dispose();
     }//GEN-LAST:event_btnxacnhanActionPerformed
+
+    private void txtTenKhach1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenKhach1KeyReleased
+       try{
+            Integer.parseInt(txtTenKhach1.getText());
+        }catch(Exception e){
+            txtTenKhach1.setText(null);
+        }
+    }//GEN-LAST:event_txtTenKhach1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -327,9 +372,11 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbTenKhach;
+    private javax.swing.JLabel lbTenKhach1;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lbltienthoi;
     private javax.swing.JTextField txtTenKhach;
+    private javax.swing.JTextField txtTenKhach1;
     private javax.swing.JTextField txtTienDua;
     // End of variables declaration//GEN-END:variables
 
