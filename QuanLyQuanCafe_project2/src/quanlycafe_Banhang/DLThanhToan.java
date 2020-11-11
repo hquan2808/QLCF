@@ -289,8 +289,6 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
         HashMap mahd = new HashMap();
         mahd.put("Mahoadon", hd.GetMaHD());
         mahd.put("Tiengiam", Tiengiam);
-        mahd.put("KhachDua", txtTienDua.getText());
-        mahd.put("TraLai", lbltienthoi.getText());
         if(hoadon.isSelected()==true){
             mahd.put("TenKhach",txtTenKhach.getText());
             try {
