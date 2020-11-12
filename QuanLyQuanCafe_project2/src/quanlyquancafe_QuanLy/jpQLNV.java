@@ -491,6 +491,7 @@ public class jpQLNV extends javax.swing.JPanel {
 
         tfNgaysinh.setBackground(new java.awt.Color(255, 255, 255));
         tfNgaysinh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 107, 135)));
+        tfNgaysinh.setDateFormatString("MM dd yyyy");
         tfNgaysinh.setOpaque(false);
 
         cbChucvu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -728,7 +729,7 @@ public class jpQLNV extends javax.swing.JPanel {
 
         tfMa.setText(model.getValueAt(click, 0).toString());
         tfTen.setText(model.getValueAt(click, 1).toString());
-        ((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).setText(model.getValueAt(click, 3).toString());
+        ((JTextField)tfNgaysinh.getDateEditor()).setText(model.getValueAt(click, 3).toString());
         tfSdt.setText(model.getValueAt(click, 4).toString());
         tfDiachi.setText(model.getValueAt(click, 5).toString());
         cbChucvu.addItem(model.getValueAt(click, 6).toString());

@@ -175,6 +175,11 @@ public class KhachHang extends javax.swing.JFrame {
         jLabel3.setText("Cấp độ : ");
 
         cb_MoTa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn cấp bậc", "Khách thường", "Bronze", "Silver", "Gold" }));
+        cb_MoTa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_MoTaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -257,7 +262,7 @@ public class KhachHang extends javax.swing.JFrame {
         String sql_base = "SELECT * FROM tblkhachhang INNER JOIN tblloaikhachhang ON tblkhachhang.MaLKH = tblloaikhachhang.MaLKH WHERE SDT LIKE N'%"+tfSDT.getText()+"%'";
         String sql="SELECT * FROM tblkhachhang INNER JOIN tblloaikhachhang ON tblkhachhang.MaLKH = tblloaikhachhang.MaLKH WHERE SDT LIKE N'%"+tfSDT.getText()+"%' AND MoTa LIKE N'%"+cb_MoTa.getSelectedItem().toString()+"%'";
         
-        if(cb_MoTa.getSelectedItem().toString().equals("Chọn cấp bậc")){
+        if(cb_MoTa.getSelectedIndex()){
             loadData(sql_base);
         }else{
             loadData(sql);
@@ -270,6 +275,10 @@ public class KhachHang extends javax.swing.JFrame {
         Refresh();
         loadData(sql);
     }//GEN-LAST:event_btnRefresh1ActionPerformed
+
+    private void cb_MoTaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_MoTaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_MoTaActionPerformed
 
     /**
      * @param args the command line arguments

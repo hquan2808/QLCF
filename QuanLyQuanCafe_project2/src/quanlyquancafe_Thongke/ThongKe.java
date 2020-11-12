@@ -30,12 +30,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import quanlyquancafe_view.quanlyquancafe_Main;
-//import org.jfree.chart.ChartFactory;
-//import org.jfree.chart.ChartFrame;
-//import org.jfree.chart.JFreeChart;
-//import org.jfree.chart.plot.CategoryPlot;
-//import org.jfree.chart.plot.PlotOrientation;
-//import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -353,6 +353,8 @@ public class ThongKe extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         kButton1 = new keeptoo.KButton();
         jLabel4 = new javax.swing.JLabel();
+        refresh = new keeptoo.KButton();
+        jfChartMonth = new keeptoo.KButton();
 
         jPopupMenu1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -516,6 +518,20 @@ public class ThongKe extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px.png"))); // NOI18N
 
+        refresh.setText("Refresh");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
+
+        jfChartMonth.setText("Biểu đồ");
+        jfChartMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jfChartMonthActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -530,7 +546,11 @@ public class ThongKe extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jfChartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel16)
                 .addGap(39, 39, 39))
@@ -603,19 +623,20 @@ public class ThongKe extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
+                        .addGap(120, 120, 120)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel16)
                             .addComponent(jLabel17)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(kButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(7, 7, 7)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(kButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jfChartMonth, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -652,7 +673,7 @@ public class ThongKe extends javax.swing.JFrame {
                     .addComponent(lbltongloai)
                     .addComponent(jLabel14)
                     .addComponent(lbltaikhoan))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -663,16 +684,15 @@ public class ThongKe extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -697,6 +717,75 @@ public class ThongKe extends javax.swing.JFrame {
         fillbydate1();
         fillbydate2();
     }//GEN-LAST:event_kButton1ActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refreshActionPerformed
+
+    private void jfChartMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jfChartMonthActionPerformed
+        // TODO add your handling code here:
+        String querry="SELECT * FROM tblhoadon";
+        Connection conn = Mysql.getConnection();
+             int a=100;
+        DefaultCategoryDataset chart=new DefaultCategoryDataset();
+         //PreparedStatement ps = conn.prepareStatement(querry);
+        try {
+             PreparedStatement ps = conn.prepareStatement(querry);
+            ResultSet rs = ps.executeQuery();
+            chart.setValue(tongTienMonth(1),"VND","1");
+            chart.setValue(tongTienMonth(2),"VND","2");
+            chart.setValue(tongTienMonth(3),"VND","3");
+            chart.setValue(tongTienMonth(4),"VND","4");
+            chart.setValue(tongTienMonth(5),"VND","5");
+            chart.setValue(tongTienMonth(6),"VND","6");
+            chart.setValue(tongTienMonth(7),"VND","7");
+            chart.setValue(tongTienMonth(8),"VND","8");
+            chart.setValue(tongTienMonth(9),"VND","9");
+            chart.setValue(tongTienMonth(10),"VND","10");
+            chart.setValue(tongTienMonth(11),"VND","11");
+            chart.setValue(tongTienMonth(12),"VND","12");
+//            chart.setSeriesPaint(0, Color.red); 
+//            chart.setSeriesPaint(1, Color.green); 
+//            chart.setSeriesPaint(2, Color.blue); 
+      
+                //chart.setValue(tongTienMonth(10),"VND",convert(getMonth(rs.getDate("GioDen").toString())));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JFreeChart jf= ChartFactory.createBarChart("Doanh thu theo từng tháng","Tháng","VND", chart, PlotOrientation.VERTICAL,false,false,false);
+        CategoryPlot plot=jf.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.WHITE);
+        ChartFrame frame= new ChartFrame("Bar chart", jf);
+        frame.setVisible(true);
+        frame.setSize(500,500);
+    }
+    private double getMonth(String s){
+        String [] arry = s.replace("-"," ").split("\\s");
+        return Double.parseDouble(arry[arry.length-2]);
+    }
+    private int tongTienMonth(int thang){
+        int result=0;
+        String sql="select * from tblhoadon";
+        Connection conn= Mysql.getConnection();
+        try {
+            PreparedStatement ps= conn.prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            while(rs.next()){
+                if(getMonth(rs.getDate("GioDen").toString())==thang){
+                    result=result+rs.getInt("TongTien");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+     private String convert(double t){
+        String a=String.valueOf(t);
+        return a;
+    }//GEN-LAST:event_jfChartMonthActionPerformed
 
     /**
      * @param args the command line arguments
@@ -765,6 +854,7 @@ public class ThongKe extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private keeptoo.KButton jfChartMonth;
     private keeptoo.KButton kButton1;
     private javax.swing.JLabel lblgiam;
     private javax.swing.JLabel lblhd;
@@ -775,6 +865,7 @@ public class ThongKe extends javax.swing.JFrame {
     private javax.swing.JLabel lbltongban;
     private javax.swing.JLabel lbltongloai;
     private javax.swing.JLabel lbltongmon;
+    private keeptoo.KButton refresh;
     private javax.swing.JTable tbaleHD;
     private javax.swing.JTable tbmon;
     // End of variables declaration//GEN-END:variables
