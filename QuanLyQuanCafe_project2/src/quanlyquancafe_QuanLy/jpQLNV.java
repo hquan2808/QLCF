@@ -11,8 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.Color;
 import java.awt.Font;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -176,10 +181,10 @@ public class jpQLNV extends javax.swing.JPanel {
             rbNu.setSelected(true);
         }
     }
-    private void addNV(){
+    private void addNV() throws NoSuchAlgorithmException{
         if(checkNull()){
             try {
-                String sqlAddNV = "INSERT INTO tblqlnv (idNV,tenNV,ngaySinh,sdt,GioiTinh,DiaChi,taiKhoan,MatKhau,Roll) VALUES (N'"+tfMa.getText()+"',N'"+tfTen.getText()+"',N'"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',N'"+tfSdt.getText()+"',N'"+gioiTinh()+"',N'"+tfDiachi.getText()+"',N'"+tfTaikhoan.getText()+"',N'"+tfMatkhau.getText()+"',N'"+cbChucvu.getSelectedItem().toString()+"')";
+                String sqlAddNV = "INSERT INTO tblqlnv (idNV,tenNV,ngaySinh,sdt,GioiTinh,DiaChi,taiKhoan,MatKhau,Roll) VALUES (N'"+tfMa.getText()+"',N'"+tfTen.getText()+"',N'"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',N'"+tfSdt.getText()+"',N'"+gioiTinh()+"',N'"+tfDiachi.getText()+"',N'"+tfTaikhoan.getText()+"',N'"+convertHashToString(tfMatkhau.getText())+"',N'"+cbChucvu.getSelectedItem().toString()+"')";
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlAddNV);
                 ps.execute();
@@ -192,11 +197,11 @@ public class jpQLNV extends javax.swing.JPanel {
             }
         }
     }
-    private void editNV(){
+    private void editNV() throws NoSuchAlgorithmException{
         if(checkNull()){
             int click=table_QLNV.getSelectedRow();
             TableModel model=table_QLNV.getModel();
-            String sqlChange="UPDATE tblqlnv SET idNV='"+tfMa.getText()+"',Roll='"+cbChucvu.getSelectedItem().toString()+"', tenNV=N'"+tfTen.getText()+"', ngaySinh='"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',GioiTinh='"+gioiTinh()+"', sdt='"+(tfSdt.getText())+"', diaChi='"+tfDiachi.getText()+"',taiKhoan='"+(tfTaikhoan.getText())+"',MatKhau='"+(tfMatkhau.getText())+"' WHERE idNV=N'"+model.getValueAt(click, 0)+"'";
+            String sqlChange="UPDATE tblqlnv SET idNV='"+tfMa.getText()+"',Roll='"+cbChucvu.getSelectedItem().toString()+"', tenNV=N'"+tfTen.getText()+"', ngaySinh='"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',GioiTinh='"+gioiTinh()+"', sdt='"+(tfSdt.getText())+"', diaChi='"+tfDiachi.getText()+"',taiKhoan='"+(tfTaikhoan.getText())+"',MatKhau='"+convertHashToString((tfMatkhau.getText()))+"' WHERE idNV=N'"+model.getValueAt(click, 0)+"'";
             try {
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlChange);
@@ -284,6 +289,15 @@ public class jpQLNV extends javax.swing.JPanel {
     }
     private String cutChar(String arry){
         return arry.replaceAll("\\D+","");
+    }
+    public String convertHashToString(String text) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hashInBytes = md.digest(text.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -491,7 +505,6 @@ public class jpQLNV extends javax.swing.JPanel {
 
         tfNgaysinh.setBackground(new java.awt.Color(255, 255, 255));
         tfNgaysinh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 107, 135)));
-        tfNgaysinh.setDateFormatString("MM dd yyyy");
         tfNgaysinh.setOpaque(false);
 
         cbChucvu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -542,8 +555,8 @@ public class jpQLNV extends javax.swing.JPanel {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfMatkhau, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                                    .addComponent(tfXacnhanmk)))
+                                    .addComponent(tfXacnhanmk, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                    .addComponent(tfMatkhau)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(5, 5, 5)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -800,12 +813,20 @@ public class jpQLNV extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if(add==true){
             if(check()){
-                addNV();
+                try {
+                    addNV();
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(jpQLNV.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         else{
             if(change==true)
-            editNV();
+            try {
+                editNV();
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(jpQLNV.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 

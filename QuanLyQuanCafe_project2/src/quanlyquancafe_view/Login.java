@@ -11,10 +11,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
@@ -49,6 +54,15 @@ public class Login extends javax.swing.JFrame {
             return false;
         }
         return true;
+    }
+    public String convertHashToString(String text) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hashInBytes = md.digest(text.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 
     /**
@@ -198,13 +212,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_UserActionPerformed
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
-        if(checkNull()==true){;
+        if(checkNull()==true){
             String sql1 = "Select * from tblqlnv\n" + "where TaiKhoan=? and MatKhau=?";
             Connection conn = Mysql.getConnection();
             try {
                 PreparedStatement ps = conn.prepareStatement(sql1);
                 ps.setString(1,User.getText());
-                ps.setString(2,Password.getText());
+                ps.setString(2,convertHashToString(Password.getText()));
                 ResultSet rs = ps.executeQuery();
                 if(rs.next()){
                     Detail detail = new Detail(rs.getString("TaiKhoan").trim(),rs.getString("tenNV").trim(),rs.getString("Roll").trim());
@@ -217,10 +231,12 @@ public class Login extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Trangthai.setText("Lấy thông tin thất bại");
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_kButton1ActionPerformed
-
+    
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
         int click=JOptionPane.showConfirmDialog(null, "Bạn có muốn thoát chương trình hay không?", "Thông báo",2);
@@ -268,6 +284,12 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
+//                Login md5 = new Login();
+//                try {
+//                    System.out.println(md5.convertHashToString(Password.getText()));
+//                } catch (NoSuchAlgorithmException ex) {
+//                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
         });
     }

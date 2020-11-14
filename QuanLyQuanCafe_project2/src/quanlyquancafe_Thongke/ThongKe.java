@@ -355,6 +355,7 @@ public class ThongKe extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         refresh = new keeptoo.KButton();
         jfChartMonth = new keeptoo.KButton();
+        jSpinner1 = new javax.swing.JSpinner();
 
         jPopupMenu1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -370,7 +371,7 @@ public class ThongKe extends javax.swing.JFrame {
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1282, 600));
 
-        jPanel3.setBackground(new java.awt.Color(95, 164, 154));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(162, 11, 11));
 
         tbmon.setModel(new javax.swing.table.DefaultTableModel(
@@ -474,7 +475,7 @@ public class ThongKe extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(51, 107, 135));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Thống kê");
 
@@ -490,42 +491,58 @@ public class ThongKe extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btn_home)
-                .addGap(430, 430, 430)
+                .addGap(488, 488, 488)
                 .addComponent(jLabel5)
-                .addContainerGap(636, Short.MAX_VALUE))
+                .addContainerGap(581, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btn_home)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(btn_home))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
+
+        jDateChooser1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jDateChooser2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Đến");
 
         kButton1.setText("Thống kê");
+        kButton1.setkEndColor(new java.awt.Color(0, 153, 204));
+        kButton1.setkHoverEndColor(new java.awt.Color(0, 153, 255));
+        kButton1.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        kButton1.setkHoverStartColor(new java.awt.Color(204, 204, 255));
         kButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kButton1ActionPerformed(evt);
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"))); // NOI18N
 
         refresh.setText("Refresh");
+        refresh.setkEndColor(new java.awt.Color(0, 153, 204));
+        refresh.setkHoverEndColor(new java.awt.Color(0, 153, 255));
+        refresh.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        refresh.setkHoverStartColor(new java.awt.Color(204, 204, 255));
         refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshActionPerformed(evt);
             }
         });
 
-        jfChartMonth.setText("Biểu đồ");
+        jfChartMonth.setText("Biểu đồ năm");
+        jfChartMonth.setkEndColor(new java.awt.Color(0, 153, 204));
+        jfChartMonth.setkHoverEndColor(new java.awt.Color(0, 153, 255));
+        jfChartMonth.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        jfChartMonth.setkHoverStartColor(new java.awt.Color(204, 204, 255));
         jfChartMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfChartMonthActionPerformed(evt);
@@ -536,24 +553,6 @@ public class ThongKe extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel17)
-                .addGap(143, 143, 143)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jfChartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel16)
-                .addGap(39, 39, 39))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -609,34 +608,59 @@ public class ThongKe extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addGap(36, 36, 36))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel17)
+                                .addGap(66, 66, 66)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(jfChartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel16)
+                                .addGap(24, 24, 24))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(130, 130, 130)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel16)
-                            .addComponent(jLabel17)))
+                            .addComponent(jLabel17))
+                        .addGap(22, 22, 22))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(kButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jfChartMonth, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addGap(22, 22, 22)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jfChartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -673,11 +697,11 @@ public class ThongKe extends javax.swing.JFrame {
                     .addComponent(lbltongloai)
                     .addComponent(jLabel14)
                     .addComponent(lbltaikhoan))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 518, Short.MAX_VALUE)))
+                    .addGap(0, 560, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -720,6 +744,9 @@ public class ThongKe extends javax.swing.JFrame {
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         // TODO add your handling code here:
+        jDateChooser1.setCalendar(null);
+        jDateChooser2.setCalendar(null);
+        loadinfo();
     }//GEN-LAST:event_refreshActionPerformed
 
     private void jfChartMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jfChartMonthActionPerformed
@@ -732,28 +759,22 @@ public class ThongKe extends javax.swing.JFrame {
         try {
              PreparedStatement ps = conn.prepareStatement(querry);
             ResultSet rs = ps.executeQuery();
-            chart.setValue(tongTienMonth(1),"VND","1");
-            chart.setValue(tongTienMonth(2),"VND","2");
-            chart.setValue(tongTienMonth(3),"VND","3");
-            chart.setValue(tongTienMonth(4),"VND","4");
-            chart.setValue(tongTienMonth(5),"VND","5");
-            chart.setValue(tongTienMonth(6),"VND","6");
-            chart.setValue(tongTienMonth(7),"VND","7");
-            chart.setValue(tongTienMonth(8),"VND","8");
-            chart.setValue(tongTienMonth(9),"VND","9");
-            chart.setValue(tongTienMonth(10),"VND","10");
-            chart.setValue(tongTienMonth(11),"VND","11");
-            chart.setValue(tongTienMonth(12),"VND","12");
-//            chart.setSeriesPaint(0, Color.red); 
-//            chart.setSeriesPaint(1, Color.green); 
-//            chart.setSeriesPaint(2, Color.blue); 
-      
-                //chart.setValue(tongTienMonth(10),"VND",convert(getMonth(rs.getDate("GioDen").toString())));
-            
+            chart.setValue(tongTienMonth(1, (int) jSpinner1.getValue()),"VND","1");
+            chart.setValue(tongTienMonth(2, (int) jSpinner1.getValue()),"VND","2");
+            chart.setValue(tongTienMonth(3, (int) jSpinner1.getValue()),"VND","3");
+            chart.setValue(tongTienMonth(4, (int) jSpinner1.getValue()),"VND","4");
+            chart.setValue(tongTienMonth(5, (int) jSpinner1.getValue()),"VND","5");
+            chart.setValue(tongTienMonth(6, (int) jSpinner1.getValue()),"VND","6");
+            chart.setValue(tongTienMonth(7, (int) jSpinner1.getValue()),"VND","7");
+            chart.setValue(tongTienMonth(8, (int) jSpinner1.getValue()),"VND","8");
+            chart.setValue(tongTienMonth(9, (int) jSpinner1.getValue()),"VND","9");
+            chart.setValue(tongTienMonth(10, (int) jSpinner1.getValue()),"VND","10");
+            chart.setValue(tongTienMonth(11, (int) jSpinner1.getValue()),"VND","11");
+            chart.setValue(tongTienMonth(12, (int) jSpinner1.getValue()),"VND","12");
         } catch (SQLException ex) {
             Logger.getLogger(ThongKe.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JFreeChart jf= ChartFactory.createBarChart("Doanh thu theo từng tháng","Tháng","VND", chart, PlotOrientation.VERTICAL,false,false,false);
+        JFreeChart jf= ChartFactory.createBarChart("Doanh thu theo từng tháng của năm "+jSpinner1.getValue(),"Tháng","VND", chart, PlotOrientation.VERTICAL,false,false,false);
         CategoryPlot plot=jf.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.WHITE);
         ChartFrame frame= new ChartFrame("Bar chart", jf);
@@ -764,7 +785,11 @@ public class ThongKe extends javax.swing.JFrame {
         String [] arry = s.replace("-"," ").split("\\s");
         return Double.parseDouble(arry[arry.length-2]);
     }
-    private int tongTienMonth(int thang){
+    private double getYear(String s){
+        String [] arry = s.replace("-"," ").split("\\s");
+        return Double.parseDouble(arry[arry.length-3]);
+    }
+    private int tongTienMonth(int thang,int nam){
         int result=0;
         String sql="select * from tblhoadon";
         Connection conn= Mysql.getConnection();
@@ -772,7 +797,7 @@ public class ThongKe extends javax.swing.JFrame {
             PreparedStatement ps= conn.prepareStatement(sql);
             ResultSet rs= ps.executeQuery();
             while(rs.next()){
-                if(getMonth(rs.getDate("GioDen").toString())==thang){
+                if(getMonth(rs.getDate("GioDen").toString())==thang&&getYear(rs.getDate("GioDen").toString())==nam){
                     result=result+rs.getInt("TongTien");
                 }
             }
@@ -854,6 +879,7 @@ public class ThongKe extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSpinner jSpinner1;
     private keeptoo.KButton jfChartMonth;
     private keeptoo.KButton kButton1;
     private javax.swing.JLabel lblgiam;

@@ -6,6 +6,9 @@
 package quanlyquancafe_Setting;
 import Models.Detail;
 import Sql_and_library.Mysql;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,8 +34,17 @@ public class jpDoiMK extends javax.swing.JPanel {
         detail= new Detail(d);
         lbTK.setText(detail.getUser());
     }
-    public void updatepass(){
-      String sql_update = " UPDATE tblqlnv SET matKhau = N'"+txtpassnew.getText()+"' WHERE TaiKhoan = ?";
+    public String convertHashToString(String text) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hashInBytes = md.digest(text.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+    public void updatepass() throws NoSuchAlgorithmException{
+      String sql_update = " UPDATE tblqlnv SET matKhau = N'"+convertHashToString(txtpassnew.getText())+"' WHERE TaiKhoan = ?";
         try {
             Connection conn = Mysql.getConnection(); 
             PreparedStatement ps = conn.prepareStatement(sql_update);
@@ -58,7 +70,7 @@ public class jpDoiMK extends javax.swing.JPanel {
         }
         return true;
     }
-    private void editMK(){
+    private void editMK() throws NoSuchAlgorithmException{
         String sql1 = "Select * from tblqlnv where TaiKhoan=?";
         Connection conn = Mysql.getConnection();
          if(checkNull()&&checkMKM()){
@@ -68,7 +80,7 @@ public class jpDoiMK extends javax.swing.JPanel {
                 ps.setString(1,detail.getUser());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    if (txtpassold.getText().equals(rs.getString("matKhau").trim())) {
+                    if (convertHashToString(txtpassold.getText()).equals(rs.getString("matKhau").trim())) {
                         updatepass();
                         txtpassnew.setText("");
                         txtpassold.setText("");
@@ -237,8 +249,12 @@ public class jpDoiMK extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
-        // TODO add your handling code here:
-        editMK();
+        try {
+            // TODO add your handling code here:
+            editMK();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(jpDoiMK.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_kButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
