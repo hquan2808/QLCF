@@ -348,7 +348,7 @@ public class Mysql {
     public ArrayList<Ban> SearchBan(String ten){
         ArrayList<Ban> arrtd = null;
         String sql;
-            sql = "SELECT * FROM tblban WHERE TenBan LIKE '"+ten+"%'";
+            sql = "SELECT * FROM tblban WHERE TenBan LIKE '%"+ten+"%'";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);

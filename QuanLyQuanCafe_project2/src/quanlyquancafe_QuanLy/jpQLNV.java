@@ -245,6 +245,7 @@ public class jpQLNV extends javax.swing.JPanel {
         return true;
     }
     private void loadData(String sql){
+        int sl=0;
         try{
             String[] arry={"Mã nhân viên","Họ và Tên","Giới tính","Ngày sinh","SĐT","Địa chỉ","Chức vụ"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
@@ -262,8 +263,10 @@ public class jpQLNV extends javax.swing.JPanel {
                 vector.add(rs.getString("DiaChi").trim());
                 vector.add(rs.getString("Roll").trim());
                 model.addRow(vector);
+                sl++;
             }
             table_QLNV.setModel(model);
+            lblthongtin.setText(String.valueOf(sl)+" Người");
             rs.close();
         }
         catch(Exception ex){
@@ -314,7 +317,6 @@ public class jpQLNV extends javax.swing.JPanel {
         spTable = new javax.swing.JScrollPane();
         table_QLNV = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        btnFind = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -342,9 +344,12 @@ public class jpQLNV extends javax.swing.JPanel {
         cbChucvu = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         tfMa = new javax.swing.JLabel();
-        tfFind = new javax.swing.JTextField();
         btnExit = new javax.swing.JButton();
         lbTrangthai = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txttim = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        lblthongtin = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -386,15 +391,6 @@ public class jpQLNV extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Thông tin");
-
-        btnFind.setBackground(new java.awt.Color(255, 255, 255));
-        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_search_36px_1.png"))); // NOI18N
-        btnFind.setOpaque(false);
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindActionPerformed(evt);
-            }
-        });
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/user (1).png"))); // NOI18N
@@ -507,7 +503,7 @@ public class jpQLNV extends javax.swing.JPanel {
         tfNgaysinh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 107, 135)));
         tfNgaysinh.setOpaque(false);
 
-        cbChucvu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        cbChucvu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Chức vụ:");
@@ -566,7 +562,7 @@ public class jpQLNV extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(rbNam))
                                     .addComponent(tfTaikhoan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -618,13 +614,6 @@ public class jpQLNV extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tfFind.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 107, 135)));
-        tfFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfFindActionPerformed(evt);
-            }
-        });
-
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quanlyquancafe_image/x-button.png"))); // NOI18N
         btnExit.setEnabled(false);
@@ -636,6 +625,29 @@ public class jpQLNV extends javax.swing.JPanel {
 
         lbTrangthai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Tìm nhân viên:");
+
+        txttim.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txttim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttimActionPerformed(evt);
+            }
+        });
+        txttim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttimKeyReleased(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel6.setText("Tổng nhân viên:");
+
+        lblthongtin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblthongtin.setForeground(new java.awt.Color(153, 0, 0));
+        lblthongtin.setText("Total");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -644,21 +656,24 @@ public class jpQLNV extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblthongtin, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(tfFind, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(308, 308, 308)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txttim, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(595, 595, 595)
                                 .addComponent(jLabel1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(577, 577, 577)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(23, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -676,17 +691,12 @@ public class jpQLNV extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfFind, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5)
+                    .addComponent(txttim))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -699,8 +709,12 @@ public class jpQLNV extends javax.swing.JPanel {
                             .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(lblthongtin)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -752,16 +766,6 @@ public class jpQLNV extends javax.swing.JPanel {
         this.btnEdit.setEnabled(true);
         this.btnDelete.setEnabled(true);
     }//GEN-LAST:event_table_QLNVMouseClicked
-
-    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        String sql = "SELECT * FROM tblqlnv where idNV like N'%"+tfFind.getText()+"%' or tenNV like N'%"+tfFind.getText()+"%' or GioiTinh like N'%"+tfFind.getText()+"%' or ngaySinh like N'%"+tfFind.getText()+"%' or sdt like N'%"+tfFind.getText()+"%' or DiaChi like N'%"+tfFind.getText()+"%' or taiKhoan like N'%"+tfFind.getText()+"%' or Roll like N'%"+tfFind.getText()+"'";
-        Disabled();
-        loadData(sql);
-        tfFind.setText("");
-        reset();
-        checkDecentralization();
-        btnExit.setEnabled(true);
-    }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
@@ -850,10 +854,6 @@ public class jpQLNV extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbNuActionPerformed
 
-    private void tfFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFindActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfFindActionPerformed
-
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
         Disabled();
@@ -863,19 +863,30 @@ public class jpQLNV extends javax.swing.JPanel {
         btnDelete.setEnabled(false);
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void txttimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttimActionPerformed
+
+    private void txttimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimKeyReleased
+        String sqlfind = "SELECT * FROM tblqlnv WHERE idNV LIKE '%"+txttim.getText()+"%' OR tenNV LIKE '%"+txttim.getText()+"%' OR Roll LIKE '%"+txttim.getText()+"%' OR SDT LIKE '%"+txttim.getText()+"%' OR TaiKhoan LIKE '%"+txttim.getText()+"%' OR GioiTinh LIKE '%"+txttim.getText()+"%'";
+        loadData(sqlfind);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttimKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbChucvu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -883,6 +894,7 @@ public class jpQLNV extends javax.swing.JPanel {
     private javax.swing.JLabel lbdiachi;
     private javax.swing.JLabel lbgioitinh;
     private javax.swing.JLabel lbhoten;
+    private javax.swing.JLabel lblthongtin;
     private javax.swing.JLabel lbmanv;
     private javax.swing.JLabel lbmatkhau;
     private javax.swing.JLabel lbngaysinh;
@@ -894,7 +906,6 @@ public class jpQLNV extends javax.swing.JPanel {
     private javax.swing.JScrollPane spTable;
     private javax.swing.JTable table_QLNV;
     private javax.swing.JTextField tfDiachi;
-    private javax.swing.JTextField tfFind;
     private javax.swing.JLabel tfMa;
     private javax.swing.JPasswordField tfMatkhau;
     private com.toedter.calendar.JDateChooser tfNgaysinh;
@@ -902,5 +913,6 @@ public class jpQLNV extends javax.swing.JPanel {
     private javax.swing.JTextField tfTaikhoan;
     private javax.swing.JTextField tfTen;
     private javax.swing.JPasswordField tfXacnhanmk;
+    private javax.swing.JTextField txttim;
     // End of variables declaration//GEN-END:variables
 }

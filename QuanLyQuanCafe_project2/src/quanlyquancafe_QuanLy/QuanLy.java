@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import Models.Detail;
+import quanlyquancafe_view.Login;
 import quanlyquancafe_view.quanlyquancafe_Main;
 /**
  *
@@ -28,6 +29,8 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLHH.setBorder(BorderFactory.createLineBorder((Color.black)));
         BTN_QLB.setBorder(null);
         BTN_QLNV.setBorder(null);
+        BTN_QLLHH.setBorder(null);
+        BTN_KH.setBorder(null);
         jpQLHH qlhh = new jpQLHH();
         qlhh.setSize(1050,650);
         jPanel7.removeAll();
@@ -52,6 +55,7 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLB = new keeptoo.KButton();
         BTN_QLHH = new keeptoo.KButton();
         BTN_QLLHH = new keeptoo.KButton();
+        BTN_KH = new keeptoo.KButton();
         jPanel7 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -142,6 +146,17 @@ public class QuanLy extends javax.swing.JFrame {
             }
         });
 
+        BTN_KH.setText("QUẢN LÝ KHÁCH HÀNG");
+        BTN_KH.setkEndColor(new java.awt.Color(224, 255, 255));
+        BTN_KH.setkHoverEndColor(new java.awt.Color(176, 224, 230));
+        BTN_KH.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        BTN_KH.setkHoverStartColor(new java.awt.Color(16, 78, 139));
+        BTN_KH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_KHActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -150,6 +165,7 @@ public class QuanLy extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BTN_KH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTN_QLLHH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTN_QLHH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTN_QLNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,7 +184,9 @@ public class QuanLy extends javax.swing.JFrame {
                 .addComponent(BTN_QLB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(BTN_QLLHH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(BTN_KH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -227,6 +245,7 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLB.setBorder(null);
         BTN_QLNV.setBorder(null);
         BTN_QLLHH.setBorder(null);
+        BTN_KH.setBorder(null);
         jpQLHH qlhh = new jpQLHH();
         qlhh.setSize(1050,650);
         jPanel7.removeAll();
@@ -239,6 +258,7 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLB.setBorder(null);
         BTN_QLHH.setBorder(null);
         BTN_QLLHH.setBorder(null);
+        BTN_KH.setBorder(null);
         jpQLNV qlnv = new jpQLNV(detail);
         qlnv.setSize(1050,650);
         jPanel7.removeAll();
@@ -251,6 +271,7 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLLHH.setBorder(null);
         BTN_QLHH.setBorder(null);
         BTN_QLNV.setBorder(null);
+        BTN_KH.setBorder(null);
         jpBan qlb = new jpBan();
         qlb.setSize(1050,650);
         jPanel7.removeAll();
@@ -263,12 +284,26 @@ public class QuanLy extends javax.swing.JFrame {
         BTN_QLB.setBorder(null);
         BTN_QLHH.setBorder(null);
         BTN_QLNV.setBorder(null);
+        BTN_KH.setBorder(null);
         jpLHH qllhh = new jpLHH(detail);
         qllhh.setSize(1050,650);
         jPanel7.removeAll();
         jPanel7.add(qllhh);
         jPanel7.updateUI();
     }//GEN-LAST:event_BTN_QLLHHActionPerformed
+
+    private void BTN_KHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_KHActionPerformed
+        BTN_KH.setBorder(BorderFactory.createLineBorder((Color.black)));
+        BTN_QLB.setBorder(null);
+        BTN_QLHH.setBorder(null);
+        BTN_QLNV.setBorder(null);
+        BTN_QLLHH.setBorder(null);
+        KhachHang kh = new KhachHang(detail);
+        kh.setSize(1050,650);
+        jPanel7.removeAll();
+        jPanel7.add(kh);
+        jPanel7.updateUI();
+    }//GEN-LAST:event_BTN_KHActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,12 +342,13 @@ public class QuanLy extends javax.swing.JFrame {
 //                   login.setVisible(true);
 //                }else{
                 new QuanLy(detail).setVisible(true);
-                }
-//            }
+//                }
+            }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private keeptoo.KButton BTN_KH;
     private keeptoo.KButton BTN_QLB;
     private keeptoo.KButton BTN_QLHH;
     private keeptoo.KButton BTN_QLLHH;

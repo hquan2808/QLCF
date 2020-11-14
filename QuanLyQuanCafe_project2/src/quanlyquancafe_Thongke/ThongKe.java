@@ -36,6 +36,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import quanlyquancafe_view.Login;
 
 /**
  *
@@ -843,13 +844,13 @@ public class ThongKe extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Detail detail= new Detail();
-//                if(detail.getRoll().equals("3")){
-//                   new ThongKe(detail).setVisible(false);
-//                   Login login = new Login();
-//                   login.setVisible(true);
-//                }else{
+                if(detail.getRoll().equals("3")){
+                   new ThongKe(detail).setVisible(false);
+                   Login login = new Login();
+                   login.setVisible(true);
+                }else{
                 new ThongKe(detail).setVisible(true);
-//                }
+                }
             }
         });
     }
