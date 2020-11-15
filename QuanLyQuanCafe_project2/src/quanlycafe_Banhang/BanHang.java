@@ -413,13 +413,13 @@ public class BanHang extends javax.swing.JFrame implements Runnable{
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Detail detail= new Detail();
-                if(detail.getRoll().equals("3")){
-                   new BanHang(detail).setVisible(false);
-                   Login login = new Login();
-                   login.setVisible(true);
-                }else{
+//                if(detail.getRoll().equals("3")){
+//                   new BanHang(detail).setVisible(false);
+//                   Login login = new Login();
+//                   login.setVisible(true);
+//                }else{
                 new BanHang(detail).setVisible(true);
-                }
+//                }
             }
         });
     }
