@@ -379,7 +379,7 @@ public class jpQLHH extends javax.swing.JPanel {
             int somon = 0;
             for (ThucDon td : arrTable) {
                 somon++;
-                tbmodel.addRow(new Object[]{td.GetMaMon(), td.GetTenMon(), td.GetMaLoai(), td.GetDonGia(), td.GetDVT()});
+                tbmodel.addRow(new Object[]{td.GetMaMon(), td.GetTenMon(), td.GetTenMon(), td.GetDonGia(), td.GetDVT()});
                 soluong.setText(String.valueOf(somon)+" Món");
             }
             tbThucDon.setModel(tbmodel);
