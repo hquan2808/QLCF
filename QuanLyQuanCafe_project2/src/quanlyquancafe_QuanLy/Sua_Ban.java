@@ -9,6 +9,7 @@ import quanlycafe_Banhang.BanHang;
 import Models.Ban;
 import Sql_and_library.Mysql;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 
@@ -24,6 +25,7 @@ public class Sua_Ban extends javax.swing.JDialog {
      * @param ma
      */
     int maban;
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     private String sql="SELECT * FROM tblban ORDER BY MaBan";
     String trangthai, tenban;
     public Sua_Ban(java.awt.Frame parent, boolean modal, int ma) {
@@ -170,6 +172,7 @@ public class Sua_Ban extends javax.swing.JDialog {
         }catch(Exception e){
 
         }
+        JOptionPane.showMessageDialog(null,"Sửa bàn thành công","Sửa Bàn",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();        
         
 

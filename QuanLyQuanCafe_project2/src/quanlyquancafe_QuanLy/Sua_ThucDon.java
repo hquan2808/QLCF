@@ -12,6 +12,7 @@ import Sql_and_library.Mysql;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
@@ -27,6 +28,7 @@ public class Sua_ThucDon extends javax.swing.JDialog {
      */
     ArrayList<ThucDon> td ;
     String MaMon;
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     public Sua_ThucDon(java.awt.Frame parent, boolean modal, String mamon) {
         super(parent, modal);
         initComponents();
@@ -251,6 +253,7 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         }catch(Exception e){
 
         }
+        JOptionPane.showMessageDialog(null,"Sửa món thành công","Sửa Món",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();
 
         // TODO add your handling code here:

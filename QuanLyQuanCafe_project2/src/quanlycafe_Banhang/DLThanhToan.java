@@ -22,6 +22,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import net.sf.jasperreports.engine.JRException;
@@ -46,6 +47,7 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
      */
     int tong, MaHD;
     int MaBan;
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     public DLThanhToan(java.awt.Frame parent, boolean modal, int tongtien, String tenban, int maban, int mahd) {
         super(parent, modal);
         initComponents();
@@ -346,6 +348,7 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
                 System.out.println("In tên khách hàng lỗi");
             }
         }
+        JOptionPane.showMessageDialog(null,"Thanh toán thành công","Thanh Toán",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();
     }//GEN-LAST:event_btnxacnhanActionPerformed
 

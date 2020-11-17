@@ -9,6 +9,7 @@ import quanlycafe_Banhang.jpThucDon;
 import Models.Loai;
 import Sql_and_library.Mysql;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.colorchooser.ColorSelectionModel;
@@ -26,6 +27,7 @@ public class Them_Loai extends javax.swing.JDialog {
     /**
      * Creates new form 
      */
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     public Them_Loai(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -221,6 +223,7 @@ public class Them_Loai extends javax.swing.JDialog {
            }catch(Exception e){
 
            }
+          JOptionPane.showMessageDialog(null,"Thêm món thành công","Thêm Món",JOptionPane.INFORMATION_MESSAGE,icon);
            this.dispose();           
         }
 

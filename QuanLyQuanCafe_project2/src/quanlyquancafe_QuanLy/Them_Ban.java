@@ -8,6 +8,7 @@ package quanlyquancafe_QuanLy;
 import quanlycafe_Banhang.BanHang;
 import Models.Ban;
 import Sql_and_library.Mysql;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 
@@ -17,6 +18,7 @@ import javax.swing.JRootPane;
  */
 public class Them_Ban extends javax.swing.JDialog {
     Mysql cn = new Mysql();
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     private String sql="SELECT * FROM tblban ORDER BY MaBan";
     /**
      * Creates new form DLQl_Ban
@@ -157,6 +159,7 @@ public class Them_Ban extends javax.swing.JDialog {
         }catch(Exception e){
 
         }
+        JOptionPane.showMessageDialog(null,"Thêm Bàn thành công","Thêm Bàn",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();
         
 // TODO add your handling code here:

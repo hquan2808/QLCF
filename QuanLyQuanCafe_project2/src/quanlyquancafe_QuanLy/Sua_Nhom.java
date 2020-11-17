@@ -10,6 +10,7 @@ import Models.Loai;
 import Sql_and_library.Mysql;
 import Sql_and_library.Mysql;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.colorchooser.ColorSelectionModel;
@@ -27,6 +28,7 @@ public class Sua_Nhom extends javax.swing.JDialog {
      * 
      */
     String mausac, MaNhom;
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     public Sua_Nhom(java.awt.Frame parent, boolean modal, String manhom) {
         super(parent, modal);
         initComponents();
@@ -237,6 +239,7 @@ public class Sua_Nhom extends javax.swing.JDialog {
             }catch(Exception e){
 
             }
+            JOptionPane.showMessageDialog(null,"Sửa nhóm món Thành công","Sửa Nhóm Món",JOptionPane.INFORMATION_MESSAGE,icon);
             this.dispose();
         }
 

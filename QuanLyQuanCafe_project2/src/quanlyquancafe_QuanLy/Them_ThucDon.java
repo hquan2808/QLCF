@@ -11,6 +11,7 @@ import Models.ThucDon;
 import Sql_and_library.Mysql;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
@@ -24,6 +25,7 @@ public class Them_ThucDon extends javax.swing.JDialog {
     /**
      * Creates new form
      */
+     public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     public Them_ThucDon(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -235,6 +237,7 @@ public class Them_ThucDon extends javax.swing.JDialog {
         }catch(Exception e){
 
         }
+        JOptionPane.showMessageDialog(null,"Thêm nhóm món thành công","Thêm Nhóm Món",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();        
 
         // TODO add your handling code here:
