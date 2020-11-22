@@ -159,8 +159,8 @@ public class Them_Ban extends javax.swing.JDialog {
         }catch(Exception e){
 
         }
-        JOptionPane.showMessageDialog(null,"Thêm Bàn thành công","Thêm Bàn",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();
+        JOptionPane.showMessageDialog(null,"Thêm Bàn thành công","Thêm Bàn",JOptionPane.INFORMATION_MESSAGE,icon);
         
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed

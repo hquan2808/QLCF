@@ -348,8 +348,8 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
                 System.out.println("In tên khách hàng lỗi");
             }
         }
-        JOptionPane.showMessageDialog(null,"Thanh toán thành công","Thanh Toán",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();
+        JOptionPane.showMessageDialog(null,"Thanh toán thành công","Thanh Toán",JOptionPane.INFORMATION_MESSAGE,icon);
     }//GEN-LAST:event_btnxacnhanActionPerformed
 
     private void txtTenKhach1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenKhach1KeyReleased

@@ -239,8 +239,8 @@ public class Sua_Nhom extends javax.swing.JDialog {
             }catch(Exception e){
 
             }
-            JOptionPane.showMessageDialog(null,"Sửa nhóm món Thành công","Sửa Nhóm Món",JOptionPane.INFORMATION_MESSAGE,icon);
             this.dispose();
+            JOptionPane.showMessageDialog(null,"Sửa nhóm món Thành công","Sửa Nhóm Món",JOptionPane.INFORMATION_MESSAGE,icon);
         }
 
         // TODO add your handling code here:

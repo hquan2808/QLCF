@@ -172,8 +172,8 @@ public class Sua_Ban extends javax.swing.JDialog {
         }catch(Exception e){
 
         }
-        JOptionPane.showMessageDialog(null,"Sửa bàn thành công","Sửa Bàn",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();        
+        JOptionPane.showMessageDialog(null,"Sửa bàn thành công","Sửa Bàn",JOptionPane.INFORMATION_MESSAGE,icon);
         
 
         // TODO add your handling code here:

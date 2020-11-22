@@ -253,8 +253,8 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         }catch(Exception e){
 
         }
-        JOptionPane.showMessageDialog(null,"Sửa món thành công","Sửa Món",JOptionPane.INFORMATION_MESSAGE,icon);
         this.dispose();
+        JOptionPane.showMessageDialog(null,"Sửa món thành công","Sửa Món",JOptionPane.INFORMATION_MESSAGE,icon);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed

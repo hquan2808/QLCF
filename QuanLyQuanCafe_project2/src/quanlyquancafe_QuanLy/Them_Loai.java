@@ -223,8 +223,8 @@ public class Them_Loai extends javax.swing.JDialog {
            }catch(Exception e){
 
            }
-          JOptionPane.showMessageDialog(null,"Thêm món thành công","Thêm Món",JOptionPane.INFORMATION_MESSAGE,icon);
            this.dispose();           
+          JOptionPane.showMessageDialog(null,"Thêm món thành công","Thêm Món",JOptionPane.INFORMATION_MESSAGE,icon);
         }
 
 
