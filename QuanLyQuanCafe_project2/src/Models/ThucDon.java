@@ -11,7 +11,15 @@ package Models;
  */
 public class ThucDon {
     private String MaMon, TenMon, MaLoai, DVT;
-    private int DonGia;
+    private int DonGia,SoLuong;
+
+    public int getSoLuong() {
+        return SoLuong;
+    }
+
+    public void setSoLuong(int SoLuong) {
+        this.SoLuong = SoLuong;
+    }
     
     public ThucDon(){
         this.MaMon="";
@@ -19,13 +27,15 @@ public class ThucDon {
         this.MaLoai="";
         this.DVT="";
         this.DonGia=0;
+        this.SoLuong=0;
     }
-    public ThucDon(String mamon, String ten, String maloai, int gia, String dvt){
+    public ThucDon(String mamon, String ten, String maloai, int gia, String dvt,int soluong){
         this.MaMon=mamon;
         this.TenMon=ten;
         this.MaLoai=maloai;
         this.DVT=dvt;
-        this.DonGia=gia;       
+        this.DonGia=gia;
+        this.SoLuong=soluong;
     }
     
     public void SetMaMon(String mamon){

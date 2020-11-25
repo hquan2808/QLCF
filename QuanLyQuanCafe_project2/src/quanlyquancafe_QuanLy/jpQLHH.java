@@ -68,7 +68,7 @@ public class jpQLHH extends javax.swing.JPanel {
     } 
     public void loadData(String sql){
         try{
-            String[] arry={"Mã Món","Tên Món","Mã Loại","Giá Bán","Đơn Vị"};
+            String[] arry={"Mã Món","Tên Món","Mã Loại","Giá Bán","Đơn Vị","Số Lượng"};
             DefaultTableModel model=new DefaultTableModel(arry,0);
             Connection conn = Mysql.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class jpQLHH extends javax.swing.JPanel {
                 vector.add(rs.getString("tblnhommon.TenLoai").trim());
                 vector.add(rs.getString("DonGia").trim());
                 vector.add(rs.getString("DVT").trim());
-//                vector.add(rs.getInt("SoLuong"));
+                vector.add(rs.getInt("SoLuong"));
                 model.addRow(vector);
                 somon++;
             }
@@ -374,7 +374,7 @@ public class jpQLHH extends javax.swing.JPanel {
             tbmodel.addColumn("Mã Loại");
             tbmodel.addColumn("Giá Bán");
             tbmodel.addColumn("ĐVT");
-//            tbmodel.addColumn("Số Lượng");
+            tbmodel.addColumn("Số Lượng");
 
             int somon = 0;
             for (ThucDon td : arrTable) {

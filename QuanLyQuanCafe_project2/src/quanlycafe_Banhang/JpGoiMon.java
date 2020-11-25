@@ -17,6 +17,8 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
@@ -38,10 +40,12 @@ import javax.swing.JPanel;
  * @author Dell
  */
 public final class JpGoiMon extends javax.swing.JPanel {
-    String TenBan;
+    String TenBan,mamon;
     int MaBan;
     int MaHD, tienmon = 0, tongtien = 0;
     Mysql cn = new Mysql();
+    Connection conn = cn.getConnection();
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     HoaDon arrhd;
     NumberFormat chuyentien = new DecimalFormat("#,###,###");
     ArrayList<DsOrder> order;
@@ -453,13 +457,28 @@ public final class JpGoiMon extends javax.swing.JPanel {
                         
                         qs = JOptionPane.showConfirmDialog(null, "Hủy món: "+td.get(0).GetTenMon()+" ?", "Hủy món", JOptionPane.YES_NO_OPTION);
                         if (qs == JOptionPane.YES_OPTION) {
-                            int xoa = cn.DeleteMon(e.getComponent().getName(),MaHD, MaBan);
-                            if(xoa == 1){
-                                fillDsMon(MaHD);
-                            }
-                            if(xoa == 2){
-                                fillDsMon(MaHD);
-                                HuyHD();
+                            try{
+                                String selectSL = "Select SoLuong From tblthucdon Where MaMon = '"+e.getComponent().getName()+"' ";
+                                PreparedStatement ps = conn.prepareStatement(selectSL);
+                                ResultSet rs = ps.executeQuery();
+                                String selectSL2 = "Select SoLuong From tblchitiethd Where MaMon = '"+e.getComponent().getName()+"' AND MaHoaDon ='"+MaHD+"' ";
+                                Statement st = conn.createStatement();
+                                ResultSet rs2 = st.executeQuery(selectSL2);
+                                if(rs.next()&&rs2.next()){
+                                    String themsoluong = "Update tblthucdon set SoLuong ='"+(rs.getInt("SoLuong")+rs2.getInt("SoLuong"))+"' Where MaMon = '"+e.getComponent().getName()+"' ";
+                                    PreparedStatement ps1 = conn.prepareStatement(themsoluong);
+                                    ps1.execute();
+                                } 
+                                int xoa = cn.DeleteMon(e.getComponent().getName(),MaHD, MaBan);
+                                if(xoa == 1){
+                                    fillDsMon(MaHD);
+                                }
+                                if(xoa == 2){
+                                    fillDsMon(MaHD);
+                                    HuyHD();
+                                }
+                            }catch(SQLException ex){
+                                JOptionPane.showMessageDialog(null,"Lỗi!",null,JOptionPane.INFORMATION_MESSAGE,icon);
                             }
                         }
                     }

@@ -58,11 +58,11 @@ public class Mysql {
             ResultSet rs = st.executeQuery(sql);
             arrThucDon = new ArrayList<ThucDon>();
             while(rs.next()){
-                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getInt(6));
                 arrThucDon.add(td);
             }
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn !");
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách món !");
         }
         return arrThucDon;        
     }
@@ -223,18 +223,18 @@ public class Mysql {
             ResultSet rs = st.executeQuery(sql);
             arrThucDon = new ArrayList<ThucDon>();
             while(rs.next()){
-                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getInt(6));
                 arrThucDon.add(td);
             }
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn !");
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn2 !");
         }
         return arrThucDon;        
     }
      public ArrayList<DsOrder> GetDsOrder(int ma){
         ArrayList<DsOrder> arrDs = null;
         String sql;
-            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, MaHoaDon From tblchitiethd AS ct INNER JOIN tblthucdon AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '"+ma+"'";
+            sql = "Select ct.MaMon, TenMon, DVT, ct.SoLuong, Gia, MaHoaDon From tblchitiethd AS ct INNER JOIN tblthucdon AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '"+ma+"'";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -244,7 +244,7 @@ public class Mysql {
                 arrDs.add(order);
             }
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order !");
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order1 !");
         }
         return arrDs;        
     }   
@@ -263,7 +263,7 @@ public class Mysql {
                 arrDs.SetMaChiTietHD(rs.getInt(3));
             }
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order !");
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order2 !");
         }
         return arrDs;        
     } 
@@ -294,7 +294,7 @@ public class Mysql {
                 mahd = rs.getInt(1);
             }
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn !");
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách thực đơn3 !");
         }
         return mahd;        
     } 
@@ -438,7 +438,7 @@ public class Mysql {
             ResultSet rs = st.executeQuery(sql);
             arrtd = new ArrayList<ThucDon>();
             while(rs.next()){
-                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getInt(6));
                 arrtd.add(td);
             }
         }catch(SQLException ex){
@@ -481,7 +481,7 @@ public class Mysql {
     }
     public int UpdateThucDon(ThucDon td){
         int update = 0;
-        String sql = "UPDATE tblthucdon SET TenMon = '"+td.GetTenMon()+"', MaLoai = '"+td.GetMaLoai()+"', DonGia = '"+td.GetDonGia()+"', DVT = '"+td.GetDVT()+"' WHERE MaMon = '"+td.GetMaMon()+"'";
+        String sql = "UPDATE tblthucdon SET TenMon = '"+td.GetTenMon()+"', MaLoai = '"+td.GetMaLoai()+"', DonGia = '"+td.GetDonGia()+"', DVT = '"+td.GetDVT()+"',SoLuong = '"+td.getSoLuong()+"' WHERE MaMon = '"+td.GetMaMon()+"'";
         try{
             Statement st = conn.createStatement();
             update = st.executeUpdate(sql);
@@ -492,11 +492,12 @@ public class Mysql {
     }
     public int InsertThucDon(ThucDon td){
         int insert = 0;
-        String sql = "Insert into tblthucdon (TenMon, MaLoai, DonGia, DVT) values ('"+td.GetTenMon()+"', '"+td.GetMaLoai()+"', '"+td.GetDonGia()+"', '"+td.GetDVT()+"')";
+        String sql = "Insert into tblthucdon (TenMon, MaLoai, DonGia, DVT, SoLuong) values ('"+td.GetTenMon()+"', '"+td.GetMaLoai()+"', '"+td.GetDonGia()+"', '"+td.GetDVT()+"', '"+td.getSoLuong()+"')";
         try{
             Statement st = conn.createStatement();
             insert = st.executeUpdate(sql);
         }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Thêm món không thành công !");
         }
         return insert;
     }

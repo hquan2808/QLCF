@@ -38,7 +38,8 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         lblten.setText("Sửa món - "+td.get(0).GetTenMon());
         txtTenMon.setText(td.get(0).GetTenMon());
         txtGia.setText(String.valueOf(td.get(0).GetDonGia()));
-        txtdvt.setText(td.get(0).GetDVT());  
+        txtdvt.setText(td.get(0).GetDVT());
+        txtSoLuong.setText(String.valueOf(td.get(0).getSoLuong()));
         JRootPane rp = this.getRootPane();
         rp.setDefaultButton(jButton1);
 
@@ -82,6 +83,8 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         cbbNhomMon = new javax.swing.JComboBox<>();
         txtTenMon = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtSoLuong = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -141,37 +144,47 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         jLabel3.setForeground(new java.awt.Color(0, 51, 0));
         jLabel3.setText("Đơn giá:");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 51, 0));
+        jLabel6.setText("Số Lượng:");
+
+        txtSoLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSoLuongKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addComponent(lblten)
+                .addContainerGap(195, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(2, 2, 2)
+                        .addComponent(jButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtdvt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbbNhomMon, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTenMon, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblten)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtdvt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbbNhomMon, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTenMon, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,6 +209,10 @@ public class Sua_ThucDon extends javax.swing.JDialog {
                     .addComponent(txtdvt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -209,7 +226,7 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -236,6 +253,7 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         mon.SetTenMon(txtTenMon.getText());
         mon.SetDonGia(Integer.parseInt(txtGia.getText()));
         mon.SetDVT(txtdvt.getText());
+        mon.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
         String MaNhom = ((Loai)cbbNhomMon.getSelectedItem()).GetMaLoai();
         mon.SetMaLoai(MaNhom);
 
@@ -271,6 +289,14 @@ public class Sua_ThucDon extends javax.swing.JDialog {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtGiaKeyReleased
+
+    private void txtSoLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyReleased
+         try{
+            Integer.parseInt(txtSoLuong.getText());
+        }catch(Exception ex){
+            txtGia.setText("");
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_txtSoLuongKeyReleased
     private boolean validate(JTextField tf, String value, String title){
         if(value.isEmpty()){
             JOptionPane.showMessageDialog(null, title+" không được để trống !");
@@ -288,9 +314,11 @@ public class Sua_ThucDon extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblten;
     private javax.swing.JTextField txtGia;
+    private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenMon;
     private javax.swing.JTextField txtdvt;
     // End of variables declaration//GEN-END:variables

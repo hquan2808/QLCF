@@ -12,7 +12,13 @@ import Models.ChiTietHD;
 import Models.HoaDon;
 import Models.ThucDon;
 import Sql_and_library.Mysql;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 
 /**
@@ -21,11 +27,15 @@ import javax.swing.JRootPane;
  */
 public class DLSoLuong extends javax.swing.JDialog {
    Mysql cn = new Mysql();
+   Connection conn = cn.getConnection();
     int sl = 0;
     ArrayList<ThucDon> arrThucDon;
     public String gioden, mamon, TenBan;
     public int maban;
     ChiTietHD mon;
+    private int soLuongmon;
+    private boolean a = true;
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     /**
      * Creates new form NewJDialog
      */
@@ -49,7 +59,7 @@ public class DLSoLuong extends javax.swing.JDialog {
         if(mon != null){
             txtgia.setText(String.valueOf(mon.GetGia()));
             txtSl.setText(String.valueOf(mon.GetSoLuong()));
-            
+            soLuongmon = mon.GetSoLuong();
         }
         JRootPane rp = this.getRootPane();
         rp.setDefaultButton(jButton1);
@@ -274,16 +284,40 @@ public class DLSoLuong extends javax.swing.JDialog {
         if(cn.GetMaHD(maban) == 0){
             HoaDon hd = new HoaDon();
             hd.SetMaBan(maban);
-            
             hd.SetTrangThai(0);
             //JOptionPane.showMessageDialog(null, gioden);
             int insertHd = cn.InsertHoaDon(hd, gioden);
         }
-
         if(mon != null){
             ChiTietHD ct = new ChiTietHD();
             ct.SetGia(Integer.parseInt(txtgia.getText()));
-            ct.SetSoLuong(Integer.parseInt(txtSl.getText()));
+            try{
+            String selectSL = "Select * From tblthucdon Where MaMon = '"+mamon+"' ";
+            PreparedStatement ps = conn.prepareStatement(selectSL);
+            ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    if(Integer.parseInt(txtSl.getText())<= rs.getInt("SoLuong")){
+                        if(Integer.parseInt(txtSl.getText())<soLuongmon){
+                            String congsoluong = "Update tblthucdon set SoLuong ='"+(rs.getInt("SoLuong")+Integer.parseInt(txtSl.getText()))+"' Where MaMon = '"+mamon+"'";
+                            PreparedStatement ps1 = conn.prepareStatement(congsoluong);
+                            ps1.execute();
+                        }
+                        else if(Integer.parseInt(txtSl.getText())>soLuongmon){
+                            String trusoluong = "Update tblthucdon set SoLuong ='"+(rs.getInt("SoLuong")-Integer.parseInt(txtSl.getText()))+"' Where MaMon = '"+mamon+"'";
+                            PreparedStatement ps1 = conn.prepareStatement(trusoluong);
+                            ps1.execute();
+                        }
+                        a=true;
+                        ct.SetSoLuong(Integer.parseInt(txtSl.getText()));
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Số lượng món này trong kho không đủ!",null,JOptionPane.INFORMATION_MESSAGE,icon);
+                        a= false;
+                    }
+                }
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"Lỗi!",null,JOptionPane.INFORMATION_MESSAGE,icon);
+                a= false;
+            }
             ct.SetMaChiTietHD(mon.GetMaChiTietHD());
             int updatect = cn.UpdateChiTiet(ct);
         }if(mon == null){
@@ -291,28 +325,49 @@ public class DLSoLuong extends javax.swing.JDialog {
             cthd.SetGia(Integer.parseInt(txtgia.getText()));
             cthd.SetMaHD(cn.GetMaHD(maban));
             cthd.SetMaMon(mamon);
-            cthd.SetSoLuong(Integer.parseInt(txtSl.getText()));
-            int isertCtHD = cn.InsertChiTietHD(cthd);
+            try{
+            String selectSL = "Select * From tblthucdon Where MaMon = '"+mamon+"' ";
+            PreparedStatement ps = conn.prepareStatement(selectSL);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                if(Integer.parseInt(txtSl.getText())<= rs.getInt("SoLuong")){
+                    cthd.SetSoLuong(Integer.parseInt(txtSl.getText()));
+                    String trusoluong = "Update tblthucdon set SoLuong ='"+(rs.getInt("SoLuong")-Integer.parseInt(txtSl.getText()))+"' Where MaMon = '"+mamon+"'";
+                    PreparedStatement ps1 = conn.prepareStatement(trusoluong);
+                    ps1.execute();
+                    int isertCtHD = cn.InsertChiTietHD(cthd);
+                    a=true;
+                }else{
+                  JOptionPane.showMessageDialog(null,"Số lượng món này trong kho không đủ!",null,JOptionPane.INFORMATION_MESSAGE,icon);
+                    a= false;  
+                }
+            }
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"Lỗi!",null,JOptionPane.INFORMATION_MESSAGE,icon);
+                a= false;
+            }
+            
         }
+        if(a==true){
+            Ban b = new Ban();
+            b.SetTrangThai("Đang phục vụ");
+            b.SetTenBan(TenBan);
+            b.SetMaBan(maban);
+            int updateban = cn.UpdateBan(b);
 
-        Ban b = new Ban();
-        b.SetTrangThai("Đang phục vụ");
-        b.SetTenBan(TenBan);
-        b.SetMaBan(maban);
-        int updateban = cn.UpdateBan(b);
+            BanHang.bh.taoBan();
+    //        BanHang.bh.updateUI();
+            JpGoiMon.gm.fillDsMon(cn.GetMaHD(maban));
+            JpGoiMon.gm.updateUI();
 
-        BanHang.bh.taoBan();
-//        BanHang.bh.updateUI();
-        JpGoiMon.gm.fillDsMon(cn.GetMaHD(maban));
-        JpGoiMon.gm.updateUI();
-
-        this.dispose();
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtSlKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSlKeyReleased
         try{
             sl = Integer.parseInt(txtSl.getText());
-            if(txtSl.getText().equals("0") || sl > 30)
+            if(txtSl.getText().equals("0"))
                 txtSl.setText("1");
         }catch(Exception e){
            txtSl.setText("1");
