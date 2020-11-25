@@ -184,7 +184,7 @@ public class jpQLNV extends javax.swing.JPanel {
     private void addNV() throws NoSuchAlgorithmException{
         if(checkNull()){
             try {
-                String sqlAddNV = "INSERT INTO tblqlnv (idNV,tenNV,ngaySinh,sdt,GioiTinh,DiaChi,taiKhoan,MatKhau,Roll) VALUES (N'"+tfMa.getText()+"',N'"+tfTen.getText()+"',N'"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',N'"+tfSdt.getText()+"',N'"+gioiTinh()+"',N'"+tfDiachi.getText()+"',N'"+tfTaikhoan.getText()+"',N'"+convertHashToString(tfMatkhau.getText())+"',N'"+cbChucvu.getSelectedItem().toString()+"')";
+                String sqlAddNV = "INSERT INTO tblqlnv (tenNV,ngaySinh,sdt,GioiTinh,DiaChi,taiKhoan,MatKhau,Roll) VALUES (N'"+tfTen.getText()+"',N'"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',N'"+tfSdt.getText()+"',N'"+gioiTinh()+"',N'"+tfDiachi.getText()+"',N'"+tfTaikhoan.getText()+"',N'"+convertHashToString(tfMatkhau.getText())+"',N'"+cbChucvu.getSelectedItem().toString()+"')";
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlAddNV);
                 ps.execute();
