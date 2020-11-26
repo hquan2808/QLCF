@@ -432,13 +432,13 @@ public class Mysql {
     public ArrayList<ThucDon> SearchMon(String ten){
         ArrayList<ThucDon> arrtd = null;
         String sql;
-            sql = "SELECT * FROM tblthucdon WHERE TenMon LIKE '%"+ten+"%'";
+            sql = "SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai WHERE TenMon LIKE '%"+ten+"%'";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             arrtd = new ArrayList<ThucDon>();
             while(rs.next()){
-                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),rs.getInt(6));
+                ThucDon td = new ThucDon(rs.getString(1), rs.getString(2), rs.getString("tblnhommon.TenLoai"), rs.getInt(4), rs.getString(5),rs.getInt(6));
                 arrtd.add(td);
             }
         }catch(SQLException ex){

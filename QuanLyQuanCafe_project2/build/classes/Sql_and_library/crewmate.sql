@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2020 at 02:37 PM
+-- Generation Time: Nov 26, 2020 at 03:45 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.27
 
@@ -40,7 +40,7 @@ CREATE TABLE `tblban` (
 
 INSERT INTO `tblban` (`MaBan`, `TenBan`, `TrangThai`) VALUES
 (1, 'Bàn 1', 'Đã đặt trước'),
-(2, 'Bàn 2', 'Đang phục vụ'),
+(2, 'Bàn 2', 'Trống'),
 (3, 'Bàn 3', 'Đã đặt trước'),
 (4, 'Bàn 4', 'Trống'),
 (5, 'Bàn 5', 'Trống'),
@@ -58,8 +58,9 @@ INSERT INTO `tblban` (`MaBan`, `TenBan`, `TrangThai`) VALUES
 (18, 'Bàn 17', 'Đang phục vụ'),
 (19, 'Bàn 18', 'Trống'),
 (25, 'Bàn 19', 'Đã đặt trước'),
-(31, 'Bàn 20', 'Trống'),
-(43, 'Bàn 21', 'Đã đặt trước');
+(31, 'Bàn 20', 'Đang phục vụ'),
+(43, 'Bàn 21', 'Đã đặt trước'),
+(45, 'Bàn 24', 'Đang phục vụ');
 
 -- --------------------------------------------------------
 
@@ -217,7 +218,12 @@ INSERT INTO `tblchitiethd` (`MaChiTietHD`, `MaHoaDon`, `MaMon`, `SoLuong`, `Gia`
 (594, 350, 11, 3, 25000),
 (595, 351, 11, 1, 25000),
 (596, 351, 12, 1, 20000),
-(597, 351, 75, 1, 18000);
+(597, 351, 75, 1, 18000),
+(598, 352, 3, 1, 22000),
+(599, 353, 75, 2, 18000),
+(600, 353, 11, 1, 25000),
+(601, 354, 1, 1, 25000),
+(654, 412, 76, 5, 20000);
 
 -- --------------------------------------------------------
 
@@ -239,12 +245,12 @@ CREATE TABLE `tblhoadon` (
 --
 
 INSERT INTO `tblhoadon` (`MaHoaDon`, `GiamGia`, `MaBan`, `GioDen`, `TongTien`, `TrangThai`) VALUES
-(213, 10, 2, '2020-10-04 03:30:34', 37800, 1),
+(213, 10, 2, '2019-10-04 03:30:34', 37800, 1),
 (214, NULL, 2, '2020-09-04 03:31:29', 25000, 1),
 (215, NULL, 18, '2020-10-04 03:31:59', 44000, 1),
 (216, NULL, 15, '2020-09-04 03:32:06', 48000, 1),
 (217, NULL, 13, '2020-08-04 03:32:13', 25000, 1),
-(218, NULL, 2, '2020-07-04 03:40:40', NULL, 0),
+(218, NULL, 2, '2020-07-04 03:40:40', 25000, 1),
 (219, NULL, 18, '2020-06-04 03:40:44', NULL, 0),
 (220, NULL, 4, '2020-06-04 04:20:08', 25000, 1),
 (261, NULL, 16, '2020-07-05 21:41:31', 25000, 1),
@@ -323,7 +329,11 @@ INSERT INTO `tblhoadon` (`MaHoaDon`, `GiamGia`, `MaBan`, `GioDen`, `TongTien`, `
 (348, 25, 10, '2020-11-15 00:57:51', NULL, 0),
 (349, 20000, 7, '2020-11-15 00:58:03', NULL, 0),
 (350, NULL, 15, '2020-11-15 00:58:23', NULL, 0),
-(351, NULL, 14, '2020-11-15 00:58:56', NULL, 0);
+(351, NULL, 14, '2020-11-15 00:58:56', NULL, 0),
+(352, NULL, 19, '2020-11-18 01:57:11', 22000, 1),
+(353, NULL, 31, '2020-11-20 23:34:36', NULL, 0),
+(354, NULL, 4, '2020-11-22 20:07:57', 25000, 1),
+(412, NULL, 45, '2020-11-25 22:04:04', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -343,7 +353,9 @@ CREATE TABLE `tblkhachhang` (
 --
 
 INSERT INTO `tblkhachhang` (`MaKhachHang`, `MaHD`, `TenKH`, `SDT`) VALUES
-(1, 291, 'Nguyễn Phi', '0338678732');
+(1, 291, 'Nguyễn Phi', '0338678732'),
+(19, 218, 'Quân', 'null'),
+(20, 354, 'Quân', '0338678732');
 
 -- --------------------------------------------------------
 
@@ -384,18 +396,18 @@ CREATE TABLE `tblqlnv` (
   `ngaySinh` varchar(50) NOT NULL,
   `GioiTinh` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `TaiKhoan` varchar(100) NOT NULL,
-  `MatKhau` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `MaCLV` int(11) NOT NULL
+  `MatKhau` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tblqlnv`
 --
 
-INSERT INTO `tblqlnv` (`idNV`, `tenNV`, `DiaChi`, `SDT`, `Roll`, `ngaySinh`, `GioiTinh`, `TaiKhoan`, `MatKhau`, `MaCLV`) VALUES
-(1, 'Trần Hoàng Quân', 'Hà Nội', '0936506675', 'Quản lí', '20/11/2001', 'Nam', 'hquan2808', '81dc9bdb52d04dc20036dbd8313ed055', 1),
-(3, 'User', 'Hà nội', '0338678732', 'Nhân viên', '01-01-2001', 'Nữ', 'User', '202cb962ac59075b964b07152d234b70', 1),
-(4, 'Nguyễn Hồng Phi', 'Hà Nội', '0338678732', 'Quản lí', '20-11-2001', 'Nam', 'Phidz', '81dc9bdb52d04dc20036dbd8313ed055', 1);
+INSERT INTO `tblqlnv` (`idNV`, `tenNV`, `DiaChi`, `SDT`, `Roll`, `ngaySinh`, `GioiTinh`, `TaiKhoan`, `MatKhau`) VALUES
+(1, 'Trần Hoàng Quân', 'Hà Nội', '0936506675', 'Quản lí', '20/11/2001', 'Nam', 'hquan2808', '81dc9bdb52d04dc20036dbd8313ed055'),
+(3, 'User', 'Hà nội', '0338678732', 'Nhân viên', '01-01-2001', 'Nữ', 'User', '202cb962ac59075b964b07152d234b70'),
+(4, 'Nguyễn Hồng Phi', 'Hà Nội', '0338678732', 'Quản lí', '20-11-2001', 'Nam', 'Phidz', '81dc9bdb52d04dc20036dbd8313ed055'),
+(5, 'Admin', 'Hà nội', '0338678732', 'Quản lí', 'Nov 20, 2020', 'Nữ', 'Admin', '81dc9bdb52d04dc20036dbd8313ed055');
 
 -- --------------------------------------------------------
 
@@ -408,34 +420,36 @@ CREATE TABLE `tblthucdon` (
   `TenMon` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
   `MaLoai` int(11) NOT NULL,
   `DonGia` int(11) NOT NULL,
-  `DVT` varchar(55) COLLATE utf8_unicode_ci NOT NULL
+  `DVT` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `SoLuong` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tblthucdon`
 --
 
-INSERT INTO `tblthucdon` (`MaMon`, `TenMon`, `MaLoai`, `DonGia`, `DVT`) VALUES
-(1, 'Đá xay', 1, 25000, 'Ly'),
-(2, 'Sữa Đá', 1, 23000, 'Ly'),
-(3, 'Đen Đá', 1, 22000, 'Ly'),
-(4, 'Sữa Nóng', 1, 25000, 'Ly'),
-(5, 'Đen Nóng', 1, 23000, 'Ly'),
-(6, 'Sen Vàng', 2, 25000, 'Ly'),
-(7, 'Thạch Đào', 2, 22000, 'Ly'),
-(8, 'Thanh Đào', 2, 25000, 'Ly'),
-(9, 'Thạch Vải', 2, 23000, 'Ly'),
-(10, 'Xanh Đậu Đỏ', 2, 25000, 'Ly'),
-(11, 'Chanh Đá Xay', 3, 25000, 'Ly'),
-(12, 'Sô-Cô-La', 3, 20000, 'Ly'),
-(13, 'Thịt Nướng', 5, 17000, 'Cái'),
-(14, 'Gà Xé', 5, 22000, 'Cái'),
-(15, 'Chả Lụa Xá Xíu', 5, 22000, 'Cái'),
-(16, 'Xíu Mại', 5, 18000, 'Cái'),
-(17, 'Trà Xanh Mát Cha', 4, 25000, 'Ly'),
-(18, 'Hoa Hồng', 4, 22000, 'Ly'),
-(19, 'Xoài', 4, 22000, 'Ly'),
-(75, 'Đậu Đỏ', 31, 18000, 'Ly');
+INSERT INTO `tblthucdon` (`MaMon`, `TenMon`, `MaLoai`, `DonGia`, `DVT`, `SoLuong`) VALUES
+(1, 'Đá xay', 1, 25000, 'Ly', 96),
+(2, 'Sữa Đá', 1, 23000, 'Ly', 100),
+(3, 'Đen Đá', 1, 22000, 'Ly', 100),
+(4, 'Sữa Nóng', 1, 25000, 'Ly', 98),
+(5, 'Đen Nóng', 1, 23000, 'Ly', 100),
+(6, 'Sen Vàng', 2, 25000, 'Ly', 100),
+(7, 'Thạch Đào', 2, 22000, 'Ly', 98),
+(8, 'Thanh Đào', 2, 25000, 'Ly', 98),
+(9, 'Thạch Vải', 2, 23000, 'Ly', 100),
+(10, 'Xanh Đậu Đỏ', 2, 25000, 'Ly', 100),
+(11, 'Chanh Đá Xay', 3, 25000, 'Ly', 98),
+(12, 'Sô-Cô-La', 3, 20000, 'Ly', 98),
+(13, 'Thịt Nướng', 5, 17000, 'Cái', 96),
+(14, 'Gà Xé', 5, 22000, 'Cái', 100),
+(15, 'Chả Lụa Xá Xíu', 5, 22000, 'Cái', 80),
+(16, 'Xíu Mại', 5, 18000, 'Cái', 97),
+(17, 'Trà Xanh Mát Cha', 4, 25000, 'Ly', 18),
+(18, 'Hoa Hồng', 4, 22000, 'Ly', 100),
+(19, 'Xoài', 4, 22000, 'Ly', 92),
+(75, 'Đậu Đỏ', 31, 18000, 'Ly', 176),
+(76, 'Đậu Xanh', 31, 20000, 'Ly', 65);
 
 --
 -- Indexes for dumped tables
@@ -495,25 +509,25 @@ ALTER TABLE `tblthucdon`
 -- AUTO_INCREMENT for table `tblban`
 --
 ALTER TABLE `tblban`
-  MODIFY `MaBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `MaBan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `tblchitiethd`
 --
 ALTER TABLE `tblchitiethd`
-  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=598;
+  MODIFY `MaChiTietHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=655;
 
 --
 -- AUTO_INCREMENT for table `tblhoadon`
 --
 ALTER TABLE `tblhoadon`
-  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
+  MODIFY `MaHoaDon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=413;
 
 --
 -- AUTO_INCREMENT for table `tblkhachhang`
 --
 ALTER TABLE `tblkhachhang`
-  MODIFY `MaKhachHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `MaKhachHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tblnhommon`
@@ -525,13 +539,13 @@ ALTER TABLE `tblnhommon`
 -- AUTO_INCREMENT for table `tblqlnv`
 --
 ALTER TABLE `tblqlnv`
-  MODIFY `idNV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idNV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblthucdon`
 --
 ALTER TABLE `tblthucdon`
-  MODIFY `MaMon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `MaMon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- Constraints for dumped tables

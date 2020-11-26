@@ -368,37 +368,44 @@ public class jpQLHH extends javax.swing.JPanel {
     }//GEN-LAST:event_tbThucDonMouseClicked
 
     private void tfFindKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFindKeyReleased
+        Loai selected = (Loai) cbbNhomMon.getSelectedItem();
+        if(selected.GetMaLoai()== null){
         ArrayList<ThucDon> arrTable = cn.SearchMon(tfFind.getText());
-        if(arrTable != null){
-            DefaultTableModel tbmodel = new DefaultTableModel();
+            if(arrTable != null){
+                DefaultTableModel tbmodel = new DefaultTableModel();
 
-            tbmodel.addColumn("Mã Món");
-            tbmodel.addColumn("Tên Món");
-            tbmodel.addColumn("Mã Loại");
-            tbmodel.addColumn("Giá Bán");
-            tbmodel.addColumn("ĐVT");
-            tbmodel.addColumn("Số Lượng");
+                tbmodel.addColumn("Mã Món");
+                tbmodel.addColumn("Tên Món");
+                tbmodel.addColumn("Mã Loại");
+                tbmodel.addColumn("Giá Bán");
+                tbmodel.addColumn("ĐVT");
+                tbmodel.addColumn("Số Lượng");
 
-            int somon = 0;
-            for (ThucDon td : arrTable) {
-                somon++;
-                tbmodel.addRow(new Object[]{td.GetMaMon(), td.GetTenMon(), td.GetTenMon(), td.GetDonGia(), td.GetDVT()});
-                soluong.setText(String.valueOf(somon)+" Món");
+                int somon = 0;
+                for (ThucDon td : arrTable) {
+                    somon++;
+                    tbmodel.addRow(new Object[]{td.GetMaMon(), td.GetTenMon(), td.GetMaLoai(), td.GetDonGia(), td.GetDVT(),td.getSoLuong()});
+                    soluong.setText(String.valueOf(somon)+" Món");
+                }
+                tbThucDon.setModel(tbmodel);
+                for(int i = 0; i < tbThucDon.getColumnCount();i++){
+                    Class<?> col = tbThucDon.getColumnClass(i);
+                    tbThucDon.setDefaultEditor(col, null);
+                }
             }
-            tbThucDon.setModel(tbmodel);
-            for(int i = 0; i < tbThucDon.getColumnCount();i++){
-                Class<?> col = tbThucDon.getColumnClass(i);
-                tbThucDon.setDefaultEditor(col, null);
-            }
+        }else{
+            String sqlcb="SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai Where tblnhommon.MaLoai='"+selected.GetMaLoai()+"' AND TenMon like'%"+tfFind.getText()+"%' ";
+            loadData(sqlcb);
         }
     }//GEN-LAST:event_tfFindKeyReleased
 
     private void cbbNhomMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNhomMonItemStateChanged
         Loai selected = (Loai) cbbNhomMon.getSelectedItem();
         if(selected.GetMaLoai()== null){
-            loadData(sql);
+            String sqlcb1="SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai Where TenMon Like '%"+tfFind.getText()+"%'  ";
+            loadData(sqlcb1);
         }else{
-            String sqlcb="SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai Where tblnhommon.MaLoai='"+selected.GetMaLoai()+"'";
+            String sqlcb="SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai Where tblnhommon.MaLoai='"+selected.GetMaLoai()+"' AND TenMon like'%"+tfFind.getText()+"%' ";
             loadData(sqlcb);
         }
     }//GEN-LAST:event_cbbNhomMonItemStateChanged

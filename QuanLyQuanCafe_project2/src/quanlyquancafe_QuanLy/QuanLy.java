@@ -337,13 +337,13 @@ public class QuanLy extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Detail detail= new Detail();
-//                if(detail.getRoll().equals("3")){
-//                   new quanlyquancafe_Main(detail).setVisible(false);
-//                   Login login = new Login();
-//                   login.setVisible(true);
-//                }else{
+                if(detail.getRoll().equals("3")){
+                   new quanlyquancafe_Main(detail).setVisible(false);
+                   Login login = new Login();
+                   login.setVisible(true);
+                }else{
                 new QuanLy(detail).setVisible(true);
-//                }
+                }
             }
         });
     }
