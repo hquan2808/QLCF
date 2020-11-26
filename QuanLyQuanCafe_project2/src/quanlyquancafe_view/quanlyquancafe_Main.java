@@ -7,6 +7,8 @@ package quanlyquancafe_view;
 
 import Models.Detail;
 import Sql_and_library.Mysql;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.sql.Connection;
@@ -132,10 +134,11 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pn_thongke.setBackground(new java.awt.Color(51, 107, 135));
+        pn_thongke.setEnabled(false);
         pn_thongke.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pn_thongkeMouseEntered(evt);
@@ -210,7 +213,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(7, 7, 7))
+                .addContainerGap())
         );
 
         pn_QLNV.setBackground(new java.awt.Color(51, 107, 135));
@@ -250,7 +253,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pn_dangxuat.setBackground(new java.awt.Color(51, 107, 135));
@@ -328,7 +331,7 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel19)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -356,13 +359,13 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pn_dangxuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pn_banhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_thongke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pn_thongke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pn_banhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pn_QLNV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(pn_thoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_thongtin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pn_thongtin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pn_QLNV, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                    .addComponent(pn_thoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
@@ -423,11 +426,6 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         resetColor(pn_banhang);
     }//GEN-LAST:event_pn_banhangMouseExited
 
-    private void pn_thongkeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMouseExited
-        // TODO add your handling code here:
-        resetColor(pn_thongke);
-    }//GEN-LAST:event_pn_thongkeMouseExited
-
     private void pn_QLNVMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLNVMouseExited
         // TODO add your handling code here:
         resetColor(pn_QLNV);
@@ -453,11 +451,6 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         setColor(pn_banhang);
     }//GEN-LAST:event_pn_banhangMouseEntered
 
-    private void pn_thongkeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMouseEntered
-        // TODO add your handling code here:
-        setColor(pn_thongke);
-    }//GEN-LAST:event_pn_thongkeMouseEntered
-
     private void pn_QLNVMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLNVMouseEntered
         // TODO add your handling code here:
         setColor(pn_QLNV);
@@ -469,13 +462,6 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
         this.setVisible(false);
         banhang.setVisible(true);
     }//GEN-LAST:event_pn_banhangMousePressed
-
-    private void pn_thongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMousePressed
-        // TODO add your handling code here:
-        ThongKe thongke = new ThongKe(detail);
-        this.setVisible(false);
-        thongke.setVisible(true);
-    }//GEN-LAST:event_pn_thongkeMousePressed
 
     private void pn_QLNVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_QLNVMousePressed
         // TODO add your handling code here:
@@ -518,6 +504,23 @@ public class quanlyquancafe_Main extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_pn_thoatMousePressed
+
+    private void pn_thongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMousePressed
+        // TODO add your handling code here:
+        ThongKe thongke = new ThongKe(detail);
+        this.setVisible(false);
+        thongke.setVisible(true);
+    }//GEN-LAST:event_pn_thongkeMousePressed
+
+    private void pn_thongkeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMouseExited
+        // TODO add your handling code here:
+        resetColor(pn_thongke);
+    }//GEN-LAST:event_pn_thongkeMouseExited
+
+    private void pn_thongkeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_thongkeMouseEntered
+        // TODO add your handling code here:
+        setColor(pn_thongke);
+    }//GEN-LAST:event_pn_thongkeMouseEntered
 
     /**
      * @param args the command line arguments

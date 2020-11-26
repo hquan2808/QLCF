@@ -743,13 +743,6 @@ public class ThongKe extends javax.swing.JFrame {
         fillbydate2();
     }//GEN-LAST:event_kButton1ActionPerformed
 
-    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        // TODO add your handling code here:
-        jDateChooser1.setCalendar(null);
-        jDateChooser2.setCalendar(null);
-        loadinfo();
-    }//GEN-LAST:event_refreshActionPerformed
-
     private void jfChartMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jfChartMonthActionPerformed
         // TODO add your handling code here:
         String querry="SELECT * FROM tblhoadon";
@@ -814,6 +807,14 @@ public class ThongKe extends javax.swing.JFrame {
         String a=String.valueOf(t);
         return a;
     }//GEN-LAST:event_jfChartMonthActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+//         TODO add your handling code here:
+        jDateChooser1.setCalendar(null);
+        jDateChooser2.setCalendar(null);
+        FillTableHD();
+        FillTableMon();
+    }//GEN-LAST:event_refreshActionPerformed
 
     /**
      * @param args the command line arguments

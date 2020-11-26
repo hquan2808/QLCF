@@ -34,6 +34,7 @@ public class jpQLNV extends javax.swing.JPanel {
     boolean add = false;
     boolean change = false;
     private Detail detail;
+    private String sqlChange;
     private String sql="SELECT * FROM tblqlnv ORDER BY idNV";
     public jpQLNV(Detail d) {
         initComponents();
@@ -174,6 +175,45 @@ public class jpQLNV extends javax.swing.JPanel {
             return false;
         }
     }
+    private boolean checkNull2(){
+        if(tfTen.getText().equals("")){
+            lbTrangthai.setText("Bạn chưa nhập họ tên nhân viên!");
+            return false;
+        }
+        else
+        if(rbNam.isSelected()==false && rbNu.isSelected()==false){
+            lbTrangthai.setText("Bạn chưa chọn giới tính!");
+            return false;
+        }
+        else
+        if(((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText().equals("")){
+            lbTrangthai.setText("Bạn chưa nhập ngày sinh!");
+            return false;
+        }
+        else   
+        if(tfSdt.getText().equals("")){
+            lbTrangthai.setText("Bạn chưa nhập số điện thoại!");
+            return false;
+        }
+        else   
+        if(tfDiachi.getText().equals("")){
+            lbTrangthai.setText("Bạn chưa nhập địa chỉ!");
+            return false;
+        }
+        else
+        if(tfTaikhoan.getText().equals("")){
+            lbTrangthai.setText("Bạn chưa nhập tài khoản!");
+            return false;
+        }
+        else
+        if(String.valueOf(tfMatkhau.getPassword()).equals(String.valueOf(tfXacnhanmk.getPassword()))){
+            return true;
+        }
+        else {
+            lbTrangthai.setText("Nhập lại mật khẩu không đúng!");
+            return false;
+        }
+    }
         private void checkGT(String GT){
         if (GT.equals("Nam")) {
             rbNam.setSelected(true);
@@ -181,6 +221,7 @@ public class jpQLNV extends javax.swing.JPanel {
             rbNu.setSelected(true);
         }
     }
+        
     private void addNV() throws NoSuchAlgorithmException{
         if(checkNull()){
             try {
@@ -198,10 +239,14 @@ public class jpQLNV extends javax.swing.JPanel {
         }
     }
     private void editNV() throws NoSuchAlgorithmException{
-        if(checkNull()){
+        if(checkNull2()){
             int click=table_QLNV.getSelectedRow();
             TableModel model=table_QLNV.getModel();
-            String sqlChange="UPDATE tblqlnv SET idNV='"+tfMa.getText()+"',Roll='"+cbChucvu.getSelectedItem().toString()+"', tenNV=N'"+tfTen.getText()+"', ngaySinh='"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',GioiTinh='"+gioiTinh()+"', sdt='"+(tfSdt.getText())+"', diaChi='"+tfDiachi.getText()+"',taiKhoan='"+(tfTaikhoan.getText())+"',MatKhau='"+convertHashToString((tfMatkhau.getText()))+"' WHERE idNV=N'"+model.getValueAt(click, 0)+"'";
+            if(!tfMatkhau.getText().equals("")&&!tfXacnhanmk.getText().equals("")){
+                sqlChange="UPDATE tblqlnv SET idNV='"+tfMa.getText()+"',Roll='"+cbChucvu.getSelectedItem().toString()+"', tenNV=N'"+tfTen.getText()+"', ngaySinh='"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',GioiTinh='"+gioiTinh()+"', sdt='"+(tfSdt.getText())+"', diaChi='"+tfDiachi.getText()+"',taiKhoan='"+(tfTaikhoan.getText())+"',MatKhau='"+convertHashToString((tfMatkhau.getText()))+"' WHERE idNV=N'"+model.getValueAt(click, 0)+"'";
+            }else{
+                sqlChange="UPDATE tblqlnv SET idNV='"+tfMa.getText()+"',Roll='"+cbChucvu.getSelectedItem().toString()+"', tenNV=N'"+tfTen.getText()+"', ngaySinh='"+((JTextField)tfNgaysinh.getDateEditor().getUiComponent()).getText()+"',GioiTinh='"+gioiTinh()+"', sdt='"+(tfSdt.getText())+"', diaChi='"+tfDiachi.getText()+"',taiKhoan='"+(tfTaikhoan.getText())+"' WHERE idNV=N'"+model.getValueAt(click, 0)+"'";
+            }
             try {
                 Connection conn = Mysql.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sqlChange);
@@ -282,8 +327,8 @@ public class jpQLNV extends javax.swing.JPanel {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {                
                 tfTaikhoan.setText(rs.getString("taiKhoan").trim());
-                tfMatkhau.setText(rs.getString("MatKhau").trim());
-                tfXacnhanmk.setText(rs.getString("MatKhau").trim());
+//                tfMatkhau.setText(rs.getString("MatKhau").trim());
+//                tfXacnhanmk.setText(rs.getString("MatKhau").trim());
             } 
             rs.close();
         } catch (Exception e) {
@@ -311,6 +356,7 @@ public class jpQLNV extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -465,6 +511,7 @@ public class jpQLNV extends javax.swing.JPanel {
         lbngaysinh.setText("Ngày sinh:");
 
         rbNu.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rbNu);
         rbNu.setText("Nữ");
         rbNu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -478,6 +525,7 @@ public class jpQLNV extends javax.swing.JPanel {
         lbmanv.setText("Mã nhân viên:");
 
         rbNam.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rbNam);
         rbNam.setText("Nam");
 
         lbdiachi.setText("Địa chỉ:");
@@ -495,9 +543,19 @@ public class jpQLNV extends javax.swing.JPanel {
 
         tfMatkhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 107, 135)));
         tfMatkhau.setOpaque(false);
+        tfMatkhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfMatkhauActionPerformed(evt);
+            }
+        });
 
         tfXacnhanmk.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 107, 135)));
         tfXacnhanmk.setOpaque(false);
+        tfXacnhanmk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfXacnhanmkActionPerformed(evt);
+            }
+        });
 
         tfNgaysinh.setBackground(new java.awt.Color(255, 255, 255));
         tfNgaysinh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 107, 135)));
@@ -772,7 +830,9 @@ public class jpQLNV extends javax.swing.JPanel {
         reset();
         add = true;
         Enabled();
+        table_QLNV.setVisible(false);
         btnAdd.setEnabled(false);
+        btnDelete.setEnabled(false);
         btnSave.setEnabled(true);
         btnExit.setEnabled(true);
 
@@ -873,6 +933,14 @@ public class jpQLNV extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txttimKeyReleased
 
+    private void tfMatkhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMatkhauActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfMatkhauActionPerformed
+
+    private void tfXacnhanmkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfXacnhanmkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfXacnhanmkActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -880,6 +948,7 @@ public class jpQLNV extends javax.swing.JPanel {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSave;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbChucvu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

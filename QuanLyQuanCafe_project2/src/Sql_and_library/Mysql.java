@@ -539,7 +539,7 @@ public class Mysql {
     public ArrayList<DsOrder> GetGiaSoLuong(String ma){
         ArrayList<DsOrder> arrDs = null;
         String sql;
-            sql = "Select Gia, SoLuong, TenMon, DVT From tblchitiethd AS ct INNER JOIN tblhoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN tblthucdon AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND ct.MaMon = '"+ma+"'";
+            sql = "Select Gia, ct.SoLuong, TenMon, DVT From tblchitiethd AS ct INNER JOIN tblhoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN tblthucdon AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND ct.MaMon = '"+ma+"'";
         try{
             
             Statement st = conn.createStatement();
@@ -562,9 +562,9 @@ public class Mysql {
         ArrayList<DsOrder> arrDs = null;
         String sql;
         if(d1.equals(d2)){
-            sql = "Select Gia, SoLuong, TenMon, DVT From tblchitiethd AS ct INNER JOIN tblhoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN tblthucdon AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND hd.GioDen >= '"+d1+"' AND ct.MaMon ='"+m+"'";
+            sql = "Select Gia, ct.SoLuong, TenMon, DVT From tblchitiethd AS ct INNER JOIN tblhoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN tblthucdon AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND hd.GioDen >= '"+d1+"' AND ct.MaMon ='"+m+"'";
         }else
-            sql = "Select Gia, SoLuong, TenMon, DVT From tblchitiethd AS ct INNER JOIN tblhoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN tblthucdon AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND hd.GioDen BETWEEN '"+d1+"' AND '"+d2+"' AND ct.MaMon ='"+m+"'";
+            sql = "Select Gia, ct.SoLuong, TenMon, DVT From tblchitiethd AS ct INNER JOIN tblhoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon INNER JOIN tblthucdon AS td ON td.MaMon = ct.MaMon Where hd.TrangThai = 1 AND hd.GioDen BETWEEN '"+d1+"' AND '"+d2+"' AND ct.MaMon ='"+m+"'";
         try{
             
             Statement st = conn.createStatement();
@@ -586,9 +586,9 @@ public class Mysql {
         ArrayList<DsOrder> arrDs = null;
         String sql;
         if(d1.equals(d2))
-            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, ct.MaHoaDon From tblchitiethd AS ct INNER JOIN tblthucdon AS td ON ct.MaMon = td.MaMon INNER JOIN tblhoadon AS hd ON hd.MaHoaDon = ct.MaHoaDon Where ct.MaHoaDon = '"+ma+"' AND hd.GioDen >= '"+d1+"'";
+            sql = "Select ct.MaMon, TenMon, DVT, ct.SoLuong, Gia, ct.MaHoaDon From tblchitiethd AS ct INNER JOIN tblthucdon AS td ON ct.MaMon = td.MaMon INNER JOIN tblhoadon AS hd ON hd.MaHoaDon = ct.MaHoaDon Where ct.MaHoaDon = '"+ma+"' AND hd.GioDen >= '"+d1+"'";
             else
-            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, ct.MaHoaDon From tblchitiethd AS ct INNER JOIN tblthucdon AS td ON ct.MaMon = td.MaMon INNER JOIN tblhoadon AS hd ON hd.MaHoaDon = ct.MaHoaDon Where ct.MaHoaDon = '"+ma+"' AND hd.GioDen BETWEEN '"+d1+"' AND '"+d2+"'";
+            sql = "Select ct.MaMon, TenMon, DVT, ct.SoLuong, Gia, ct.MaHoaDon From tblchitiethd AS ct INNER JOIN tblthucdon AS td ON ct.MaMon = td.MaMon INNER JOIN tblhoadon AS hd ON hd.MaHoaDon = ct.MaHoaDon Where ct.MaHoaDon = '"+ma+"' AND hd.GioDen BETWEEN '"+d1+"' AND '"+d2+"'";
         try{
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);

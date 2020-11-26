@@ -20,6 +20,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -35,6 +36,7 @@ public class jpQLHH extends javax.swing.JPanel {
     private Detail detail;
     private Mysql cn = new Mysql();
     public static jpQLHH td;
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     private String sql="SELECT * FROM tblthucdon INNER JOIN tblnhommon ON tblnhommon.MaLoai = tblthucdon.MaLoai ";
     
     /**
@@ -341,6 +343,7 @@ public class jpQLHH extends javax.swing.JPanel {
                     }catch(Exception e){
 
                     }
+                JOptionPane.showMessageDialog(null,"Xóa món thành công","Xóa Bàn",JOptionPane.INFORMATION_MESSAGE,icon);
                 }else
                     JOptionPane.showMessageDialog(null, "Không xóa được món !");
             }
