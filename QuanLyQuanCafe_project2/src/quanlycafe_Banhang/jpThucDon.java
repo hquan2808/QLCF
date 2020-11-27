@@ -73,6 +73,7 @@ public class jpThucDon extends javax.swing.JPanel {
                                     pn[i].setPreferredSize(new Dimension(128, 60));
                                     pn[i].add(new JLabel(arrThucDon.get(i).GetTenMon())).setFont(new java.awt.Font("Tahoma", 1, 12));
                                     pn[i].add(new JLabel(String.valueOf(chuyentien.format(arrThucDon.get(i).GetDonGia()))+" VNĐ/ "+arrThucDon.get(i).GetDVT())).setForeground(Color.decode("#ff0000"));
+                                    pn[i].add(new JLabel(String.valueOf("Còn ("+arrThucDon.get(i).getSoLuong())+")")).setFont(new java.awt.Font("Tahoma", 1, 8));
                                     pn[i].addMouseListener(new MouseAdapter() {
                                         @Override
                                         public void mousePressed(MouseEvent e){
