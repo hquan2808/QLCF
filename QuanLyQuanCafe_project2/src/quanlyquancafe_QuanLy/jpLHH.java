@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -36,6 +37,7 @@ public class jpLHH extends javax.swing.JPanel {
     private Detail detail;
     private Mysql cn = new Mysql();
     public static jpLHH nhom;
+    public ImageIcon icon =new ImageIcon(getClass().getResource("/quanlyquancafe_image/icons8_java_100px_1.png"));
     private String sql="SELECT * FROM tblnhommon";
     
     public jpLHH(Detail d) {
@@ -341,6 +343,7 @@ public class jpLHH extends javax.swing.JPanel {
                     }catch(Exception e){
 
                     }
+                    JOptionPane.showMessageDialog(null,"Xóa nhóm món thành công","Xóa Bàn",JOptionPane.INFORMATION_MESSAGE,icon);
                 }else
                 JOptionPane.showMessageDialog(null, "Không xóa được loại !");
 

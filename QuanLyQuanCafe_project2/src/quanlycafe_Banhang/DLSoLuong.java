@@ -298,12 +298,12 @@ public class DLSoLuong extends javax.swing.JDialog {
                 if(rs.next()){
                     if(Integer.parseInt(txtSl.getText())<= rs.getInt("SoLuong")){
                         if(Integer.parseInt(txtSl.getText())<soLuongmon){
-                            String congsoluong = "Update tblthucdon set SoLuong ='"+(rs.getInt("SoLuong")+Integer.parseInt(txtSl.getText()))+"' Where MaMon = '"+mamon+"'";
+                            String congsoluong = "Update tblthucdon set SoLuong ='"+(rs.getInt("SoLuong")+(soLuongmon-Integer.parseInt(txtSl.getText())))+"' Where MaMon = '"+mamon+"'";
                             PreparedStatement ps1 = conn.prepareStatement(congsoluong);
                             ps1.execute();
                         }
                         else if(Integer.parseInt(txtSl.getText())>soLuongmon){
-                            String trusoluong = "Update tblthucdon set SoLuong ='"+(rs.getInt("SoLuong")-Integer.parseInt(txtSl.getText()))+"' Where MaMon = '"+mamon+"'";
+                            String trusoluong = "Update tblthucdon set SoLuong ='"+(rs.getInt("SoLuong")-(Integer.parseInt(txtSl.getText())-soLuongmon))+"' Where MaMon = '"+mamon+"'";
                             PreparedStatement ps1 = conn.prepareStatement(trusoluong);
                             ps1.execute();
                         }
