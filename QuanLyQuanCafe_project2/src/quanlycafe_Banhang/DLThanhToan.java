@@ -55,14 +55,15 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
         txtTenKhach.setVisible(false);
         lbTenKhach1.setVisible(false);
         txtTenKhach1.setVisible(false);
+        btnxacnhan.setEnabled(false);
         Start();
         tong = tongtien;
         MaHD = mahd;
         MaBan = maban;
         jLabel1.setText(tenban + " - Thanh toán");
         lblTongTien.setText(String.valueOf(chuyentien.format(tongtien) +" VNĐ"));
-        JRootPane rp = this.getRootPane();
-        rp.setDefaultButton(btnxacnhan);
+//        JRootPane rp = this.getRootPane();
+//        rp.setDefaultButton(btnxacnhan);
     }
     private void Start(){
         if(thread==null){
@@ -280,11 +281,16 @@ public class DLThanhToan extends javax.swing.JDialog implements Runnable{
     private void txtTienDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienDuaKeyReleased
         try{
             int tiendua =  Integer.parseInt(txtTienDua.getText());
-            if(tiendua - tong >= 0)
-            lbltienthoi.setText(String.valueOf(chuyentien.format(tiendua - tong))+ " VNĐ");
+            if(tiendua - tong >= 0){
+                lbltienthoi.setText(String.valueOf(chuyentien.format(tiendua - tong))+ " VNĐ");
+                this.btnxacnhan.setEnabled(true);
+            }
+            else{
+                btnxacnhan.setEnabled(false);
+                lbltienthoi.setText("...");
+            }
         }catch(Exception e){
             txtTienDua.setText("");
-
         }        // TODO add your handling code here:
     }//GEN-LAST:event_txtTienDuaKeyReleased
 
